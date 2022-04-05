@@ -1,15 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "antd/dist/antd.css";
-import { ConfigProvider } from 'antd';
-import App from './App';
+import { ConfigProvider } from "antd";
+import "./assets/fonts/font.css";
+import "./index.scss";
+
 // import Home from './pages/Home';
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <ConfigProvider direction="rtl" >
+      <ConfigProvider direction="rtl">
         <Routes>
           <Route path="/login" />
           <Route path="/dashboard" />
@@ -18,7 +20,7 @@ ReactDOM.render(
       </ConfigProvider>
     </React.StrictMode>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 /*
