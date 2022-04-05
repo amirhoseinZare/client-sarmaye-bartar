@@ -4,20 +4,25 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "antd/dist/antd.css";
 import { ConfigProvider } from 'antd';
 import App from './App';
-import Home from './pages/Home';
-import Toast from './comps/Toast';
+// import Home from './pages/Home';
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <Toast/>
       <ConfigProvider direction="rtl" >
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/*" element={<Home />} />
+          <Route path="/login" />
+          <Route path="/dashboard" />
+          <Route path="/users" />
         </Routes>
       </ConfigProvider>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById('root')
 );
+
+/*
+/login //trader admin
+/dashoboard //trader
+/users //admin
+*/
