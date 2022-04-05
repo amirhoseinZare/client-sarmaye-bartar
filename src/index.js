@@ -3,9 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "antd/dist/antd.css";
 import { ConfigProvider } from "antd";
-import App from "./App";
 import Login from "./pages/Login";
-// import Home from './pages/Home';
+import "./assets/fonts/font.scss";
 
 ReactDOM.render(
   <BrowserRouter>
