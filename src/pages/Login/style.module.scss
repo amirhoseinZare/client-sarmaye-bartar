@@ -1,0 +1,58 @@
+.root {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/bgLogin.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .content-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 34px);
+    max-width: 900px;
+    min-width: 290px;
+    height: 75%;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+    .login-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      height: 100%;
+    }
+    .icon-box {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 70%;
+        height: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 758px) {
+  .login-box {
+    width: 100%;
+    border-radius: inherit;
+  }
+}
+
+@media (min-width: 758px) {
+  .login-box {
+    width: 50%;
+    border-radius: inherit;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
