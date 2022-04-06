@@ -3,6 +3,7 @@ import { Row, Col } from "antd";
 import { Line } from "@ant-design/plots";
 import classes from "./Dashboard.module.scss";
 import { Divider } from "antd";
+import Navbar from "../../comps/Navbar";
 const Dashboard = () => {
 	const [data, setData] = useState([]);
 
@@ -75,93 +76,97 @@ const Dashboard = () => {
 		smooth: true,
 	};
 	return (
-		<div className={classes.root}>
-			<Row className={classes.row}>
-				<Col className={classes.col} xs={20} sm={20} md={12} lg={15}>
-					<div className={classes.container}>
-						<h2>نتیجه فعلی</h2>
-						<Divider
-							style={{
-								borderColor: "rgb(177 177 177 / 40%)",
-								width: "50%",
-								marginBottom: 30,
-								marginTop: 20,
-							}}
-						/>
-						<Line {...config} />
-					</div>
-				</Col>
-				<Col className={classes.col} xs={20} sm={20} md={8} lg={6}>
-					<div className={classes.container2}>
-						<h2>چالش 20900121239</h2>
-						<div style={{ width: "100%", margin: "0 auto" }}>
+		<>
+	
+			<div className={classes.root}>
+			<Navbar />
+				<Row className={classes.row}>
+					<Col className={classes.col} xs={23} sm={23} md={12} lg={15}>
+						<div className={classes.container}>
+							<h2>نتیجه فعلی</h2>
 							<Divider
 								style={{
 									borderColor: "rgb(177 177 177 / 40%)",
 									width: "50%",
-									marginBottom: 15,
-									marginTop: 15,
+									marginBottom: 30,
+									marginTop: 20,
 								}}
 							/>
-							<div className={classes.body}>
-								<div className={classes.item}>
-									<div>شروع</div>
-									<div>1400/12/12</div>
-								</div>
+							<Line {...config} />
+						</div>
+					</Col>
+					<Col className={classes.col} xs={20} sm={20} md={8} lg={5}>
+						<div className={classes.container2}>
+							<h2>چالش 20900121239</h2>
+							<div style={{ width: "100%", margin: "0 auto" }}>
 								<Divider
-								style={{
-									borderColor: "rgb(177 177 177 / 40%)",
-									width: "50%",
-									marginBottom: 15,
-									marginTop: 15,
-								}}
-							/>
-								<div className={classes.item}>
-									<div>شروع</div>
-									<div>1400/12/12</div>
-								</div>
-								<Divider
-								style={{
-									borderColor: "rgb(177 177 177 / 40%)",
-									width: "50%",
-									marginBottom: 15,
-									marginTop: 15,
-								}}
-							/>
-								<div className={classes.item}>
-									<div>شروع</div>
-									<div>1400/12/12</div>
-								</div>
-								<Divider
-								style={{
-									borderColor: "rgb(177 177 177 / 40%)",
-									width: "50%",
-									marginBottom: 15,
-									marginTop: 15,
-								}}
-							/>
-								<div className={classes.item}>
-									<div>شروع</div>
-									<div>1400/12/12</div>
-								</div>
-								<Divider
-								style={{
-									borderColor: "rgb(177 177 177 / 40%)",
-									width: "50%",
-									marginBottom: 15,
-									marginTop: 15,
-								}}
-							/>
-								<div className={classes.item}>
-									<div>شروع</div>
-									<div>1400/12/12</div>
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 15,
+										marginTop: 15,
+									}}
+								/>
+								<div className={classes.body}>
+									<div className={classes.item}>
+										<div>شروع</div>
+										<div>1400/12/12</div>
+									</div>
+									<Divider
+										style={{
+											borderColor: "rgb(177 177 177 / 40%)",
+											width: "50%",
+											marginBottom: 15,
+											marginTop: 15,
+										}}
+									/>
+									<div className={classes.item}>
+										<div>شروع</div>
+										<div>1400/12/12</div>
+									</div>
+									<Divider
+										style={{
+											borderColor: "rgb(177 177 177 / 40%)",
+											width: "50%",
+											marginBottom: 15,
+											marginTop: 15,
+										}}
+									/>
+									<div className={classes.item}>
+										<div>شروع</div>
+										<div>1400/12/12</div>
+									</div>
+									<Divider
+										style={{
+											borderColor: "rgb(177 177 177 / 40%)",
+											width: "50%",
+											marginBottom: 15,
+											marginTop: 15,
+										}}
+									/>
+									<div className={classes.item}>
+										<div>شروع</div>
+										<div>1400/12/12</div>
+									</div>
+									<Divider
+										style={{
+											borderColor: "rgb(177 177 177 / 40%)",
+											width: "50%",
+											marginBottom: 15,
+											marginTop: 15,
+										}}
+									/>
+									<div className={classes.item}>
+										<div>شروع</div>
+										<div>1400/12/12</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</Col>
-			</Row>
-		</div>
+					</Col>
+				</Row>
+			</div>
+		</>
 	);
 };
 
