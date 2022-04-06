@@ -1,3 +1,5 @@
+@import "../../sass/CssVariables";
+
 .antdLoginCustom {
   .inputsLogin .ant-form-item {
     display: flex !important;
@@ -51,7 +53,9 @@
     height: 45px;
     border-radius: 50px;
     border: 2px solid rgba(255, 184, 41, 0.7);
+    // border: 2px solid rgba(114, 131, 156, 0.7);
     background-color: rgba(255, 184, 41, 0.8);
+    // background-color: rgba(114, 131, 156, 0.8);
     font-size: 16px;
     font-weight: bold;
     color: #fff;
@@ -59,7 +63,7 @@
     transition: all 0.4s 0.2s linear;
     &:hover {
       background-color: transparent;
-      color: #ffb629;
+      color: $first-color;
     }
   }
 }
