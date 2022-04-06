@@ -1,5 +1,5 @@
 import classes from "./style.module.scss";
-import bitcoin from "../../assets/bitcoin2.png";
+import logo from "../../assets/logo.svg";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Form, Input, Button, Checkbox } from "antd";
 import "./customAntd.scss";
@@ -77,7 +77,7 @@ const Login = () => {
             </Form>
           </div>
           <div className={classes["icon-box"]}>
-            <img src={bitcoin} />
+            <img src={logo} />
           </div>
         </div>
       </div>
