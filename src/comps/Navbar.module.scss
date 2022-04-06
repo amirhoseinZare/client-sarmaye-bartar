@@ -1,107 +1,111 @@
 @media screen and (max-width: 699px) {
-	.nav {
-        padding: 0 10px;
-		.trader {
-			img {
-                width: 40px;
-                height: 40px;
-                margin-left: 5px;
-			}
-			h3 {
-                font-size: 14px;
-			}
-		}
-        .logo{
-            img{
-                width: 150px;
-                height: 150px;
-                margin-bottom: 5px;
-            }
-        }
-        .icon{
-font-size: 20px;
-        }
-	}
+  .nav {
+    padding: 0 10px;
+    .trader {
+      img {
+        width: 40px;
+        height: 40px;
+        margin-left: 5px;
+      }
+      h3 {
+        font-size: 14px;
+      }
+    }
+    .logo {
+      img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 5px;
+      }
+    }
+    .icon {
+      font-size: 20px;
+    }
+  }
 }
+
 @media screen and (min-width: 700px) {
-    .nav {
-        padding: 40px;
-		.trader {
-			img {
-                width: 50px;
-                height: 50px;
-                margin-left: 15px;
-			}
-			h3 {
-                font-size: 20px;
-			}
-		}
-        .logo{
-            img{
-                width: 250px;
-                height: 250px;
-            }
-        }
-        .icon{
-            font-size: 30px;
-        }
-	}
-    
+  .nav {
+    padding: 0 15px;
+    .trader {
+      img {
+        width: 45px;
+        height: 45px;
+        margin-left: 10px;
+		margin-right: 12px;
+      }
+      h3 {
+        font-size: 16px;
+      }
+    }
+    .logo {
+      img {
+        width: 250px;
+        height: 250px;
+      }
+    }
+    .icon {
+      font-size: 22px;
+    }
+  }
 }
+
 .nav {
-	background-color: #01193b;
-	position: relative;
-	top: 0;
-	left: 0;
-	height: 70px;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  background-color: #24303c;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .trader {
+    display: flex;
+    align-items: center;
 
+    img {
+      border-radius: 100%;
+    }
 
-	.trader {
-		display: flex;
-		align-items: center;
+    h3 {
+      color: #fff;
+      margin-top: 5px;
+    }
+  }
+  .logo {
+    img {
+    }
+  }
+  // .button {
+  // 	display: flex;
+  // 	align-items: center;
+  // 	justify-content: center;
+  // 	text-align: center;
+  // 	margin: 0 auto;
+  // 	transition: 0.5s 0.2s linear;
+  // 	font-weight: bold;
+  // 	font-family: "Vazir-Persian";
+  // 	cursor: pointer;
+  // 	border: 2px solid #ffc248;
+  // 	&:hover {
+  // 		background: rgba(255, 255, 255, 0) !important;
+  // 		color: #ffc248;
+  // 	}
+  // 	width: 130px;
+  // 	height: 40px;
+  // 	border-radius: 5px;
+  // 	background: #ffc248;
+  // 	color: #fafafa;
+  // }
+  .icon {
+    color: #ffb629;
+	margin-left: 10px;
+  }
+}
 
-		img {
-			border-radius: 100%;
-		
-		}
-
-		h3 {
-			color: #fff;
-			margin-top: 5px;
-		}
-	}
-	.logo {
-		img {
-		
-		}
-	}
-	// .button {
-	// 	display: flex;
-	// 	align-items: center;
-	// 	justify-content: center;
-	// 	text-align: center;
-	// 	margin: 0 auto;
-	// 	transition: 0.5s 0.2s linear;
-	// 	font-weight: bold;
-	// 	font-family: "Vazir-Persian";
-	// 	cursor: pointer;
-	// 	border: 2px solid #ffc248;
-	// 	&:hover {
-	// 		background: rgba(255, 255, 255, 0) !important;
-	// 		color: #ffc248;
-	// 	}
-	// 	width: 130px;
-	// 	height: 40px;
-	// 	border-radius: 5px;
-	// 	background: #ffc248;
-	// 	color: #fafafa;
-	// }
-	.icon {
-	
-		color: #ffb629;
+@media (max-width:550px){
+	.logo{
+		display: none;
 	}
 }
