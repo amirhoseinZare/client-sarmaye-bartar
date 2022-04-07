@@ -26,12 +26,15 @@
     border: none !important;
     height: 100%;
     font-size: 16px;
-    border-radius: 50px;
     background-color: transparent;
     outline: none !important;
     &:focus {
       box-shadow: none !important;
     }
+  }
+
+  .ant-input-affix-wrapper-rtl {
+    border-radius: 50px;
   }
 
   .ant-form-horizontal .ant-form-item-control {

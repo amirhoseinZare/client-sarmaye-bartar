@@ -1,12 +1,18 @@
+import { useState } from "react";
 import classes from "./style.module.scss";
 import logo from "../../assets/logo.svg";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Form, Input, Button, Checkbox } from "antd";
 import "./customAntd.scss";
 
 const Login = () => {
+  const [errorMessage, setErrorMessage] = useState(null)
+
   const onFinish = (values) => {
-    console.log("Success:", values);
+    if(validateEmail(values?.email)){
+      
+    }else{
+
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -14,11 +20,8 @@ const Login = () => {
   };
 
   const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
   };
 
   return (
@@ -36,8 +39,9 @@ const Login = () => {
             >
               <div className="inputsLogin">
                 <Form.Item
+                  fieldKey="email"
                   label="ایمیل"
-                  name="username"
+                  name="email"
                   rules={[
                     {
                       required: true,
@@ -51,6 +55,7 @@ const Login = () => {
                 </Form.Item>
 
                 <Form.Item
+                  fieldKey="password"
                   label="رمز عبور"
                   name="password"
                   rules={[
