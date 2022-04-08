@@ -24,6 +24,7 @@ const Dashboard = () => {
       asyncFetch(user._id);
     }
   }, [user]);
+  console.log(user.infinitive);
 
   const asyncFetch = (userId) => {
     DashboardApi.chart(userId).then((response) => {
@@ -141,7 +142,7 @@ const Dashboard = () => {
                   </p>
                 </div>
                 <div>
-                  <p>10</p>
+                  <p>{objectives.minimumTradeDaysObjective.count}</p>
                 </div>
                 <div className={classes.text}>
                   <p>Minimum 5 Tradings day</p>
@@ -167,7 +168,7 @@ const Dashboard = () => {
                   </p>
                 </div>
                 <div>
-                  <p>10</p>
+                  <p>{objectives.maxDailyLoss.equity}</p>
                 </div>
                 <div className={classes.text}>
                   <p>Max Daily loss -$5,000</p>
@@ -193,7 +194,7 @@ const Dashboard = () => {
                   </p>
                 </div>
                 <div>
-                  <p>10</p>
+                  <p>{objectives.maxLoss.equity}</p>
                 </div>
                 <div className={classes.text}>
                   <p>Max Loss -$10,000</p>
@@ -219,7 +220,7 @@ const Dashboard = () => {
                   </p>
                 </div>
                 <div>
-                  <p>10</p>
+                  <p>{objectives.profitTarget.balance}</p>
                 </div>
                 <div className={classes.text}>
                   <p>Profit Target $10,000</p>
