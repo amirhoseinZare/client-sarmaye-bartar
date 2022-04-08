@@ -12,92 +12,92 @@ import { AuthApi, DashboardApi } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth } from "../../redux/actions/auth";
 
-import {BsFillCheckCircleFill} from "react-icons/bs"
-import {MdOutlineError} from "react-icons/md"
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { MdOutlineError } from "react-icons/md";
 
 const Dashboard = () => {
-  const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
+	const user = useSelector((store) => store.user);
+	const dispatch = useDispatch();
 
-  const [userData, setUserData] = useState(null);
+	const [userData, setUserData] = useState(null);
 
-  const [data, setData] = useState([
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 220,
-      equity: 4374.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 221,
-      equity: 4574.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 222,
-      equity: 4774.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 223,
-      equity: 4200.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 224,
-      equity: 4554.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 225,
-      equity: 4100.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 226,
-      equity: 3600.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 227,
-      equity: 3400.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 228,
-      equity: 4074.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 229,
-      equity: 3100.78,
-    },
-    {
-      _id: "624f6ebf2ee1642860c8eeb2",
-      trades: 230,
-      equity: 3600.78,
-    },
-  ]);
+	const [data, setData] = useState([
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 220,
+			equity: 4374.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 221,
+			equity: 4574.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 222,
+			equity: 4774.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 223,
+			equity: 4200.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 224,
+			equity: 4554.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 225,
+			equity: 4100.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 226,
+			equity: 3600.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 227,
+			equity: 3400.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 228,
+			equity: 4074.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 229,
+			equity: 3100.78,
+		},
+		{
+			_id: "624f6ebf2ee1642860c8eeb2",
+			trades: 230,
+			equity: 3600.78,
+		},
+	]);
 
-  useEffect(() => {
-    console.log(user._id);
-    if (!user._id && userData !== user) {
-      AuthApi.validateToken().then((response) => {
-        dispatch(setAuth(response.data?.result));
-        setUserData(response.data?.result);
-      });
-    }
+	useEffect(() => {
+		console.log(user._id);
+		if (!user._id && userData !== user) {
+			AuthApi.validateToken().then((response) => {
+				dispatch(setAuth(response.data?.result));
+				setUserData(response.data?.result);
+			});
+		}
 
-    if (user._id) {
-      asyncFetch(user._id);
-    }
-  }, [user]);
+		if (user._id) {
+			asyncFetch(user._id);
+		}
+	}, [user]);
 
-  const asyncFetch = (userId) => {
-    DashboardApi.chart(userId).then((response) => {
-      setData(response.data?.result)
-    });
-  };
+	const asyncFetch = (userId) => {
+		DashboardApi.chart(userId).then((response) => {
+			setData(response.data?.result);
+		});
+	};
 
 	const config = {
 		data,
@@ -171,6 +171,122 @@ const Dashboard = () => {
 							/>
 							<Line {...config} />
 						</div>
+						<div className={classes.container3}>
+							<h2 style={{textAlign:"left"}}>Objectives</h2>
+							<Divider
+								style={{
+									borderColor: "rgb(177 177 177 / 40%)",
+									width: "50%",
+									marginBottom: 30,
+									marginTop: 0,
+								}}
+							/>
+							<div className={classes.header}>
+								<div className={classes.results}>
+									<h3>Summary</h3>
+								</div>
+								<div>
+									<h3>Your Results</h3>
+								</div>
+								<div className={classes.text}>
+									<h3>Trading Objectives</h3>
+								</div>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>
+										passed
+										<span>
+											<BsFillCheckCircleFill className={classes.icon} />
+										</span>
+									</p>
+								</div>
+								<div>
+									<p>10</p>
+								</div>
+								<div className={classes.text}>
+									<p>Minimum 5 Tradings day</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>
+										passed
+										<span>
+											<BsFillCheckCircleFill className={classes.icon} />
+										</span>
+									</p>
+								</div>
+								<div>
+									<p>10</p>
+								</div>
+								<div className={classes.text}>
+									<p>Max Daily loss -$5,000</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>
+										passed
+										<span>
+											<BsFillCheckCircleFill className={classes.icon} />
+										</span>
+									</p>
+								</div>
+								<div>
+									<p>10</p>
+								</div>
+								<div className={classes.text}>
+									<p>Max Loss -$10,000</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>
+										passed
+										<span>
+											<BsFillCheckCircleFill className={classes.icon} />
+										</span>
+									</p>
+								</div>
+								<div>
+									<p>10</p>
+								</div>
+								<div className={classes.text}>
+									<p>Profit Target $10,000</p>
+								</div>
+							</div>
+						</div>
 					</Col>
 					<Col className={classes.col} xs={20} sm={20} md={8} lg={5}>
 						<div className={classes.container2}>
@@ -237,94 +353,6 @@ const Dashboard = () => {
 										<div>شروع</div>
 										<div>1400/12/12</div>
 									</div>
-								</div>
-							</div>
-						</div>
-					</Col>
-					<Col className={classes.col} xs={24} sm={24} md={12} lg={15}>
-						<div className={classes.container3}>
-							<h2>اهداف</h2>
-							<Divider
-								style={{
-									borderColor: "rgb(177 177 177 / 40%)",
-									width: "50%",
-									marginBottom: 30,
-									marginTop: 0,
-								}}
-							/>
-							<div className={classes.header}>
-								<div className={classes.results}>
-									<h3>Summary</h3>
-									<h3>Your results</h3>
-								</div>
-								<div>
-									<h3>Trading Objectives</h3>
-								</div>
-							</div>
-							<div className={classes.body}>
-								<div className={classes.results}>
-									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
-									<p>10</p>
-								</div>
-								<div>
-									<p>Minimum 5 Tradings day</p>
-								</div>
-							</div>
-							<div style={{ width: "97%", margin: "0 auto" }}>
-								<Divider
-									style={{
-										borderColor: "rgb(177 177 177 / 40%)",
-										width: "50%",
-										marginBottom: 0,
-										marginTop: 0,
-									}}
-								/>
-							</div>
-							<div className={classes.body}>
-								<div className={classes.results}>
-									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
-									<p>10</p>
-								</div>
-								<div>
-									<p>Max Daily loss -$5,000</p>
-								</div>
-							</div>
-							<div style={{ width: "97%", margin: "0 auto" }}>
-								<Divider
-									style={{
-										borderColor: "rgb(177 177 177 / 40%)",
-										width: "50%",
-										marginBottom: 0,
-										marginTop: 0,
-									}}
-								/>
-							</div>
-							<div className={classes.body}>
-								<div className={classes.results}>
-									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
-									<p>10</p>
-								</div>
-								<div>
-									<p>Max Loss -$10,000</p>
-								</div>
-							</div>
-							<div style={{ width: "97%", margin: "0 auto" }}>
-								<Divider
-									style={{
-										borderColor: "rgb(177 177 177 / 40%)",
-										width: "50%",
-										marginBottom: 0,
-										marginTop: 0,
-									}}
-								/>
-							</div>
-							<div className={classes.body}>
-								<div className={classes.results}>
-									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
-									<p>10</p>
-								</div>
-								<div>
-									<p>Profit Target $10,000</p>
 								</div>
 							</div>
 						</div>
