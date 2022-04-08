@@ -1,24 +1,72 @@
-import { useState } from "react";
-import classes from "./style.module.scss";
+import { useEffect, useState } from "react";
+
+// logo
 import logo from "../../assets/logo.svg";
+
+// antd
 import { Form, Input, Button } from "antd";
+
+// api
+import { AuthApi } from "../../api/index";
+
+// variables
+import { TOKEN_LOCAL_KEY } from "../../core/variables.core";
+
+// scss
+import classes from "./style.module.scss";
 import "./customAntd.scss";
 
+// redux
+import { setAuth } from "../../redux/actions/auth";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+
 const Login = () => {
-  const [errorMessage, setErrorMessage] = useState(null)
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const onFinish = (values) => {
-    if(validateEmail(values?.email)){
-      
-    }else{
+  // set error and delete after 3 second
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
+    }
+  }, [errorMessage]);
 
+  const dispatch = useDispatch();
+
+  // login Function
+  const onFinish = async (values) => {
+    if (validateEmail(values?.email)) {
+      try {
+        const res = await AuthApi.login({
+          user_email: values?.email,
+          user_pass: values?.password,
+        });
+
+        const token = res.headers["x-auth-token"];
+
+        dispatch(setAuth(res.data.result));
+        localStorage.setItem(TOKEN_LOCAL_KEY, res.data?.token);
+        if (res.data.result?.role === "admin") {
+          navigate("/users");
+        } else {
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        setErrorMessage(error.response.data?.message);
+      }
+    } else {
+      setErrorMessage("فرمت ایمیل وارد شده صحیح نمیباشد.");
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    setErrorMessage("اطلاعات وارد شده صحیح نمیباشد.");
   };
 
+  // email validation function
   const validateEmail = (email) => {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -80,6 +128,13 @@ const Login = () => {
                 </Form.Item>
               </div>
             </Form>
+            <div className={classes.error}>
+              {errorMessage ? (
+                <div>
+                  <span>{errorMessage}</span>
+                </div>
+              ) : null}
+            </div>
           </div>
           <div className={classes["icon-box"]}>
             <img src={logo} />
