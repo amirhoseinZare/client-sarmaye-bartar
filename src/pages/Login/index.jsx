@@ -24,7 +24,7 @@ import { useNavigate } from "react-router";
 const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
-  const [ loading, setLoading ] = useState(false)
+  const [loading, setLoading] = useState(false);
   const p2e = (s) => s?.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
   const success = (text) => {
@@ -52,26 +52,28 @@ const Login = () => {
 
   // login Function
   const onFinish = async (values) => {
-    try {
-      const res = await AuthApi.login({
-        user_email: p2e(values?.email),
-        user_pass: p2e(values?.password),
-      });
+    // try {
+    setLoading(true);
 
-      const token = res.headers["x-auth-token"];
+    const res = await AuthApi.login({
+      user_email: p2e(values?.email),
+      user_pass: p2e(values?.password),
+    });
 
-      dispatch(setAuth(res.data?.result));
-      localStorage.setItem(TOKEN_LOCAL_KEY, res.data?.token);
-      if (res.data.result?.role === "admin") {
-        success("ورود با موفقیت انجام شد.");
+    setLoading(false);
+
+    if (res.success) {
+      dispatch(setAuth(res.result));
+      localStorage.setItem(TOKEN_LOCAL_KEY, res.token);
+      success("ورود با موفقیت انجام شد.");
+
+      if (res.result?.role === "admin") {
         navigate("/users");
       } else {
-        success("ورود با موفقیت انجام شد.");
         navigate("/dashboard");
       }
-    } catch (error) {
-      success(error.response?.data?.message);
-      // setErrorMessage(error.response?.data?.message);
+    } else {
+      error(res.message);
     }
   };
 

@@ -28,7 +28,7 @@ class Service {
         if (status >= 400) {
           window.location.pathname = "/404";
         }
-        return res;
+        return res.data;
       },
       (error) => {
         if(window.location.pathname!=="/404" && window.location.pathname!=="/login"){

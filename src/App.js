@@ -22,8 +22,8 @@ function App() {
     if (userData !== user && (!["/404", "/login"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
         console.log(response)
-        dispatch(setAuth(response.data?.result));
-        setUserData(response.data?.result);
+        dispatch(setAuth(response.result));
+        setUserData(response.result);
       });
     }
   }, []);
