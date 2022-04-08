@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classes from "./style.module.scss";
 import logo from "../../assets/logo.svg";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button } from "antd";
 import "./customAntd.scss";
 
 const Login = () => {
