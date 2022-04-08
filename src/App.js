@@ -4,6 +4,7 @@ import Users from "./pages/Users/index"
 import { Route, Routes } from "react-router-dom";
 import { Spinner } from "./comps/index";
 import { useSelector } from "react-redux";
+import { NotFoundPage } from "./pages/NotFoundPage/NotFound.page";
 
 function App() {
   const loading = useSelector((store) => store.loading.status);
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users/>}/>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {loading && <Spinner />}
     </div>
