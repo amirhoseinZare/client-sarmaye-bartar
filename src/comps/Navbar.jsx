@@ -3,12 +3,12 @@ import classes from "./Navbar.module.scss";
 import traderImg from "../assets/trader.jpg";
 import logo from "../assets/logo.svg";
 import { FaPowerOff } from "react-icons/fa";
-const Navbar = () => {
+const Navbar = ({name}) => {
   return (
     <div className={classes.nav}>
       <div className={classes.trader}>
         <img src={traderImg} alt="" />
-        <h3>علی بلوری</h3>
+        <h3>{name}</h3>
       </div>
       <div className={classes.logo}>
         <img src={logo} alt="" />
