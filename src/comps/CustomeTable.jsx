@@ -5,12 +5,16 @@ const StyledTable = styled(Table)`
   color: rgba(99, 106, 120, 1);
   border-radius: 12px !important;
   border-radius: 10px 8px 8px 10px;
+  
   .table {
     border-radius: 10px 8px 8px 10px;
   }
-  @media (max-width: 576px) {
-    // overflow-x: scroll;
+  // @media (max-width: 576px) {
+  white-space: nowrap;
+  .ant-table-rtl {
+    overflow-x: scroll;
   }
+  // }
   .ant-table-row.ant-table-row-level-0:nth-child(even) .ant-table-cell {
     background-color: #f7f8ff !important;
   }
@@ -42,7 +46,7 @@ const StyledTable = styled(Table)`
     font-size: 11px;
   }
   table {
-    // overflow: hidden;
+    overflow: hidden;
     table-layout: auto;
     box-shadow: 0 0 20px 0px rgb(191 191 191 / 40%);
     border-radius: 12px;

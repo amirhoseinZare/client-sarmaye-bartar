@@ -14,4 +14,8 @@ UsersApi.all = function (pageSize, pageNumber) {
   );
 };
 
+UsersApi.delUser = function (id) {
+  return this.instance.delete(`${this.baseApisUrl}/${id}`);
+};
+
 export { UsersApi };

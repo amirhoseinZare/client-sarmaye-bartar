@@ -50,8 +50,7 @@ const FormStyled = styled(Form)`
   }
 `;
 
-function Edit({ data, closeModal }) {
-  const categories = useSelector((state) => state.categories.value);
+function Token({ data, closeModal }) {
   const [state, setState] = useState({
     loading: false,
     fetching: false,
@@ -62,14 +61,6 @@ function Edit({ data, closeModal }) {
       value: "",
     },
   ]);
-
-  const catsOptions = useMemo(
-    () =>
-      categories
-        .filter((cat) => cat.order !== 0 && cat.order !== data.order)
-        .map((cat) => ({ ...cat, text: cat.name, value: cat.order })),
-    [data]
-  );
 
   useEffect(() => {
     const newFields = fields.map((field) => {
@@ -140,4 +131,4 @@ function Edit({ data, closeModal }) {
   );
 }
 
-export default Edit;
+export default Token;

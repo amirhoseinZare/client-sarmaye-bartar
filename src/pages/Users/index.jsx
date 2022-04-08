@@ -8,14 +8,15 @@ import Detail from "./comps/detail";
 import Edit from "./comps/edit";
 import Filter from "./comps/filters";
 import classes from "./style.module.scss";
+import { UsersApi } from "../../api/Users.api";
+import "./customAntd.scss";
 
 // icons
 import { IoInfiniteSharp } from "react-icons/io5";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import { MdContentCopy } from "react-icons/md";
-
-import { UsersApi } from "../../api/Users.api";
+import { MdContentCopy, MdDelete } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
 
 const { confirm } = Modal;
 
@@ -184,6 +185,27 @@ function Categories() {
             "-"
           ),
       },
+      {
+        title: "حذف",
+        key: "delUser",
+        render: (user) => (
+          <MdDelete
+            className={classes["close-icon"]}
+            onClick={() => openDeleteModal(user)}
+          />
+        ),
+      },
+      {
+        title: "ویرایش",
+        key: "editUser",
+        render: (user) => (
+          <BiEdit
+            style={{ color: "#f9ca24" }}
+            className={classes["icons"]}
+            onClick={() => openEditModal(user)}
+          />
+        ),
+      },
     ],
     [state.rows]
   );
@@ -254,20 +276,29 @@ function Categories() {
 
   const openDeleteModal = (data) => {
     confirm({
-      title: "تست",
+      title: <span style={{ color: "#eb4d4b" }}>حذف کاربر</span>,
+      content: `کاربر "${data.display_name}" حذف شود؟`,
       icon: <ExclamationCircleOutlined />,
-      content: 't("category.deleteDescription")',
-      okText: 't("general.yes")',
-      okType: '"danger"',
-      cancelText: 't("general.no")',
-      onOk() {},
+      okText: "بله",
+      okType: "danger",
+      cancelText: "خیر",
+      async onOk() {
+        let response = await UsersApi.delUser(data._id);
+        if (response.success) {
+          message.success(response.message);
+          getUsersData();
+        } else {
+          message.error(response.message);
+          getUsersData();
+        }
+      },
       onCancel() {},
     });
   };
 
   return (
     <StyledRow>
-      <Filter setFilter={setFilter} filter={filter} search={getUsersData} />
+      {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
       <Col xs={22} sm={22} md={22} lg={22} xl={22}>
         <h2>{'t("category.gridTitle")'}</h2>
       </Col>
