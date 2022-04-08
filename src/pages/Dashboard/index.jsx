@@ -4,6 +4,8 @@ import { Line } from "@ant-design/plots";
 import classes from "./Dashboard.module.scss";
 import { Divider } from "antd";
 import Navbar from "../../comps/Navbar";
+import {BsFillCheckCircleFill} from "react-icons/bs"
+import {MdOutlineError} from "react-icons/md"
 const Dashboard = () => {
 	const [data, setData] = useState([]);
 
@@ -77,9 +79,8 @@ const Dashboard = () => {
 	};
 	return (
 		<>
-	
 			<div className={classes.root}>
-			<Navbar />
+				<Navbar />
 				<Row className={classes.row}>
 					<Col className={classes.col} xs={23} sm={23} md={12} lg={15}>
 						<div className={classes.container}>
@@ -160,6 +161,94 @@ const Dashboard = () => {
 										<div>شروع</div>
 										<div>1400/12/12</div>
 									</div>
+								</div>
+							</div>
+						</div>
+					</Col>
+					<Col className={classes.col} xs={24} sm={24} md={12} lg={15}>
+						<div className={classes.container3}>
+							<h2>اهداف</h2>
+							<Divider
+								style={{
+									borderColor: "rgb(177 177 177 / 40%)",
+									width: "50%",
+									marginBottom: 30,
+									marginTop: 0,
+								}}
+							/>
+							<div className={classes.header}>
+								<div className={classes.results}>
+									<h3>Summary</h3>
+									<h3>Your results</h3>
+								</div>
+								<div>
+									<h3>Trading Objectives</h3>
+								</div>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Minimum 5 Tradings day</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Max Daily loss -$5,000</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Max Loss -$10,000</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Profit Target $10,000</p>
 								</div>
 							</div>
 						</div>
