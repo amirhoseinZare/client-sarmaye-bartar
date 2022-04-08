@@ -25,6 +25,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const p2e = (s) => s?.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+
   const success = (text) => {
     message.success(text);
   };
@@ -52,8 +54,8 @@ const Login = () => {
   const onFinish = async (values) => {
     try {
       const res = await AuthApi.login({
-        user_email: values?.email,
-        user_pass: values?.password,
+        user_email: p2e(values?.email),
+        user_pass: p2e(values?.password),
       });
 
       const token = res.headers["x-auth-token"];
