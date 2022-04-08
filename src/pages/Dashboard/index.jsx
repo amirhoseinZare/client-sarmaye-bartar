@@ -6,33 +6,20 @@ import classes from "./Dashboard.module.scss";
 import Navbar from "../../comps/Navbar";
 
 // api
-import { AuthApi, DashboardApi } from "../../api";
+import { DashboardApi } from "../../api";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import { setAuth } from "../../redux/actions/auth";
+import { useSelector } from "react-redux";
 
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdOutlineError } from "react-icons/md";
 
 const Dashboard = () => {
   const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
-
-  const [userData, setUserData] = useState(null);
 
   const [data, setData] = useState([]);
   const [objectives, setObjectives] = useState([]);
 
   useEffect(() => {
-    console.log(user._id);
-    if (!user._id && userData !== user) {
-      AuthApi.validateToken().then((response) => {
-        dispatch(setAuth(response.data?.result));
-        setUserData(response.data?.result);
-      });
-    }
-
     if (user._id) {
       asyncFetch(user._id);
     }
@@ -104,7 +91,7 @@ const Dashboard = () => {
   };
 
   console.log(objectives);
-  
+
   return (
     <>
       <div className={classes.root}>
@@ -112,7 +99,7 @@ const Dashboard = () => {
         <Row className={classes.row}>
           <Col className={classes.col} xs={23} sm={23} md={12} lg={15}>
             <div className={classes.container}>
-              <h2>نتیجه فعلی</h2>
+              <h2>Current Results</h2>
               <Divider
                 style={{
                   borderColor: "rgb(177 177 177 / 40%)",
