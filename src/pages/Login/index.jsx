@@ -72,6 +72,8 @@ const Login = () => {
     return re.test(email);
   };
 
+  const emailRegex = new RegExp(/^\S+@\S+\.\S+$/)
+
   return (
     <div className="antdLoginCustom">
       <div className={classes.root}>
@@ -95,6 +97,10 @@ const Login = () => {
                       required: true,
                       message: "لطفا ایمیل خود را وارد کنید!",
                     },
+                    {
+                      pattern:emailRegex,
+                      message:"لطفا یک ایمیل صحیح وارد کنید!",
+                    }
                   ]}
                 >
                   <div className={classes.inputs}>
