@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/logo.svg";
 
 // antd
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 
 // api
 import { AuthApi } from "../../api/index";
@@ -25,6 +25,18 @@ const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const success = (text) => {
+    message.success(text);
+  };
+
+  const error = (text) => {
+    message.error(text);
+  };
+
+  const warning = (text) => {
+    message.warning(text);
+  };
+
   // set error and delete after 3 second
   useEffect(() => {
     if (errorMessage) {
@@ -38,41 +50,30 @@ const Login = () => {
 
   // login Function
   const onFinish = async (values) => {
-    if (validateEmail(values?.email)) {
-      try {
-        const res = await AuthApi.login({
-          user_email: values?.email,
-          user_pass: values?.password,
-        });
+    try {
+      const res = await AuthApi.login({
+        user_email: values?.email,
+        user_pass: values?.password,
+      });
 
-        const token = res.headers["x-auth-token"];
+      const token = res.headers["x-auth-token"];
 
-        dispatch(setAuth(res.data?.result));
-        localStorage.setItem(TOKEN_LOCAL_KEY, res.data?.token);
-        if (res.data.result?.role === "admin") {
-          navigate("/users");
-        } else {
-          navigate("/dashboard");
-        }
-      } catch (error) {
-        setErrorMessage(error.response?.data?.message);
+      dispatch(setAuth(res.data?.result));
+      localStorage.setItem(TOKEN_LOCAL_KEY, res.data?.token);
+      if (res.data.result?.role === "admin") {
+        success("ورود با موفقیت انجام شد.");
+        navigate("/users");
+      } else {
+        success("ورود با موفقیت انجام شد.");
+        navigate("/dashboard");
       }
-    } else {
-      setErrorMessage("فرمت ایمیل وارد شده صحیح نمیباشد.");
+    } catch (error) {
+      success(error.response?.data?.message);
+      // setErrorMessage(error.response?.data?.message);
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    setErrorMessage("اطلاعات وارد شده صحیح نمیباشد.");
-  };
-
-  // email validation function
-  const validateEmail = (email) => {
-    var re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  };
-
-  const emailRegex = new RegExp(/^\S+@\S+\.\S+$/)
+  const emailRegex = new RegExp(/^\S+@\S+\.\S+$/);
 
   return (
     <div className="antdLoginCustom">
@@ -84,7 +85,6 @@ const Login = () => {
               name="login"
               initialValues={{ remember: false }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
               <div className="inputsLogin">
@@ -98,9 +98,9 @@ const Login = () => {
                       message: "لطفا ایمیل خود را وارد کنید!",
                     },
                     {
-                      pattern:emailRegex,
-                      message:"لطفا یک ایمیل صحیح وارد کنید!",
-                    }
+                      pattern: emailRegex,
+                      message: "لطفا یک ایمیل صحیح وارد کنید!",
+                    },
                   ]}
                 >
                   <div className={classes.inputs}>
