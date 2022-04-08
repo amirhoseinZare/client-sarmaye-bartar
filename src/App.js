@@ -1,7 +1,7 @@
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard/index";
 import Users from "./pages/Users/index";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Spinner } from "./comps/index";
 import { useDispatch, useSelector } from "react-redux";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFound.page";
@@ -11,6 +11,7 @@ import { AuthApi } from "./api";
 import { setAuth } from "./redux/actions/auth";
 
 function App() {
+  const { pathname } = useLocation();
   const loading = useSelector((store) => store.loading.status);
 
   const user = useSelector((store) => store.user);
@@ -18,8 +19,9 @@ function App() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    if (userData !== user) {
+    if (userData !== user && (!["/404", "/login"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
+        console.log(response)
         dispatch(setAuth(response.data?.result));
         setUserData(response.data?.result);
       });

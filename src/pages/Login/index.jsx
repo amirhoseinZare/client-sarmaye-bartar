@@ -24,7 +24,7 @@ import { useNavigate } from "react-router";
 const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const [ loading, setLoading ] = useState(false)
   const p2e = (s) => s?.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
   const success = (text) => {
@@ -130,7 +130,7 @@ const Login = () => {
 
               <div className="actionsLogin">
                 <Form.Item>
-                  <Button type="custom" htmlType="submit">
+                  <Button type="custom" htmlType="submit" loading={loading}>
                     ورود
                   </Button>
                 </Form.Item>
