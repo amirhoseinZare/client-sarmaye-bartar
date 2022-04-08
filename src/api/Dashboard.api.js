@@ -15,5 +15,12 @@ DashboardApi.chart = function (UserId) {
   );
 };
 
+DashboardApi.objectives = function (UserId) {
+  return this.instance.get(
+    `${this.baseApisUrl}/objectives/all/${UserId}`
+  );
+};
+
+
 export { DashboardApi };
 
