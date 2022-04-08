@@ -104,6 +104,9 @@ const Dashboard = () => {
 		padding: "auto",
 		xField: "trades",
 		yField: "equity",
+		style:{
+			height:300
+		},
 		xAxis: {
 			tickCount: 5,
 			title: {
@@ -160,13 +163,13 @@ const Dashboard = () => {
 				<Row className={classes.row}>
 					<Col className={classes.col} xs={23} sm={23} md={12} lg={15}>
 						<div className={classes.container}>
-							<h2>نتیجه فعلی</h2>
+							<h2 style={{textAlign:"left"}}>Current Results</h2>
 							<Divider
 								style={{
 									borderColor: "rgb(177 177 177 / 40%)",
 									width: "50%",
 									marginBottom: 30,
-									marginTop: 20,
+									marginTop: 0,
 								}}
 							/>
 							<Line {...config} />
