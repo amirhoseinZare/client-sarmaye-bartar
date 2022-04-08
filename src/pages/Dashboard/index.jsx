@@ -1,31 +1,109 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { Line } from "@ant-design/plots";
-import classes from "./Dashboard.module.scss";
 import { Divider } from "antd";
+import classes from "./Dashboard.module.scss";
 import Navbar from "../../comps/Navbar";
+
+// api
+import { AuthApi, DashboardApi } from "../../api";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { setAuth } from "../../redux/actions/auth";
+
+import {BsFillCheckCircleFill} from "react-icons/bs"
+import {MdOutlineError} from "react-icons/md"
+
 const Dashboard = () => {
-	const [data, setData] = useState([]);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
-	useEffect(() => {
-		asyncFetch();
-	}, []);
+  const [userData, setUserData] = useState(null);
 
-	const asyncFetch = () => {
-		fetch(
-			"https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json"
-		)
-			.then((response) => response.json())
-			.then((json) => setData(json))
-			.catch((error) => {
-				console.log("fetch data failed", error);
-			});
-	};
+  const [data, setData] = useState([
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 220,
+      equity: 4374.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 221,
+      equity: 4574.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 222,
+      equity: 4774.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 223,
+      equity: 4200.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 224,
+      equity: 4554.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 225,
+      equity: 4100.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 226,
+      equity: 3600.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 227,
+      equity: 3400.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 228,
+      equity: 4074.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 229,
+      equity: 3100.78,
+    },
+    {
+      _id: "624f6ebf2ee1642860c8eeb2",
+      trades: 230,
+      equity: 3600.78,
+    },
+  ]);
+
+  useEffect(() => {
+    console.log(user._id);
+    if (!user._id && userData !== user) {
+      AuthApi.validateToken().then((response) => {
+        dispatch(setAuth(response.data?.result));
+        setUserData(response.data?.result);
+      });
+    }
+
+    if (user._id) {
+      asyncFetch(user._id);
+    }
+  }, [user]);
+
+  const asyncFetch = (userId) => {
+    DashboardApi.chart(userId).then((response) => {
+      setData(response.data?.result)
+    });
+  };
+
 	const config = {
 		data,
 		padding: "auto",
-		xField: "Date",
-		yField: "scales",
+		xField: "trades",
+		yField: "equity",
 		xAxis: {
 			tickCount: 5,
 			title: {
@@ -46,40 +124,39 @@ const Dashboard = () => {
 			},
 			// 坐标轴线的配置项 null 表示不展示
 		},
-		annotations: [
-			// 低于中位数颜色变化
-			{
-				type: "regionFilter",
-				start: ["min", "median"],
-				end: ["max", "0"],
-				color: "#F4664A",
-			},
-			{
-				type: "text",
-				position: ["min", "median"],
-				// content: "中位数",
-				offsetY: -4,
-				style: {
-					textBaseline: "bottom",
-				},
-			},
-			{
-				type: "line",
-				start: ["min", "median"],
-				end: ["max", "median"],
-				style: {
-					stroke: "#F4664A",
-					lineDash: [2, 2],
-				},
-			},
-		],
+		// annotations: [
+		// 	// 低于中位数颜色变化
+		// 	{
+		// 		type: "regionFilter",
+		// 		start: ["min", "median"],
+		// 		end: ["max", "0"],
+		// 		color: "#F4664A",
+		// 	},
+		// 	{
+		// 		type: "text",
+		// 		position: ["min", "median"],
+		// 		// content: "中位数",
+		// 		offsetY: -4,
+		// 		style: {
+		// 			textBaseline: "bottom",
+		// 		},
+		// 	},
+		// 	{
+		// 		type: "line",
+		// 		start: ["min", "median"],
+		// 		end: ["max", "median"],
+		// 		style: {
+		// 			stroke: "#F4664A",
+		// 			lineDash: [2, 2],
+		// 		},
+		// 	},
+		// ],
 		smooth: true,
 	};
 	return (
 		<>
-	
 			<div className={classes.root}>
-			<Navbar />
+				<Navbar />
 				<Row className={classes.row}>
 					<Col className={classes.col} xs={23} sm={23} md={12} lg={15}>
 						<div className={classes.container}>
@@ -160,6 +237,94 @@ const Dashboard = () => {
 										<div>شروع</div>
 										<div>1400/12/12</div>
 									</div>
+								</div>
+							</div>
+						</div>
+					</Col>
+					<Col className={classes.col} xs={24} sm={24} md={12} lg={15}>
+						<div className={classes.container3}>
+							<h2>اهداف</h2>
+							<Divider
+								style={{
+									borderColor: "rgb(177 177 177 / 40%)",
+									width: "50%",
+									marginBottom: 30,
+									marginTop: 0,
+								}}
+							/>
+							<div className={classes.header}>
+								<div className={classes.results}>
+									<h3>Summary</h3>
+									<h3>Your results</h3>
+								</div>
+								<div>
+									<h3>Trading Objectives</h3>
+								</div>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Minimum 5 Tradings day</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Max Daily loss -$5,000</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Max Loss -$10,000</p>
+								</div>
+							</div>
+							<div style={{ width: "97%", margin: "0 auto" }}>
+								<Divider
+									style={{
+										borderColor: "rgb(177 177 177 / 40%)",
+										width: "50%",
+										marginBottom: 0,
+										marginTop: 0,
+									}}
+								/>
+							</div>
+							<div className={classes.body}>
+								<div className={classes.results}>
+									<p className={classes.status}>passed<span><BsFillCheckCircleFill className={classes.icon}/></span></p>
+									<p>10</p>
+								</div>
+								<div>
+									<p>Profit Target $10,000</p>
 								</div>
 							</div>
 						</div>

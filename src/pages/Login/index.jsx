@@ -47,7 +47,7 @@ const Login = () => {
 
         const token = res.headers["x-auth-token"];
 
-        dispatch(setAuth(res.data.result));
+        dispatch(setAuth(res.data?.result));
         localStorage.setItem(TOKEN_LOCAL_KEY, res.data?.token);
         if (res.data.result?.role === "admin") {
           navigate("/users");
@@ -55,7 +55,7 @@ const Login = () => {
           navigate("/dashboard");
         }
       } catch (error) {
-        setErrorMessage(error.response.data?.message);
+        setErrorMessage(error.response?.data?.message);
       }
     } else {
       setErrorMessage("فرمت ایمیل وارد شده صحیح نمیباشد.");
