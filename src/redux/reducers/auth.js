@@ -1,20 +1,71 @@
 import authTypes from "../types/auth";
 
 const INITIAL_STATE = {
-    name:"",
-    familyName:"",
-    nationalCode:"",
-    email:"",
+  accountType: "",
+  balance: 0,
+  dayBalance: 0,
+  display_name: "",
+  endTradeDay: "",
+  equity: 0,
+  firstBalance: 0,
+  infinitive: false,
+  maxTradeDays: 0,
+  percentDays: 0,
+  platform: "",
+  role: "",
+  startTradeDay: "",
+  tradeDaysCount: 0,
+  user_email: "",
+  user_login: "",
+  user_nicename: "",
+  _id: "",
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case authTypes.SET_AUTH:{
-        const { name, familyName, nationalCode, email } = action.payload;
+    case authTypes.SET_AUTH: {
+      const {
+        accountType,
+        balance,
+        dayBalance,
+        display_name,
+        endTradeDay,
+        equity,
+        firstBalance,
+        infinitive,
+        maxTradeDays,
+        percentDays,
+        platform,
+        role,
+        startTradeDay,
+        tradeDaysCount,
+        user_email,
+        user_login,
+        user_nicename,
+        _id,
+      } = action.payload;
 
-        return { 
-            ...state, name, familyName, nationalCode, email
-        };
+      return {
+        ...state,
+        accountType,
+        balance,
+        dayBalance,
+        display_name,
+        endTradeDay,
+        equity,
+        firstBalance,
+        infinitive,
+        maxTradeDays,
+        percentDays,
+        platform,
+        role,
+        startTradeDay,
+        tradeDaysCount,
+        user_email,
+        user_login,
+        user_nicename,
+        _id,
+      };
     }
     default:
       return state;

@@ -8,6 +8,7 @@ AuthApi.get = null;
 AuthApi.post = null;
 AuthApi.patch = null;
 AuthApi.delete = null;
+
 AuthApi.login = function (body) {
   return this.instance.post(`${this.baseApisUrl}/login`, body);
 };
