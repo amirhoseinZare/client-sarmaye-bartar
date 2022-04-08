@@ -10,7 +10,6 @@ class Service {
     this.baseApisUrl = `/api${this.entity}`;
     this.instance.interceptors.request.use(
       (config) => {
-        store.dispatch(startLoading());
         const token = localStorage.getItem(TOKEN_LOCAL_KEY);
         if (token) {
           config.headers["x-auth-token"] = token;
@@ -24,16 +23,25 @@ class Service {
 
     this.instance.interceptors.response.use(
       (res) => {
-        store.dispatch(endLoading());
+        console.log("res: ",res)
         const { status } = res;
         if (status >= 400) {
           window.location.pathname = "/404";
         }
-        return res;
+        return res.data;
       },
       (error) => {
-        store.dispatch(endLoading());
-        return Promise.reject(error);
+        if(window.location.pathname!=="/404" && window.location.pathname!=="/login"){
+          const status = error.response.status
+          switch(status){
+            case 401:
+              window.location.pathname = "/login";      
+            case 404:
+            case 403:
+              window.location.pathname = "/404";
+          }  
+        }
+        return error.response.data
       }
     );
 
