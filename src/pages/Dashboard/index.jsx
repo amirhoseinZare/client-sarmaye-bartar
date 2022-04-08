@@ -124,33 +124,33 @@ const Dashboard = () => {
 			},
 			// 坐标轴线的配置项 null 表示不展示
 		},
-		annotations: [
-			// 低于中位数颜色变化
-			{
-				type: "regionFilter",
-				start: ["min", "median"],
-				end: ["max", "0"],
-				color: "#F4664A",
-			},
-			{
-				type: "text",
-				position: ["min", "median"],
-				// content: "中位数",
-				offsetY: -4,
-				style: {
-					textBaseline: "bottom",
-				},
-			},
-			{
-				type: "line",
-				start: ["min", "median"],
-				end: ["max", "median"],
-				style: {
-					stroke: "#F4664A",
-					lineDash: [2, 2],
-				},
-			},
-		],
+		// annotations: [
+		// 	// 低于中位数颜色变化
+		// 	{
+		// 		type: "regionFilter",
+		// 		start: ["min", "median"],
+		// 		end: ["max", "0"],
+		// 		color: "#F4664A",
+		// 	},
+		// 	{
+		// 		type: "text",
+		// 		position: ["min", "median"],
+		// 		// content: "中位数",
+		// 		offsetY: -4,
+		// 		style: {
+		// 			textBaseline: "bottom",
+		// 		},
+		// 	},
+		// 	{
+		// 		type: "line",
+		// 		start: ["min", "median"],
+		// 		end: ["max", "median"],
+		// 		style: {
+		// 			stroke: "#F4664A",
+		// 			lineDash: [2, 2],
+		// 		},
+		// 	},
+		// ],
 		smooth: true,
 	};
 	return (
