@@ -186,7 +186,7 @@ const Dashboard = () => {
 									<h3>Summary</h3>
 								</div>
 								<div>
-									<h3>Your Results</h3>
+									<h3 style={{paddingLeft:25}}>Your Results</h3>
 								</div>
 								<div className={classes.text}>
 									<h3>Trading Objectives</h3>
