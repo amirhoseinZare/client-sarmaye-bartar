@@ -10,6 +10,7 @@ import Filter from "./comps/filters";
 import classes from "./style.module.scss";
 import { UsersApi } from "../../api/Users.api";
 import "./customAntd.scss";
+import Navbar from "../../comps/Navbar";
 
 // icons
 import { IoInfiniteSharp } from "react-icons/io5";
@@ -297,26 +298,29 @@ function Categories() {
   };
 
   return (
-    <StyledRow>
-      {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
-      <Col xs={22} sm={22} md={22} lg={22} xl={22}>
-        <h2>{'t("category.gridTitle")'}</h2>
-      </Col>
-      <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-        <CustomeTable
-          columns={columns}
-          rows={state.rows}
-          pagination={{
-            current: filter.pageNumber,
-            pageSize: filter.pageSize,
-            total: state.totalCount,
-            position: ["bottomRight"],
-          }}
-          onChange={handleTableChange}
-          loading={state.loading}
-        />
-      </Col>
-    </StyledRow>
+    <>
+      <Navbar />
+      <StyledRow>
+        {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
+        <Col xs={22} sm={22} md={22} lg={22} xl={22} className={classes.titleBox}>
+          <h2>لیست کاربران</h2>
+        </Col>
+        <Col xs={23} sm={23} md={23} lg={23} xl={23}>
+          <CustomeTable
+            columns={columns}
+            rows={state.rows}
+            pagination={{
+              current: filter.pageNumber,
+              pageSize: filter.pageSize,
+              total: state.totalCount,
+              position: ["bottomRight"],
+            }}
+            onChange={handleTableChange}
+            loading={state.loading}
+          />
+        </Col>
+      </StyledRow>
+    </>
   );
 }
 
