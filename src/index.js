@@ -7,12 +7,14 @@ import { ConfigProvider } from "antd";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import Modal from "./comps/Modal/index";
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <React.StrictMode>
         <ConfigProvider direction="rtl">
+          <Modal />
           <App />
         </ConfigProvider>
       </React.StrictMode>
