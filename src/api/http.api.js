@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from "redux/store";
+import store from "../redux/store";
 import { startLoading, endLoading } from "../redux/actions/loading.action";
 import { TOKEN_LOCAL_KEY } from "../core/variables.core";
 
@@ -39,7 +39,7 @@ class Service {
 
     // this.instance.defaults.timeout = 60000;
     // this.instance.defaults.baseURL = process.env.REACT_APP_SUB_API;
-    this.instance.defaults.baseURL = "https://localhost:3001";
+    this.instance.defaults.baseURL = "http://localhost:3000";
   }
 
   gets = (config) => {

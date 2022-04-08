@@ -62,11 +62,15 @@
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    margin: 28px auto;
+    margin: 28px auto 5px;
     transition: all 0.4s 0.2s linear;
     &:hover {
       background-color: transparent;
       color: $first-color;
     }
   }
+}
+
+.antdLoginCustom .inputsLogin .ant-form-item{
+  margin-bottom: 10px;
 }
