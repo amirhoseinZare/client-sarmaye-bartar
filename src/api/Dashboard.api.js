@@ -1,5 +1,4 @@
 import http from "./http.api";
-import { TOKEN_LOCAL_KEY } from "../core/variables.core";
 
 const DashboardApi = new http("/user");
 

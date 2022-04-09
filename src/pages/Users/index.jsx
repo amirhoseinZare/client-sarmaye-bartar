@@ -1,17 +1,36 @@
+// packages
 import { useState, useEffect, useMemo } from "react";
-import { Col, Row, message, Modal } from "antd";
+import { Col, Row, message, Modal, Tag } from "antd";
 import styled from "styled-components";
-import CustomeTable from "../../comps/CustomeTable";
+
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/actions/modal";
-import Detail from "./comps/detail";
+
+// api
+import { UsersApi } from "../../api/Users.api";
+
+// components
+import CustomeTable from "../../comps/CustomeTable";
 import Edit from "./comps/edit";
-import Filter from "./comps/filters";
+import AddUsers from "./comps/add";
+import Navbar from "../../comps/Navbar";
+// import Filter from "./comps/filters";
+
+// style file
+import classes from "./style.module.scss";
+import "./customAntd.scss";
+
+// icons
+import { IoInfiniteSharp } from "react-icons/io5";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
-  ExclamationCircleOutlined,
-  CheckCircleTwoTone,
-  CloseCircleTwoTone,
-} from "@ant-design/icons";
+  AiFillCheckCircle,
+  AiFillCloseCircle,
+  AiOutlineUserAdd,
+} from "react-icons/ai";
+import { MdContentCopy, MdDelete } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
 
 const { confirm } = Modal;
 
@@ -30,13 +49,24 @@ const StyledRow = styled(Row)`
   }
 `;
 
+let copyText = (text) => {
+  navigator.clipboard.writeText(text);
+  message.success("کپی با موفقیت انجام شد.");
+};
+
 function Categories() {
+  let user = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const [state, setState] = useState({
     rows: [],
     totalCount: 10,
     loading: false,
   });
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   const [filter, setFilter] = useState({
     pageNumber: 1,
@@ -47,16 +77,150 @@ function Categories() {
     () => [
       {
         title: "نام",
-        dataIndex: "name",
+        dataIndex: "display_name",
+        key: "display_name",
+        render: (name) => name || "-",
       },
       {
-        title: "توضیحات",
-        dataIndex: "description",
-        render: (description) => description || "-",
+        title: "ایمیل",
+        dataIndex: "user_email",
+        key: "user_email",
+        render: (email) => email || "-",
       },
       {
-        title: "اوردر",
-        dataIndex: "order",
+        title: "نام کاربری",
+        dataIndex: "user_login",
+        key: "user_login",
+        render: (username) => username || "-",
+      },
+      {
+        title: "Equity",
+        dataIndex: "equity",
+        key: "equity",
+        render: (equity) => equity || "-",
+      },
+      {
+        title: "بالانس",
+        dataIndex: "balance",
+        key: "balance",
+        render: (balance) => balance || "-",
+      },
+      {
+        title: "بالانس روز",
+        dataIndex: "dayBalance",
+        key: "dayBalance",
+        render: (dayBalance) => dayBalance || "-",
+      },
+      {
+        title: "بالانس اولیه",
+        dataIndex: "firstBalance",
+        key: "firstBalance",
+        render: (firstBalance) => firstBalance || "-",
+      },
+      {
+        title: "تعداد روز های مجاز ترید",
+        dataIndex: "maxTradeDays",
+        key: "maxTradeDays",
+        render: (maxTradeDays) =>
+          maxTradeDays || <IoInfiniteSharp className={classes.icons} />,
+      },
+      {
+        title: "Profit Target Percent",
+        dataIndex: "percentDays",
+        key: "percentDays",
+        render: (percentDays) =>
+          percentDays || <IoInfiniteSharp className={classes.icons} />,
+      },
+      {
+        title: "نامحدود",
+        dataIndex: "infinitive",
+        key: "infinitive",
+        render: (infinitive) =>
+          infinitive ? (
+            <AiFillCheckCircle className={classes["check-icon"]} />
+          ) : (
+            <AiFillCloseCircle className={classes["close-icon"]} />
+          ),
+      },
+      {
+        title: "پلتفرم",
+        dataIndex: "platform",
+        key: "platform",
+        render: (platform) => platform || "-",
+      },
+      {
+        title: "نوع اکانت",
+        dataIndex: "accountType",
+        key: "accountType",
+        render: (accountType) => accountType || "-",
+      },
+      {
+        title: "نوع کاربر",
+        dataIndex: "role",
+        key: "role",
+        render: (role) =>
+          role === "admin" ? (
+            <Tag color="cyan">ادمین</Tag>
+          ) : (
+            <Tag color="magenta">تریدر</Tag>
+          ),
+      },
+      {
+        title: "زمان ثبت نام",
+        dataIndex: "user_registered",
+        key: "user_registered",
+        render: (user_registered) => user_registered || "-",
+      },
+      {
+        title: "توکن",
+        dataIndex: "mtAccessToken",
+        key: "mtAccessToken",
+        render: (mtAccessToken) =>
+          mtAccessToken ? (
+            <MdContentCopy
+              className={classes.icons}
+              style={{ color: "#38ada9" }}
+              onClick={() => copyText(mtAccessToken)}
+            />
+          ) : (
+            "-"
+          ),
+      },
+      {
+        title: "آیدی",
+        dataIndex: "mtAccountId",
+        key: "mtAccountId",
+        render: (mtAccountId) =>
+          mtAccountId ? (
+            <MdContentCopy
+              className={classes.icons}
+              style={{ color: "#38ada9" }}
+              onClick={() => copyText(mtAccountId)}
+            />
+          ) : (
+            "-"
+          ),
+      },
+      {
+        title: "حذف",
+        key: "delUser",
+        render: (user) => (
+          <MdDelete
+            className={classes["close-icon"]}
+            onClick={() => openDeleteModal(user)}
+          />
+        ),
+      },
+      {
+        title: "ویرایش",
+        key: "editUser",
+        render: (user) => (
+          <BiEdit
+            style={{ color: "#f9ca24" }}
+            className={classes["icons"]}
+            onClick={() => openEditModal(user)}
+          />
+        ),
       },
     ],
     [state.rows]
@@ -70,31 +234,28 @@ function Categories() {
     }));
   };
 
-  const getCategories = async () => {
-    // setState((s) => ({ ...s, loading: true }));
-    // setState((s) => ({ ...s, loading: false }));
-    // if (!call.success) {
-    //   message.error(call.message);
-    //   return;
-    // }
-    // setState((s) => ({ ...s, rows: call.result.items }));
-    // dispatch(setCategories(call.result.items));
+  const getUsersData = async () => {
+    setState((s) => ({ ...s, loading: true }));
+
+    let response = await UsersApi.all(filter.pageSize, filter.pageNumber);
+
+    setState((s) => ({ ...s, loading: false }));
+
+    if (!response.success) {
+      message.error(response.message);
+      return;
+    } else {
+      setState((s) => ({
+        ...s,
+        totalCount: response.result.items.length,
+        rows: response.result.items,
+      }));
+    }
   };
 
   useEffect(() => {
-    getCategories();
+    getUsersData();
   }, [filter]);
-
-  const openDetailModal = (data) => {
-    dispatch(
-      setModal({
-        visible: true,
-        title: "توضیحات",
-        width: 500,
-        children: <Detail data={data} />,
-      })
-    );
-  };
 
   const openEditModal = (data, step = 0) => {
     dispatch(
@@ -112,7 +273,27 @@ function Categories() {
           />
         ),
         closeCallback: () => {
-          getCategories();
+          getUsersData();
+        },
+      })
+    );
+  };
+
+  const openAddModal = (step = 0) => {
+    dispatch(
+      setModal({
+        visible: true,
+        title: "افزودن کاربر",
+        width: 700,
+        children: (
+          <AddUsers
+            closeModal={() => {
+              dispatch(setModal({ visible: false }));
+            }}
+          />
+        ),
+        closeCallback: () => {
+          getUsersData();
         },
       })
     );
@@ -120,38 +301,62 @@ function Categories() {
 
   const openDeleteModal = (data) => {
     confirm({
-      title: "تست",
+      title: <span style={{ color: "#eb4d4b" }}>حذف کاربر</span>,
+      content: `کاربر "${data.display_name}" حذف شود؟`,
       icon: <ExclamationCircleOutlined />,
-      content: 't("category.deleteDescription")',
-      okText: 't("general.yes")',
-      okType: '"danger"',
-      cancelText: 't("general.no")',
-      onOk() {},
+      okText: "بله",
+      okType: "danger",
+      cancelText: "خیر",
+      async onOk() {
+        let response = await UsersApi.delUser(data._id);
+        if (response.success) {
+          message.success(response.message);
+          getUsersData();
+        } else {
+          message.error(response.message);
+          getUsersData();
+        }
+      },
       onCancel() {},
     });
   };
 
   return (
-    <StyledRow>
-      <Filter setFilter={setFilter} filter={filter} search={getCategories} />
-      <Col xs={20} sm={20} md={20} lg={20} xl={20}>
-        <h2>{'t("category.gridTitle")'}</h2>
-      </Col>
-      <Col xs={20} sm={20} md={20} lg={20} xl={20}>
-        <CustomeTable
-          columns={columns}
-          rows={state.rows}
-          pagination={{
-            current: filter.pageNumber,
-            pageSize: filter.pageSize,
-            total: state.totalCount,
-            position: ["bottomRight"],
-          }}
-          onChange={handleTableChange}
-          loading={state.loading}
-        />
-      </Col>
-    </StyledRow>
+    <div className={classes.users}>
+      <Navbar name={user?.display_name} />
+      <StyledRow>
+        {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
+        <Col
+          xs={22}
+          sm={22}
+          md={22}
+          lg={22}
+          xl={22}
+          className={classes.titleBox}
+        >
+          <h2>لیست کاربران</h2>
+        </Col>
+        <Col xs={23} sm={23} md={23} lg={23} xl={23}>
+          <CustomeTable
+            columns={columns}
+            rows={state.rows}
+            pagination={{
+              current: filter.pageNumber,
+              pageSize: filter.pageSize,
+              total: state.totalCount,
+              position: ["bottomRight"],
+            }}
+            onChange={handleTableChange}
+            loading={state.loading}
+          />
+        </Col>
+        <Col xs={23} sm={23} md={23} lg={23} xl={23}>
+          <div className={classes["icon-box"]} onClick={openAddModal}>
+            <AiOutlineUserAdd className={classes["add-user-icon"]} />
+          </div>
+        </Col>
+      </StyledRow>
+    </div>
   );
 }
 

@@ -1,0 +1,45 @@
+@import "../../sass/CssVariables";
+
+.close-icon {
+  font-size: 18px;
+  color: #eb4d4b;
+}
+
+.check-icon {
+  font-size: 18px;
+  color: #22a6b3;
+}
+
+.icons {
+  font-size: 18px;
+}
+
+.titleBox {
+  margin: 50px auto 20px;
+  text-align: center;
+  h2 {
+    font-size: 22px !important;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.icon-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: $first-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  .add-user-icon {
+    font-size: 32px;
+    color: $white;
+  }
+}
+
+.users{
+  background-color: #eaeaea;
+  height: 100vh;
+}

@@ -55,11 +55,9 @@ const StyledRow = styled(Row)`
   }
 `;
 
-const Edit = ({ data, step = 0, closeModal }) => {
-  // get user data from redux
-  let user = useSelector((state) => state.user);
-
+const AddUsers = ({ step = 0, closeModal }) => {
   const [userData, setUserData] = useState({});
+  const [current, setCurrent] = useState(step);
 
   // step function
   useEffect(() => {
@@ -74,61 +72,48 @@ const Edit = ({ data, step = 0, closeModal }) => {
     setCurrent(current - 1);
   };
 
-  // patch data function
-  const patchData = async () => {
-    let response = await UsersApi.patchUser(user._id, userData);
+  // add data function
+  const addUser = async () => {
+    let response = await UsersApi.addUser(userData);
     if (response.success) {
       message.success(response.message);
-      closeModal()
+      setCurrent(0);
+      closeModal();
     } else {
       message.error(response.message);
     }
   };
 
-  const [current, setCurrent] = useState(step);
-  const steps = useMemo(
-    () => [
-      {
-        title: "اطلاعات شخصی کاربر",
-        content: (
-          <Personal
-            userState={userData}
-            setData={setUserData}
-            data={data}
-            next={next}
-            closeModal={closeModal}
-          />
-        ),
-      },
-      {
-        title: "اطلاعات اکانت",
-        content: (
-          <AccountData
-            userState={userData}
-            setData={setUserData}
-            data={data}
-            prev={prev}
-            next={next}
-            closeModal={closeModal}
-          />
-        ),
-      },
-      {
-        title: "توکن و آیدی",
-        content: (
-          <Token
-            userState={userData}
-            setData={setUserData}
-            data={data}
-            prev={prev}
-            next={next}
-            closeModal={closeModal}
-          />
-        ),
-      },
-    ],
-    [data, current]
-  );
+  const steps = [
+    {
+      title: "اطلاعات شخصی کاربر",
+      content: (
+        <Personal setData={setUserData} userState={userData} next={next} />
+      ),
+    },
+    {
+      title: "اطلاعات اکانت",
+      content: (
+        <AccountData
+          setData={setUserData}
+          userState={userData}
+          prev={prev}
+          next={next}
+        />
+      ),
+    },
+    {
+      title: "توکن و آیدی",
+      content: (
+        <Token
+          setData={setUserData}
+          userState={userData}
+          prev={prev}
+          next={next}
+        />
+      ),
+    },
+  ];
 
   return (
     <StyledRow>
@@ -154,8 +139,8 @@ const Edit = ({ data, step = 0, closeModal }) => {
           </Button>
         )}
         {
-          <Button className="done-button" type="primary" onClick={patchData}>
-            ثبت
+          <Button className="done-button" type="primary" onClick={addUser}>
+            افزودن
           </Button>
         }
       </div>
@@ -163,4 +148,4 @@ const Edit = ({ data, step = 0, closeModal }) => {
   );
 };
 
-export default Edit;
+export default AddUsers;
