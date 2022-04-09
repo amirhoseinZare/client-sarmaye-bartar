@@ -22,4 +22,8 @@ UsersApi.patchUser = function (id, body) {
   return this.instance.patch(`${this.baseApisUrl}/${id}`, body);
 };
 
+UsersApi.addUser = function (body) {
+  return this.instance.post(`${this.baseApisUrl}`, body);
+};
+
 export { UsersApi };

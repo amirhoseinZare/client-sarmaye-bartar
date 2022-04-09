@@ -1,21 +1,34 @@
+// packages
 import { useState, useEffect, useMemo } from "react";
 import { Col, Row, message, Modal, Tag } from "antd";
 import styled from "styled-components";
-import CustomeTable from "../../comps/CustomeTable";
-import { useDispatch, useSelector } from "react-redux";
+
+// redux
+import { useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modal";
-import Detail from "./comps/detail";
-import Edit from "./comps/edit";
-import Filter from "./comps/filters";
-import classes from "./style.module.scss";
+
+// api
 import { UsersApi } from "../../api/Users.api";
-import "./customAntd.scss";
+
+// components
+import CustomeTable from "../../comps/CustomeTable";
+import Edit from "./comps/edit";
+import AddUsers from "./comps/add";
 import Navbar from "../../comps/Navbar";
+// import Filter from "./comps/filters";
+
+// style file
+import classes from "./style.module.scss";
+import "./customAntd.scss";
 
 // icons
 import { IoInfiniteSharp } from "react-icons/io5";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import {
+  AiFillCheckCircle,
+  AiFillCloseCircle,
+  AiOutlineUserAdd,
+} from "react-icons/ai";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 
@@ -242,17 +255,6 @@ function Categories() {
     getUsersData();
   }, [filter]);
 
-  const openDetailModal = (data) => {
-    dispatch(
-      setModal({
-        visible: true,
-        title: "توضیحات",
-        width: 500,
-        children: <Detail data={data} />,
-      })
-    );
-  };
-
   const openEditModal = (data, step = 0) => {
     dispatch(
       setModal({
@@ -263,6 +265,26 @@ function Categories() {
           <Edit
             data={data}
             step={step}
+            closeModal={() => {
+              dispatch(setModal({ visible: false }));
+            }}
+          />
+        ),
+        closeCallback: () => {
+          getUsersData();
+        },
+      })
+    );
+  };
+
+  const openAddModal = (step = 0) => {
+    dispatch(
+      setModal({
+        visible: true,
+        title: "افزودن کاربر",
+        width: 700,
+        children: (
+          <AddUsers
             closeModal={() => {
               dispatch(setModal({ visible: false }));
             }}
@@ -302,7 +324,14 @@ function Categories() {
       <Navbar />
       <StyledRow>
         {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
-        <Col xs={22} sm={22} md={22} lg={22} xl={22} className={classes.titleBox}>
+        <Col
+          xs={22}
+          sm={22}
+          md={22}
+          lg={22}
+          xl={22}
+          className={classes.titleBox}
+        >
           <h2>لیست کاربران</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
@@ -318,6 +347,11 @@ function Categories() {
             onChange={handleTableChange}
             loading={state.loading}
           />
+        </Col>
+        <Col xs={23} sm={23} md={23} lg={23} xl={23}>
+          <div className={classes["icon-box"]} onClick={openAddModal}>
+            <AiOutlineUserAdd className={classes["add-user-icon"]} />
+          </div>
         </Col>
       </StyledRow>
     </>
