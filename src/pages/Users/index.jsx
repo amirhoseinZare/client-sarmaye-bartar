@@ -4,7 +4,7 @@ import { Col, Row, message, Modal, Tag } from "antd";
 import styled from "styled-components";
 
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/actions/modal";
 
 // api
@@ -55,6 +55,8 @@ let copyText = (text) => {
 };
 
 function Categories() {
+  let user = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const [state, setState] = useState({
     rows: [],
@@ -321,7 +323,7 @@ function Categories() {
 
   return (
     <div className={classes.users}>
-      <Navbar />
+      <Navbar name={user?.display_name} />
       <StyledRow>
         {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
         <Col
