@@ -320,7 +320,7 @@ function Categories() {
   };
 
   return (
-    <>
+    <div className={classes.users}>
       <Navbar />
       <StyledRow>
         {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
@@ -354,7 +354,7 @@ function Categories() {
           </div>
         </Col>
       </StyledRow>
-    </>
+    </div>
   );
 }
 
