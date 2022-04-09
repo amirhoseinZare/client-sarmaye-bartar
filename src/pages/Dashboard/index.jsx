@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { IoMdCloseCircle } from "react-icons/io";
 import { ImInfinite } from "react-icons/im";
 
 const Dashboard = () => {
@@ -101,9 +102,9 @@ const Dashboard = () => {
 		<>
 			{user.isAuth ? (
 				<div className={classes.root}>
-					<Navbar name={user.user_login} />
+					<Navbar  />
 					<Row className={classes.row}>
-						<Col className={classes.col} xs={23} sm={23} md={12} lg={15}>
+						<Col className={classes.col} xs={23} sm={23} md={20} lg={20}>
 							<div className={classes.container}>
 								<h2>Current Results</h2>
 								<Divider
@@ -116,6 +117,8 @@ const Dashboard = () => {
 								/>
 								<Line {...config} />
 							</div>
+						</Col>
+						<Col className={classes.col} xs={23} sm={23} md={11} lg={12}>
 							<div className={classes.container3}>
 								<h2 style={{ textAlign: "left" }}>Objectives</h2>
 								<Divider
@@ -147,7 +150,7 @@ const Dashboard = () => {
 												{objectives["minimumTradeDaysObjective"]?.passed ? (
 													<BsFillCheckCircleFill className={classes.icon} />
 												) : (
-													<AiFillCloseCircle className={classes.iconRed} />
+													<IoMdCloseCircle className={classes.iconRed} />
 												)}
 											</span>
 										</p>
@@ -264,7 +267,7 @@ const Dashboard = () => {
 								</div>
 							</div>
 						</Col>
-						<Col className={classes.col} xs={20} sm={20} md={8} lg={5}>
+						<Col className={classes.col} xs={23} sm={23} md={7} lg={6}>
 							<div className={classes.container2}>
 								<h2>{user.user_login}</h2>
 								<div style={{ width: "100%", margin: "0 auto" }}>
