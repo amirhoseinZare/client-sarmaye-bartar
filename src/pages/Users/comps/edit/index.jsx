@@ -4,6 +4,8 @@ import Personal from "./comps/personal";
 import AccountData from "./comps/accountData";
 import Token from "./comps/token";
 import styled from "styled-components";
+import { UsersApi } from "../../../../api/Users.api";
+import { useSelector } from "react-redux";
 
 const { Step } = Steps;
 
@@ -31,6 +33,7 @@ const StyledRow = styled(Row)`
 
   .next-button {
     border-radius: 12px;
+    margin: 0 5px;
   }
 
   .prev-button {
@@ -53,6 +56,12 @@ const StyledRow = styled(Row)`
 `;
 
 const Edit = ({ data, step = 0, closeModal }) => {
+  // get user data from redux
+  let user = useSelector((state) => state.user);
+
+  const [userData, setUserData] = useState({});
+
+  // step function
   useEffect(() => {
     setCurrent(step);
   }, [step]);
@@ -65,18 +74,38 @@ const Edit = ({ data, step = 0, closeModal }) => {
     setCurrent(current - 1);
   };
 
-  console.log("step", step);
+  // patch data function
+  const patchData = async () => {
+    let response = await UsersApi.patchUser(user._id, userData);
+    if (response.success) {
+      message.success(response.message);
+      closeModal()
+    } else {
+      message.error(response.message);
+    }
+  };
+
   const [current, setCurrent] = useState(step);
   const steps = useMemo(
     () => [
       {
         title: "اطلاعات شخصی کاربر",
-        content: <Personal data={data} next={next} closeModal={closeModal} />,
+        content: (
+          <Personal
+            userState={userData}
+            setData={setUserData}
+            data={data}
+            next={next}
+            closeModal={closeModal}
+          />
+        ),
       },
       {
-        title: "اطلاعات  اکانت",
+        title: "اطلاعات اکانت",
         content: (
           <AccountData
+            userState={userData}
+            setData={setUserData}
             data={data}
             prev={prev}
             next={next}
@@ -88,6 +117,8 @@ const Edit = ({ data, step = 0, closeModal }) => {
         title: "توکن و آیدی",
         content: (
           <Token
+            userState={userData}
+            setData={setUserData}
             data={data}
             prev={prev}
             next={next}
@@ -113,20 +144,20 @@ const Edit = ({ data, step = 0, closeModal }) => {
             بعدی
           </Button>
         )}
-        {/* {current === steps.length - 1 && (
-                <Button className="prev-button" type="primary" onClick={() => message.success('Processing complete!')}>
-                    {t("general.doneStep")}
-                </Button>
-                )} */}
         {current > 0 && (
           <Button
-            className="done-button"
+            className="prev-button"
             style={{ margin: "0 8px" }}
             onClick={() => prev()}
           >
             قبلی
           </Button>
         )}
+        {
+          <Button className="done-button" type="primary" onClick={patchData}>
+            ثبت
+          </Button>
+        }
       </div>
     </StyledRow>
   );

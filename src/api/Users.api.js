@@ -18,4 +18,8 @@ UsersApi.delUser = function (id) {
   return this.instance.delete(`${this.baseApisUrl}/${id}`);
 };
 
+UsersApi.patchUser = function (id, body) {
+  return this.instance.patch(`${this.baseApisUrl}/${id}`, body);
+};
+
 export { UsersApi };

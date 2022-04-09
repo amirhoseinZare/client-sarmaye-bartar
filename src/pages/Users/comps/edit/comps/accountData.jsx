@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { Form, Input, Button, Col, Select, Modal } from "antd";
+import { Form, Input, Button, Col, Select, DatePicker } from "antd";
+import { accountType } from "../../../../../core/enums";
 const { Option } = Select;
 
 const FormStyled = styled(Form)`
@@ -8,10 +9,13 @@ const FormStyled = styled(Form)`
   flex-wrap: wrap;
   .form-input {
     padding: 8px;
+    .ant-picker-rtl {
+      width: 100%;
+    }
     ${"" /* height: 105px; */}
-    input {
+    input,.ant-picker-rtl {
       max-width: 305px;
-      height: 46px;
+      height: 38px;
       border-radius: 8px;
       box-shadow: 0px 2px 3px rgba(207, 207, 217, 0.32);
       font-size: 12px;
@@ -22,9 +26,9 @@ const FormStyled = styled(Form)`
       .ant-select-selector {
         border-radius: 8px;
         height: 46px;
+        height: 38px;
       }
       max-width: 305px;
-      height: 46px;
       border-radius: 8px;
       box-shadow: 0px 2px 3px rgba(207, 207, 217, 0.32);
       font-size: 12px;
@@ -40,8 +44,8 @@ const FormStyled = styled(Form)`
     }
     label {
       color: rgba(0, 0, 0, 1);
-      font-size: 10px;
-      height: 15px;
+      font-size: 12px;
+      height: 16px;
     }
   }
   .button-container {
@@ -62,7 +66,9 @@ const FormStyled = styled(Form)`
   }
 `;
 
-function AccountData({ data }) {
+const numberRegex = new RegExp(/^[0-9]/);
+
+function AccountData({ userState, setData, data }) {
   const [state, setState] = useState({
     loading: false,
     fetching: false,
@@ -70,16 +76,108 @@ function AccountData({ data }) {
 
   const [fields, setFields] = useState([
     {
-      name: ["description"],
+      name: ["accountType"],
       value: "",
     },
     {
-      name: ["descriptionEn"],
+      name: ["platform"],
+      value: "",
+    },
+    {
+      name: ["firstBalance"],
+      value: "",
+    },
+    {
+      name: ["maxTradeDays"],
+      value: "",
+    },
+    {
+      name: ["percentDays"],
+      value: "",
+    },
+    {
+      name: ["infinitive"],
+      value: "",
+    },
+    {
+      name: ["startTradeDay"],
       value: "",
     },
   ]);
 
-  const isActiveOptions = useMemo(
+  const accountTypes = useMemo(
+    () => [
+      {
+        text: "انتخاب کنید",
+        value: "",
+      },
+      {
+        text: accountType["Alpari-mt5-demo"],
+        value: accountType["Alpari-mt5-demo"],
+      },
+      {
+        text: accountType["Alpari-pro-ECN-Demo"],
+        value: accountType["Alpari-pro-ECN-Demo"],
+      },
+      {
+        text: accountType["Amarkets-Demo"],
+        value: accountType["Amarkets-Demo"],
+      },
+      {
+        text: accountType["ICMarketsSC-Demo"],
+        value: accountType["ICMarketsSC-Demo"],
+      },
+      {
+        text: accountType["ICMarketsSC-Demo01"],
+        value: accountType["ICMarketsSC-Demo01"],
+      },
+      {
+        text: accountType["ICMarketsSC-Demo02"],
+        value: accountType["ICMarketsSC-Demo02"],
+      },
+      {
+        text: accountType["ICMarketsSC-Demo03"],
+        value: accountType["ICMarketsSC-Demo03"],
+      },
+      {
+        text: accountType["ICMarketsSC-Demo04"],
+        value: accountType["ICMarketsSC-Demo04"],
+      },
+      {
+        text: accountType["RoboForex-ECN"],
+        value: accountType["RoboForex-ECN"],
+      },
+      {
+        text: accountType["Roboforex-Demo"],
+        value: accountType["Roboforex-Demo"],
+      },
+      {
+        text: accountType["TCBridge-Demo"],
+        value: accountType["TCBridge-Demo"],
+      },
+    ],
+    []
+  );
+
+  const platforms = useMemo(
+    () => [
+      {
+        text: "انتخاب کنید",
+        value: "",
+      },
+      {
+        text: "MT4",
+        value: "MT4",
+      },
+      {
+        text: "MT5",
+        value: "MT5",
+      },
+    ],
+    []
+  );
+
+  const infinitives = useMemo(
     () => [
       {
         text: "انتخاب کنید",
@@ -98,6 +196,16 @@ function AccountData({ data }) {
   );
 
   useEffect(() => {
+    let tempState = { ...userState };
+    fields.map((field) => {
+      if (userState[field.name[0]] !== field.value) {
+        tempState[field.name[0]] = field.value;
+        setData(tempState);
+      }
+    });
+  }, [fields]);
+
+  useEffect(() => {
     const newFields = fields.map((field) => {
       const fieldName = field.name[0];
       return {
@@ -105,13 +213,10 @@ function AccountData({ data }) {
         value: data[fieldName],
       };
     });
-    // console.log(newFields, data)
     setFields(newFields);
   }, [data]);
 
   const onFinish = () => {};
-
-  const onFinishFailed = () => {};
 
   return (
     <FormStyled
@@ -119,7 +224,6 @@ function AccountData({ data }) {
       name="login"
       layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       autoComplete="off"
       size="large"
       fields={fields}
@@ -127,54 +231,103 @@ function AccountData({ data }) {
         setFields(allFields);
       }}
     >
-      <Col
-        className="form-input address"
-        md={24}
-        xl={24}
-        xs={24}
-        sm={24}
-        lg={24}
-      >
+      <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
-          label={'t("category.description")'}
-          name="description"
-          rules={[{ required: true, message: 't("validation.required")' }]}
-          style={{ width: "100%" }}
+          label="بالانس اولیه"
+          name="firstBalance"
+          rules={[
+            {
+              pattern: numberRegex,
+              message: "لطفا یک عدد انگلیسی وارد نمایید!",
+            },
+          ]}
         >
-          <Input.TextArea autoSize={{ minRows: 4, maxRows: 10 }} />
+          <Input />
         </Form.Item>
       </Col>
 
-      <Col
-        className="form-input address"
-        md={24}
-        xl={24}
-        xs={24}
-        sm={24}
-        lg={24}
-      >
+      <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
-          label={'t("category.descriptionEn")'}
-          name="descriptionEn"
-          rules={[{ required: true, message: 't("validation.required")' }]}
-          style={{ width: "100%" }}
+          label="تعداد روز های مجاز ترید"
+          name="maxTradeDays"
+          rules={[
+            {
+              pattern: numberRegex,
+              message: "لطفا یک عدد انگلیسی وارد نمایید!",
+            },
+          ]}
         >
-          <Input.TextArea autoSize={{ minRows: 4, maxRows: 10 }} />
+          <Input />
         </Form.Item>
       </Col>
 
-      <Col className="button-container" span={24}>
-        <Col spane={8} span={24} sm={12} md={8} className="button-col">
-          <Button
-            className="edit-button"
-            block
-            type="primary"
-            htmlType="submit"
-            loading={state.loading}
-          >
-            {'t("button.editInfo")'}
-          </Button>
-        </Col>
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="Profit Target Percent"
+          name="percentDays"
+          rules={[
+            {
+              pattern: numberRegex,
+              message: "لطفا یک عدد انگلیسی وارد نمایید!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="نوع اکانت"
+          name="accountType"
+          rules={[
+            { required: true, message: "یکی از دسترسی ها را انتخاب نمایید." },
+          ]}
+        >
+          <Select className="">
+            {accountTypes.map((item) => (
+              <Option key={item.value}>{item.text}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="پلتفرم"
+          name="platform"
+          rules={[
+            { required: true, message: "یکی از دسترسی ها را انتخاب نمایید." },
+          ]}
+        >
+          <Select className="">
+            {platforms.map((item) => (
+              <Option key={item.value}>{item.text}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="نامحدود"
+          name="platform"
+          rules={[
+            { required: true, message: "یکی از دسترسی ها را انتخاب نمایید." },
+          ]}
+        >
+          <Select className="">
+            {infinitives.map((item) => (
+              <Option key={item.value}>{item.text}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item label="تاریخ شروع" name="">
+          <DatePicker />
+        </Form.Item>
       </Col>
     </FormStyled>
   );

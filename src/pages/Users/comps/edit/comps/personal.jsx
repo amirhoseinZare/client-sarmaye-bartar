@@ -63,26 +63,30 @@ const FormStyled = styled(Form)`
   }
 `;
 
-function Personal({ data }) {
+const emailRegex = new RegExp(/^\S+@\S+\.\S+$/);
+const englishRegex = new RegExp(/^[a-z]+$/i);
+
+function Personal({ userState, setData, data }) {
   const [state, setState] = useState({
     loading: false,
     fetching: false,
   });
+
   const [fields, setFields] = useState([
     {
-      name: ["name"],
+      name: ["display_name"],
       value: "",
     },
     {
-      name: ["nameEn"],
+      name: ["user_login"],
       value: "",
     },
     {
-      name: ["icon"],
+      name: ["user_email"],
       value: "",
     },
     {
-      name: ["isActive"],
+      name: ["role"],
       value: "",
     },
   ]);
@@ -106,6 +110,16 @@ function Personal({ data }) {
   );
 
   useEffect(() => {
+    let tempState = { ...userState };
+    fields.map((field) => {
+      if (userState[field.name[0]] !== field.value) {
+        tempState[field.name[0]] = field.value;
+        setData(tempState);
+      }
+    });
+  }, [fields]);
+
+  useEffect(() => {
     const newFields = fields.map((field) => {
       const fieldName = field.name[0];
       return {
@@ -113,13 +127,10 @@ function Personal({ data }) {
         value: data[fieldName],
       };
     });
-    // console.log(newFields, data)
     setFields(newFields);
   }, [data]);
 
-  const onFinish = () => {
-    
-  };
+  const onFinish = () => {};
 
   return (
     <FormStyled
@@ -135,26 +146,38 @@ function Personal({ data }) {
       }}
     >
       <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item label="نام" name="name">
-          <>
-            <Input value={data.display_name} />
-          </>
+        <Form.Item label="نام" name="display_name">
+          <Input />
         </Form.Item>
       </Col>
 
       <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item label="نام کاربری" name="username">
-          <>
-            <Input value={data.user_login} />
-          </>
+        <Form.Item
+          label="نام کاربری"
+          name="user_login"
+          rules={[
+            {
+              pattern: englishRegex,
+              message: "لطفا یک نام کاربری لاتین وارد کنید!",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
       </Col>
 
       <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item label="ایمیل" name="email">
-          <>
-            <Input value={data.user_email} />
-          </>
+        <Form.Item
+          label="ایمیل"
+          name="user_email"
+          rules={[
+            {
+              pattern: emailRegex,
+              message: "لطفا یک ایمیل صحیح وارد کنید!",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
       </Col>
 
@@ -168,26 +191,10 @@ function Personal({ data }) {
         >
           <Select className="">
             {isActiveOptions.map((item) => (
-              <Option key={item.value} value={item.value}>
-                {item.text}
-              </Option>
+              <Option key={item.value}>{item.text}</Option>
             ))}
           </Select>
         </Form.Item>
-      </Col>
-
-      <Col className="button-container" span={24}>
-        <Col span={24} sm={12} md={8} className="button-col">
-          <Button
-            className="edit-button"
-            block
-            type="primary"
-            htmlType="submit"
-            loading={state.loading}
-          >
-            ثبت اطلاعات
-          </Button>
-        </Col>
       </Col>
     </FormStyled>
   );
