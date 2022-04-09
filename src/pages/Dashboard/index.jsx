@@ -159,7 +159,7 @@ const Dashboard = () => {
 										<p>{objectives["minimumTradeDaysObjective"]?.count}</p>
 									</div>
 									<div className={classes.text}>
-										<p>Minimum {user.infinitive ? "7" : "5"} Tradings day</p>
+										<p>Minimum {user.infinitive ? "-" : "5"} Tradings day</p>
 									</div>
 								</div>
 								<div style={{ width: "97%", margin: "0 auto" }}>
@@ -189,7 +189,7 @@ const Dashboard = () => {
 										<p>{objectives["maxDailyLoss"]?.equity}</p>
 									</div>
 									<div className={classes.text}>
-										<p>Max Daily loss -$5,000</p>
+										<p>Max Daily loss 5% ({(+objectives["maxDailyLoss"]?.dayBalance)*0.95}$)</p>
 									</div>
 								</div>
 								<div style={{ width: "97%", margin: "0 auto" }}>
@@ -219,7 +219,7 @@ const Dashboard = () => {
 										<p>{objectives["maxLoss"]?.equity}</p>
 									</div>
 									<div className={classes.text}>
-										<p>Max Loss -$10,000</p>
+										<p>Max Loss 10% ({(+objectives["maxLoss"]?.firstBalance)*0.90}$)</p>
 									</div>
 								</div>
 								<div style={{ width: "97%", margin: "0 auto" }}>
@@ -262,7 +262,7 @@ const Dashboard = () => {
 										</p>
 									</div>
 									<div className={classes.text}>
-										<p>Profit Target $10,000</p>
+										<p>Profit Target 10% ({(+objectives["profitTarget"]?.firstBalance)*((1+ +objectives["profitTarget"]?.percentDays/100))}$)</p>
 									</div>
 								</div>
 							</div>
