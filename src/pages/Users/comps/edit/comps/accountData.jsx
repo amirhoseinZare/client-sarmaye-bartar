@@ -162,10 +162,6 @@ function AccountData({ userState, setData, data }) {
   const platforms = useMemo(
     () => [
       {
-        text: "انتخاب کنید",
-        value: "",
-      },
-      {
         text: "MT4",
         value: "MT4",
       },
@@ -179,10 +175,6 @@ function AccountData({ userState, setData, data }) {
 
   const infinitives = useMemo(
     () => [
-      {
-        text: "انتخاب کنید",
-        value: "",
-      },
       {
         text: "بله",
         value: true,
@@ -199,7 +191,12 @@ function AccountData({ userState, setData, data }) {
     let tempState = { ...userState };
     fields.map((field) => {
       if (userState[field.name[0]] !== field.value) {
-        tempState[field.name[0]] = field.value;
+        if (field.name[0] === "infinitive") {
+          let infinitive = field.value === "true";
+          tempState[field.name[0]] = infinitive;
+        } else {
+          tempState[field.name[0]] = field.value;
+        }
         setData(tempState);
       }
     });
@@ -311,7 +308,7 @@ function AccountData({ userState, setData, data }) {
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="نامحدود"
-          name="platform"
+          name="infinitive"
           rules={[
             { required: true, message: "یکی از دسترسی ها را انتخاب نمایید." },
           ]}

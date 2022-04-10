@@ -110,10 +110,6 @@ function AccountData({ userState, setData }) {
   const accountTypes = useMemo(
     () => [
       {
-        text: "انتخاب کنید",
-        value: "",
-      },
-      {
         text: accountType["Alpari-mt5-demo"],
         value: accountType["Alpari-mt5-demo"],
       },
@@ -164,10 +160,6 @@ function AccountData({ userState, setData }) {
   const platforms = useMemo(
     () => [
       {
-        text: "انتخاب کنید",
-        value: "",
-      },
-      {
         text: "MT4",
         value: "MT4",
       },
@@ -181,10 +173,6 @@ function AccountData({ userState, setData }) {
 
   const infinitives = useMemo(
     () => [
-      {
-        text: "انتخاب کنید",
-        value: "",
-      },
       {
         text: "بله",
         value: true,
@@ -224,6 +212,10 @@ function AccountData({ userState, setData }) {
         setFields(allFields);
 
         let tempState = { ...userState };
+        
+        console.log(tempState)
+        console.log(allFields)
+
         fields.map((field) => {
           if (userState[field.name[0]] !== field.value) {
             let fieldName = field.name[0];
@@ -235,8 +227,8 @@ function AccountData({ userState, setData }) {
                 tempState[field.name[0]] = "";
               }
 
-              console.log(tempState["infinitive"] == true);
-              if (tempState["infinitive"] == true) {
+              console.log(tempState["infinitive"] == "true");
+              if (tempState["infinitive"] == "true") {
                 tempState["maxTradeDays"] = 0;
                 tempState["percentDays"] = 0;
               } else {

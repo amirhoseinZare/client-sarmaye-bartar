@@ -94,10 +94,6 @@ function Personal({ userState, setData, data }) {
   const isActiveOptions = useMemo(
     () => [
       {
-        text: "انتخاب کنید",
-        value: "",
-      },
-      {
         text: "ادمین",
         value: "admin",
       },

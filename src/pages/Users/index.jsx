@@ -83,64 +83,64 @@ function Categories() {
     () => [
       {
         title: "نام",
-        dataIndex: "display_name",
         key: "display_name",
+        dataIndex: "display_name",
         render: (name) => name || "-",
       },
       {
         title: "ایمیل",
-        dataIndex: "user_email",
         key: "user_email",
+        dataIndex: "user_email",
         render: (email) => email || "-",
       },
       {
         title: "نام کاربری",
-        dataIndex: "user_login",
         key: "user_login",
+        dataIndex: "user_login",
         render: (username) => username || "-",
       },
       {
         title: "Equity",
-        dataIndex: "equity",
         key: "equity",
+        dataIndex: "equity",
         render: (equity) => equity || "-",
       },
       {
         title: "بالانس",
-        dataIndex: "balance",
         key: "balance",
+        dataIndex: "balance",
         render: (balance) => balance || "-",
       },
       {
         title: "بالانس روز",
-        dataIndex: "dayBalance",
         key: "dayBalance",
+        dataIndex: "dayBalance",
         render: (dayBalance) => dayBalance || "-",
       },
       {
         title: "بالانس اولیه",
-        dataIndex: "firstBalance",
         key: "firstBalance",
+        dataIndex: "firstBalance",
         render: (firstBalance) => firstBalance || "-",
       },
       {
         title: "تعداد روز های مجاز ترید",
-        dataIndex: "maxTradeDays",
         key: "maxTradeDays",
+        dataIndex: "maxTradeDays",
         render: (maxTradeDays) =>
           maxTradeDays || <IoInfiniteSharp className={classes.icons} />,
       },
       {
         title: "Profit Target Percent",
-        dataIndex: "percentDays",
         key: "percentDays",
+        dataIndex: "percentDays",
         render: (percentDays) =>
           percentDays || <IoInfiniteSharp className={classes.icons} />,
       },
       {
         title: "نامحدود",
-        dataIndex: "infinitive",
         key: "infinitive",
+        dataIndex: "infinitive",
         render: (infinitive) =>
           infinitive ? (
             <AiFillCheckCircle className={classes["check-icon"]} />
@@ -150,20 +150,20 @@ function Categories() {
       },
       {
         title: "پلتفرم",
-        dataIndex: "platform",
         key: "platform",
+        dataIndex: "platform",
         render: (platform) => platform || "-",
       },
       {
         title: "نوع اکانت",
-        dataIndex: "accountType",
         key: "accountType",
+        dataIndex: "accountType",
         render: (accountType) => accountType || "-",
       },
       {
         title: "نوع کاربر",
-        dataIndex: "role",
         key: "role",
+        dataIndex: "role",
         render: (role) =>
           role === "admin" ? (
             <Tag color="cyan">ادمین</Tag>
@@ -173,14 +173,14 @@ function Categories() {
       },
       {
         title: "زمان ثبت نام",
-        dataIndex: "user_registered",
         key: "user_registered",
+        dataIndex: "user_registered",
         render: (user_registered) => user_registered || "-",
       },
       {
         title: "توکن",
-        dataIndex: "mtAccessToken",
         key: "mtAccessToken",
+        dataIndex: "mtAccessToken",
         render: (mtAccessToken) =>
           mtAccessToken ? (
             <MdContentCopy
@@ -194,8 +194,8 @@ function Categories() {
       },
       {
         title: "آیدی",
-        dataIndex: "mtAccountId",
         key: "mtAccountId",
+        dataIndex: "mtAccountId",
         render: (mtAccountId) =>
           mtAccountId ? (
             <MdContentCopy
@@ -210,33 +210,35 @@ function Categories() {
       {
         title: "حذف",
         key: "delUser",
-        render: (user) => (
+        render: (userDel) => (
           <MdDelete
             className={classes["close-icon"]}
-            onClick={() => openDeleteModal(user)}
+            onClick={() => openDeleteModal(userDel)}
           />
         ),
       },
       {
         title: "ویرایش",
         key: "editUser",
-        render: (user) => (
-          <BiEdit
-            style={{ color: "#f9ca24" }}
-            className={classes["icons"]}
-            onClick={() => openEditModal(user)}
-          />
-        ),
+        render: (userEdit) => {
+          return (
+            <BiEdit
+              style={{ color: "#f9ca24" }}
+              className={classes["icons"]}
+              onClick={() => openEditModal(userEdit)}
+            />
+          );
+        },
       },
       {
         title: "ورود به پنل کاربر",
         key: "loginToUserPanel",
-        render: (user) => (
+        render: (userAdd) => (
           <AiFillEye
             style={{ color: "#16a085" }}
             className={classes["icons"]}
             onClick={() => {
-              setUserId(user._id);
+              setUserId(userAdd._id);
               navigate("/dashboard");
             }}
           />
@@ -282,6 +284,7 @@ function Categories() {
   }, [filter]);
 
   const openEditModal = (data, step = 0) => {
+    console.log(data);
     dispatch(
       setModal({
         visible: true,
@@ -293,6 +296,7 @@ function Categories() {
             step={step}
             closeModal={() => {
               dispatch(setModal({ visible: false }));
+              getUsersData();
             }}
           />
         ),
@@ -313,6 +317,7 @@ function Categories() {
           <AddUsers
             closeModal={() => {
               dispatch(setModal({ visible: false }));
+              getUsersData();
             }}
           />
         ),

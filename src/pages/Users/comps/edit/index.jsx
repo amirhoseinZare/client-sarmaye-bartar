@@ -57,7 +57,7 @@ const StyledRow = styled(Row)`
 
 const Edit = ({ data, step = 0, closeModal }) => {
   // get user data from redux
-  let user = useSelector((state) => state.user);
+  let user = data;
 
   const [userData, setUserData] = useState({});
 
