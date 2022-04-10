@@ -26,4 +26,8 @@ UsersApi.addUser = function (body) {
   return this.instance.post(`${this.baseApisUrl}`, body);
 };
 
+UsersApi.getUser = function (id, body) {
+  return this.instance.get(`${this.baseApisUrl}/${id}`, body);
+};
+
 export { UsersApi };

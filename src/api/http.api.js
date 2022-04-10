@@ -23,7 +23,6 @@ class Service {
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log("res: ",res)
         const { status } = res;
         if (status >= 400) {
           window.location.pathname = "/404";

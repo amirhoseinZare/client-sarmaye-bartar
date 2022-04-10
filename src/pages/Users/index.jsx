@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Col, Row, message, Modal, Tag } from "antd";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -28,9 +29,13 @@ import {
   AiFillCheckCircle,
   AiFillCloseCircle,
   AiOutlineUserAdd,
+  AiFillEye,
 } from "react-icons/ai";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
+
+// core var
+import { USER_ID_KEY } from "../../core/variables.core";
 
 const { confirm } = Modal;
 
@@ -56,6 +61,7 @@ let copyText = (text) => {
 
 function Categories() {
   let user = useSelector((state) => state.user);
+  let navigate = useNavigate();
 
   const dispatch = useDispatch();
   const [state, setState] = useState({
@@ -222,6 +228,20 @@ function Categories() {
           />
         ),
       },
+      {
+        title: "ورود به پنل کاربر",
+        key: "loginToUserPanel",
+        render: (user) => (
+          <AiFillEye
+            style={{ color: "#16a085" }}
+            className={classes["icons"]}
+            onClick={() => {
+              setUserId(user._id);
+              navigate("/dashboard");
+            }}
+          />
+        ),
+      },
     ],
     [state.rows]
   );
@@ -232,6 +252,10 @@ function Categories() {
       pageNumber: current,
       pageSize,
     }));
+  };
+
+  const setUserId = (id) => {
+    localStorage.setItem(USER_ID_KEY, id);
   };
 
   const getUsersData = async () => {
