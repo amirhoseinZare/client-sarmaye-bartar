@@ -153,6 +153,10 @@ function AccountData({ userState, setData, data }) {
         text: accountType["TCBridge-Demo"],
         value: accountType["TCBridge-Demo"],
       },
+      {
+        text: 'هیچکدام',
+        value: accountType["-"],
+      },
     ],
     []
   );
@@ -166,6 +170,10 @@ function AccountData({ userState, setData, data }) {
       {
         text: "MT5",
         value: "MT5",
+      },
+      {
+        text: 'هیچکدام',
+        value: "-",
       },
     ],
     []
