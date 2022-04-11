@@ -66,13 +66,15 @@ const FormStyled = styled(Form)`
   }
 `;
 
-const numberRegex = new RegExp(/^[0-9]/);
+const numberRegex = new RegExp(/^[0-9]*$/);
 
 function AccountData({ userState, setData, data }) {
   const [state, setState] = useState({
     loading: false,
     fetching: false,
   });
+
+  let inputNum = ["firstBalance", "maxTradeDays", "percentDays"];
 
   const [fields, setFields] = useState([
     {
@@ -107,10 +109,6 @@ function AccountData({ userState, setData, data }) {
 
   const accountTypes = useMemo(
     () => [
-      {
-        text: "انتخاب کنید",
-        value: "",
-      },
       {
         text: accountType["Alpari-mt5-demo"],
         value: accountType["Alpari-mt5-demo"],
@@ -225,7 +223,32 @@ function AccountData({ userState, setData, data }) {
       size="large"
       fields={fields}
       onFieldsChange={(_, allFields) => {
-        setFields(allFields);
+        let tempFields = allFields;
+
+        tempFields.map((field, index) => {
+          let fieldName = field.name[0];
+
+          if (inputNum.includes(fieldName)) {
+            if (Number(field.value)) {
+              tempFields[index].value = Number(field.value);
+            } else {
+              tempFields[index].value = fields[index].value;
+            }
+
+          } else {
+            tempFields[index].value = field.value;
+          }
+          
+          if (fieldName === "infinitive" && field.value == "true") {
+            // tempFields["maxTradeDays"] = 0; =>
+            tempFields[1].value = 0;
+
+            // tempFields["percentDays"] = 0; =>
+            tempFields[2].value = 0;
+          }
+        });
+
+        setFields(tempFields);
       }}
     >
       <Col className="form-input" span={24} sm={12} md={8}>
@@ -322,7 +345,7 @@ function AccountData({ userState, setData, data }) {
       </Col>
 
       <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item label="تاریخ شروع" name="">
+        <Form.Item label="تاریخ شروع" name="startTradeDay">
           <DatePicker />
         </Form.Item>
       </Col>

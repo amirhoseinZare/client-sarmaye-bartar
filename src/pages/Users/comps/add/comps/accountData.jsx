@@ -66,7 +66,7 @@ const FormStyled = styled(Form)`
   }
 `;
 
-const numberRegex = new RegExp(/^[0-9]/);
+const numberRegex = new RegExp(/^[0-9]*$/);
 
 function AccountData({ userState, setData }) {
   const [state, setState] = useState({
@@ -212,33 +212,26 @@ function AccountData({ userState, setData }) {
         setFields(allFields);
 
         let tempState = { ...userState };
-        
-        console.log(tempState)
-        console.log(allFields)
 
         fields.map((field) => {
-          if (userState[field.name[0]] !== field.value) {
+          if (tempState[field.name[0]] !== field.value) {
             let fieldName = field.name[0];
+
             if (inputNum.includes(fieldName)) {
-              
               if (Number(field.value)) {
                 tempState[field.name[0]] = Number(field.value);
               } else {
                 tempState[field.name[0]] = "";
               }
-
-              console.log(tempState["infinitive"] == "true");
-              if (tempState["infinitive"] == "true") {
-                tempState["maxTradeDays"] = 0;
-                tempState["percentDays"] = 0;
-              } else {
-                delete tempState["maxTradeDays"];
-                delete tempState["percentDays"];
-              }
             } else {
               tempState[field.name[0]] = field.value;
             }
-            console.log(tempState);
+
+            if (tempState["infinitive"] == "true") {
+              tempState["maxTradeDays"] = 0;
+              tempState["percentDays"] = 0;
+            }
+
             setData(tempState);
           }
         });
