@@ -273,7 +273,7 @@ function Categories() {
     } else {
       setState((s) => ({
         ...s,
-        totalCount: response.result.items.length,
+        totalCount: response.result.totalCount,
         rows: response.result.items,
       }));
     }
