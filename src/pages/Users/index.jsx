@@ -36,6 +36,7 @@ import { BiEdit } from "react-icons/bi";
 
 // core var
 import { USER_ID_KEY } from "../../core/variables.core";
+import Filters from "./comps/filters"
 
 const { confirm } = Modal;
 
@@ -263,7 +264,7 @@ function Categories() {
   const getUsersData = async () => {
     setState((s) => ({ ...s, loading: true }));
 
-    let response = await UsersApi.all(filter.pageSize, filter.pageNumber);
+    let response = await UsersApi.all(filter.pageSize, filter.pageNumber, filter.user_email);
 
     setState((s) => ({ ...s, loading: false }));
 
@@ -363,9 +364,11 @@ function Categories() {
           xl={22}
           className={classes.titleBox}
         >
+          
           <h2>لیست کاربران</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
+          <Filters setFilter={setFilter} filter={filter}/>
           <CustomeTable
             columns={columns}
             rows={state.rows}

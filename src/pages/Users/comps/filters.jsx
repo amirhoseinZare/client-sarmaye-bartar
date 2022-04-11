@@ -81,35 +81,24 @@ const FormStyled = styled(Form)`
 
 const Filter = ({setFilter, filter, search})=>{
     const fields = useMemo(()=>({
-        name:'', description:'', isActive:''
+        user_email:''
     }), [])
     // console.log(input)
     const onFinish = (model)=>{
-        setFilter({...filter, ...model})
+        console.log(model, fields)
+        let pageNumber = filter.pageNumber
+        if(model.user_email)
+            pageNumber = 1
+        setFilter({...filter, ...model, pageNumber})
     }
     const onFinishFailed = ()=>{
 
     }
-
-    const isActiveOptions = useMemo(()=>[
-        {
-            text:'t("general.pleaseSelect")',
-            value:""
-        },
-        {
-            text:'t("general.yes")',
-            value:true
-        },
-        {
-            text:'t("general.no")',
-            value:false
-        },
-    ], [])
     
     return (
-        <StyledCol xs={20} sm={20} md={20} lg={20} xl={20}>
+        <StyledCol xs={24} sm={24} md={24} lg={24} xl={24}>
             <Collapse defaultActiveKey={['1']}>
-                <Panel header={'t("general.filters")'} key="2">
+                <Panel header={'فیلتر'} key="2">
                     <FormStyled 
                         span={24}
                         name="login"
@@ -121,42 +110,19 @@ const Filter = ({setFilter, filter, search})=>{
                     >
                         <Col className="form-input" span={24} sm={12} md={8}>
                             <Form.Item
-                                label={'t("category.name")'}
-                                name="name"
+                                label={'ایمیل'}
+                                name="user_email"
                                 rules={[]}
                                 // value={input.name}
                             >
                                 <Input />
                             </Form.Item>
                         </Col>
-                        
-                        <Col className="form-input" span={24} sm={12} md={8}>
-                            <Form.Item
-                                label={'t("category.description")'}
-                                name="description"
-                                rules={[]}
-                                // value={input.description}
-                            >
-                                <Input   />
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={8} >
-                            <Form.Item
-                                label={'t("category.isActive")'}
-                                name="isActive"
-                                rules={[]}
-                            >
-                                <Select className="">
-                                    {isActiveOptions.map(item=><Option key={item.value} value={item.value}>{item.text}</Option>)}
-                                </Select>
-                            </Form.Item>
-                        </Col>
-
+                
                         <Col className="button-container" span={24}>
                             <Col span={24} sm={12} md={8} className="button-col">
                                 <Button className="edit-button" block type="primary" htmlType="submit" loading={false}>
-                                    {'t("button.search")'}
+                                    {"جستجو"}
                                 </Button>
                             </Col>
                         </Col>

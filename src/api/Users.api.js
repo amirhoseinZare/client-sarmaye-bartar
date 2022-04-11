@@ -8,9 +8,9 @@ UsersApi.post = null;
 UsersApi.patch = null;
 UsersApi.delete = null;
 
-UsersApi.all = function (pageSize, pageNumber) {
+UsersApi.all = function (pageSize, pageNumber, user_email="") {
   return this.instance.get(
-    `${this.baseApisUrl}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+    `${this.baseApisUrl}?pageSize=${pageSize}&pageNumber=${pageNumber}&user_email=${user_email}`
   );
 };
 
