@@ -9,6 +9,14 @@ import PrivateRoute from "./comps/PrivateRoute";
 import { useEffect, useState } from "react";
 import { AuthApi } from "./api";
 import { setAuth } from "./redux/actions/auth";
+import openSocket from 'socket.io-client';
+import { addAlert } from "./redux/actions/alert"
+
+const socket = openSocket('http://localhost:3000');
+socket.on("alert", (data)=>{
+  console.log(data)
+  addAlert(JSON.parse(atob(data)))
+})
 
 function App() {
   const { pathname } = useLocation();
