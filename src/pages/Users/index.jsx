@@ -36,7 +36,8 @@ import { BiEdit } from "react-icons/bi";
 
 // core var
 import { USER_ID_KEY } from "../../core/variables.core";
-import Filters from "./comps/filters"
+import Filters from "./comps/filters";
+import Ranking from "../../comps/Ranking";
 
 const { confirm } = Modal;
 
@@ -70,10 +71,6 @@ function Categories() {
     totalCount: 10,
     loading: false,
   });
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   const [filter, setFilter] = useState({
     pageNumber: 1,
@@ -264,7 +261,11 @@ function Categories() {
   const getUsersData = async () => {
     setState((s) => ({ ...s, loading: true }));
 
-    let response = await UsersApi.all(filter.pageSize, filter.pageNumber, filter.user_email);
+    let response = await UsersApi.all(
+      filter.pageSize,
+      filter.pageNumber,
+      filter.user_email
+    );
 
     setState((s) => ({ ...s, loading: false }));
 
@@ -364,11 +365,10 @@ function Categories() {
           xl={22}
           className={classes.titleBox}
         >
-          
           <h2>لیست کاربران</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-          <Filters setFilter={setFilter} filter={filter}/>
+          <Filters setFilter={setFilter} filter={filter} />
           <CustomeTable
             columns={columns}
             rows={state.rows}
@@ -386,6 +386,19 @@ function Categories() {
           <div className={classes["icon-box"]} onClick={openAddModal}>
             <AiOutlineUserAdd className={classes["add-user-icon"]} />
           </div>
+        </Col>
+        <Col
+          xs={22}
+          sm={22}
+          md={22}
+          lg={22}
+          xl={22}
+          className={classes.titleBox}
+        >
+          <h2 style={{ marginTop: "100px" }}>برترین کاربران</h2>
+        </Col>
+        <Col xs={23} sm={23} md={23} lg={23} xl={23}>
+          <Ranking />
         </Col>
       </StyledRow>
     </div>
