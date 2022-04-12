@@ -18,7 +18,7 @@ import { ImInfinite } from "react-icons/im";
 import { USER_ID_KEY } from "../../core/variables.core";
 import { UsersApi } from "../../api/Users.api";
 
-import Ranking from "../../comps/Ranking";
+import Ranking from "../../comps/Ranking/Ranking";
 
 const Dashboard = () => {
   const userData = useSelector((store) => store.user);
@@ -405,16 +405,16 @@ const Dashboard = () => {
           </Row>
           <Row className={classes.row}>
             <Col
-              xs={22}
-              sm={22}
-              md={22}
-              lg={22}
-              xl={22}
+              xs={23}
+              sm={23}
+              md={20}
+              lg={20}
+              xl={20}
               className={classes.titleBox}
             >
               <h2 style={{ marginTop: "100px" }}>برترین کاربران</h2>
             </Col>
-            <Col xs={23} sm={23} md={23} lg={23} xl={23}>
+            <Col xs={23} sm={23} md={20} lg={20} xl={20}>
               <Ranking />
             </Col>
           </Row>

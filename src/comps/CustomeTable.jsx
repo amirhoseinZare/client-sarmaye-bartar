@@ -5,8 +5,8 @@ const StyledTable = styled(Table)`
   color: rgba(99, 106, 120, 1);
   border-radius: 12px !important;
   border-radius: 10px 8px 8px 10px;
-  overflow:hidden;
-  
+  overflow: hidden;
+
   .table {
     border-radius: 10px 8px 8px 10px;
   }

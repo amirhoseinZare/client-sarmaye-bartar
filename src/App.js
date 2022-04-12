@@ -22,7 +22,7 @@ function App() {
   const { pathname } = useLocation();
   const loading = useSelector((store) => store.loading.status);
 
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.nuser);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(null);
 

@@ -1,13 +1,17 @@
 import { message } from "antd";
 import React, { useState, useEffect, useMemo } from "react";
-import { RankingApi } from "../api/index";
-import CustomTable from "../comps/CustomeTable";
+import { RankingApi } from "../../api/index";
+import CustomTable from "../CustomeTable";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
-import classes from "../pages/Users/style.module.scss";
-import { USER_ID_KEY } from "../core/variables.core";
+import classes from "../../pages/Users/style.module.scss";
+import { USER_ID_KEY } from "../../core/variables.core";
+
+// import icon and pic
 import { AiFillEye } from "react-icons/ai";
-// .ant-table-tbody
+import first from "../../assets/1.png";
+import twice from "../../assets/2.png";
+import third from "../../assets/3.png";
 
 const Ranking = () => {
   let user = useSelector((state) => state.user);
@@ -42,7 +46,23 @@ const Ranking = () => {
         title: "رتبه",
         key: "rank",
         dataIndex: "rank",
-        render: (rank) => rank || "-",
+        render: (rank) => {
+          if (rank <= 3) {
+            switch (rank) {
+              case 1:
+                return <img className={classes.imageTable} src={first} />;
+                break;
+              case 2:
+                return <img className={classes.imageTable} src={twice} />;
+                break;
+              case 2:
+                return <img className={classes.imageTable} src={third} />;
+                break;
+            }
+          } else {
+            return rank || "-";
+          }
+        },
       },
       {
         title: "نام",
@@ -93,7 +113,23 @@ const Ranking = () => {
         title: "رتبه",
         key: "rank",
         dataIndex: "rank",
-        render: (rank) => rank || "-",
+        render: (rank) => {
+          if (rank <= 3) {
+            switch (rank) {
+              case 1:
+                <img className={classes.imageTable} src={first} />;
+                break;
+              case 2:
+                <img className={classes.imageTable} src={twice} />;
+                break;
+              case 2:
+                <img className={classes.imageTable} src={third} />;
+                break;
+            }
+          } else {
+            return rank || "-";
+          }
+        },
       },
       {
         title: "نام",
@@ -124,8 +160,7 @@ const Ranking = () => {
 
     setState((s) => ({ ...s, loading: false }));
 
-    // if (!response.success) {
-    if (false) {
+    if (!response.success) {
       message.error(response.message);
       return;
     } else {

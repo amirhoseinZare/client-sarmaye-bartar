@@ -37,7 +37,7 @@ import { BiEdit } from "react-icons/bi";
 // core var
 import { USER_ID_KEY } from "../../core/variables.core";
 import Filters from "./comps/filters";
-import Ranking from "../../comps/Ranking";
+import Ranking from "../../comps/Ranking/Ranking";
 
 const { confirm } = Modal;
 
