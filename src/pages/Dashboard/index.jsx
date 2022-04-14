@@ -24,6 +24,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 
 // variables
 import { USER_ID_KEY } from "../../core/variables.core";
+import DataBox from "./comps/DataBox.component";
 
 const Dashboard = () => {
   const userData = useSelector((store) => store.user);
@@ -322,83 +323,10 @@ const Dashboard = () => {
               </div>
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={7} lg={6}>
-              <div className={classes.container2}>
-                <h2>{user.user_login}</h2>
-                <div style={{ width: "100%", margin: "0 auto" }}>
-                  <Divider
-                    style={{
-                      borderColor: "rgb(177 177 177 / 40%)",
-                      width: "50%",
-                      marginBottom: 15,
-                      marginTop: 15,
-                    }}
-                  />
-                  <div className={classes.body}>
-                    <div className={classes.item}>
-                      <div>
-                        {user.startTradeDay
-                          ? user.startTradeDay.slice(0, 10)
-                          : "-"}
-                      </div>
-                      <div>start</div>
-                    </div>
-                    <Divider
-                      style={{
-                        borderColor: "rgb(177 177 177 / 40%)",
-                        width: "50%",
-                        marginBottom: 15,
-                        marginTop: 15,
-                      }}
-                    />
-                    <div className={classes.item}>
-                      <div>
-                        {user.endTradeDay ? user.endTradeDay.slice(0, 10) : "-"}
-                      </div>
-                      <div>end</div>
-                    </div>
-                    <Divider
-                      style={{
-                        borderColor: "rgb(177 177 177 / 40%)",
-                        width: "50%",
-                        marginBottom: 15,
-                        marginTop: 15,
-                      }}
-                    />
-                    <div className={classes.item}>
-                      <div>Sarmaye gozar bartar</div>
-                      <div>Provider</div>
-                    </div>
-                    <Divider
-                      style={{
-                        borderColor: "rgb(177 177 177 / 40%)",
-                        width: "50%",
-                        marginBottom: 15,
-                        marginTop: 15,
-                      }}
-                    />
-                    <div className={classes.item}>
-                      <div>{user.accountType}</div>
-                      <div>Account Type</div>
-                    </div>
-                    <Divider
-                      style={{
-                        borderColor: "rgb(177 177 177 / 40%)",
-                        width: "50%",
-                        marginBottom: 15,
-                        marginTop: 15,
-                      }}
-                    />
-                    <div className={classes.item}>
-                      <div>{user.platform}</div>
-                      <div>Platform</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <DataBox classes={classes} user={user} />
             </Col>
           </Row>
           <Row className={classes.row}>
-            {console.log("test")}
             <Col
               xs={23}
               sm={23}
