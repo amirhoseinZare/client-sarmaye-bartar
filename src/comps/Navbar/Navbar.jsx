@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { TOKEN_LOCAL_KEY } from "../../core/variables.core";
 import { IoMdNotifications } from "react-icons/io";
-import { Badge } from "antd";
+
+// antd
+import { Badge, Menu, Dropdown } from "antd";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -17,6 +19,41 @@ const Navbar = () => {
     localStorage.removeItem(TOKEN_LOCAL_KEY);
     navigate("/login");
   };
+
+  let alert = useSelector((state) => state.alert);
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          1st menu item
+        </a>
+      </Menu.Item>
+      <Menu.Item>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.aliyun.com"
+        >
+          2nd menu item
+        </a>
+      </Menu.Item>
+      <Menu.Item>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.luohanacademy.com"
+        >
+          3rd menu item
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className={classes.nav}>
       <div className={classes.trader}>
@@ -27,9 +64,16 @@ const Navbar = () => {
         <img src={logo} alt="" />
       </div>
       <div className={classes.iconBox}>
-        <Badge count={5} offset={[38, 25]} size="small" showZero={false}>
-          <IoMdNotifications className={classes.icon} />
-        </Badge>
+        <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
+          <Badge
+            count={alert.length}
+            offset={[38, 25]}
+            size="small"
+            showZero={false}
+          >
+            <IoMdNotifications className={classes.icon} />
+          </Badge>
+        </Dropdown>
         <FaPowerOff onClick={logout} className={classes.icon} />
       </div>
     </div>
