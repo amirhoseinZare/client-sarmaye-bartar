@@ -1,11 +1,12 @@
 import React from "react";
 import classes from "./Navbar.module.scss";
-import traderImg from "../assets/trader.jpg";
-import logo from "../assets/logo.svg";
+import "./customAntd.scss";
+import traderImg from "../../assets/trader.jpg";
+import logo from "../../assets/logo.svg";
 import { FaPowerOff } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { TOKEN_LOCAL_KEY } from "../core/variables.core";
+import { TOKEN_LOCAL_KEY } from "../../core/variables.core";
 import { IoMdNotifications } from "react-icons/io";
 import { Badge } from "antd";
 
@@ -26,8 +27,8 @@ const Navbar = () => {
         <img src={logo} alt="" />
       </div>
       <div className={classes.iconBox}>
-        <Badge count={5}>
-          <IoMdNotifications className={classes.icon} offset={[10, 10]} />
+        <Badge count={5} offset={[38, 25]} size="small" showZero={false}>
+          <IoMdNotifications className={classes.icon} />
         </Badge>
         <FaPowerOff onClick={logout} className={classes.icon} />
       </div>

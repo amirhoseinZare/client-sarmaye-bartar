@@ -3,7 +3,7 @@ import { Row, Col, message } from "antd";
 import { Line } from "@ant-design/plots";
 import { Divider } from "antd";
 import classes from "./Dashboard.module.scss";
-import Navbar from "../../comps/Navbar";
+import Navbar from "../../comps/Navbar/Navbar";
 
 // api
 import { DashboardApi } from "../../api";
@@ -14,7 +14,6 @@ import { Skeleton } from "antd";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { IoMdCloseCircle } from "react-icons/io";
-import { ImInfinite } from "react-icons/im";
 import { USER_ID_KEY } from "../../core/variables.core";
 import { UsersApi } from "../../api/Users.api";
 

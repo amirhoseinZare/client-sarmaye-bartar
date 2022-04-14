@@ -15,7 +15,7 @@ import { UsersApi } from "../../api/Users.api";
 import CustomeTable from "../../comps/CustomeTable";
 import Edit from "./comps/edit";
 import AddUsers from "./comps/add";
-import Navbar from "../../comps/Navbar";
+import Navbar from "../../comps/Navbar/Navbar";
 // import Filter from "./comps/filters";
 
 // style file
