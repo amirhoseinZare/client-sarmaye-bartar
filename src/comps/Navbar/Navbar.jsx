@@ -13,71 +13,62 @@ import { IoMdNotifications } from "react-icons/io";
 import { Badge, Menu, Dropdown } from "antd";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
-  const logout = () => {
-    localStorage.removeItem(TOKEN_LOCAL_KEY);
-    navigate("/login");
-  };
+	const navigate = useNavigate();
+	const user = useSelector((store) => store.user);
+	const logout = () => {
+		localStorage.removeItem(TOKEN_LOCAL_KEY);
+		navigate("/login");
+	};
 
-  let alert = useSelector((state) => state.alert);
+	let alert = useSelector((state) => state.alert);
 
-  const menu = (
-    <Menu>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          1st menu item
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          2nd menu item
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          3rd menu item
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
+	const menu = (
+		<Menu>
+			{alert.map((item) => {
+				return (
+					<Menu.Item key={item.id}>
+						<h3>{item.title}</h3>
+						<p>{item.message}</p>
+					</Menu.Item>
+				);
+			})}
+		</Menu>
+	);
 
-  return (
-    <div className={classes.nav}>
-      <div className={classes.trader}>
-        <img src={traderImg} alt="" />
-        <h3>{user.display_name}</h3>
-      </div>
-      <div className={classes.logo}>
-        <img src={logo} alt="" />
-      </div>
-      <div className={classes.iconBox}>
-        <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
-          <Badge
-            count={alert.length}
-            offset={[38, 25]}
-            size="small"
-            showZero={false}
-          >
-            <IoMdNotifications className={classes.icon} />
-          </Badge>
-        </Dropdown>
-        <FaPowerOff onClick={logout} className={classes.icon} />
-      </div>
-    </div>
-  );
+	return (
+		<div className={classes.nav}>
+			<div className={classes.trader}>
+				<img src={traderImg} alt='' />
+				<h3>{user.display_name}</h3>
+			</div>
+			<div className={classes.logo}>
+				<img src={logo} alt='' />
+			</div>
+			<div className={classes.iconBox}>
+				{alert.length === 0 ? (
+					<Badge
+						count={alert.length}
+						offset={[38, 25]}
+						size='small'
+						showZero={false}>
+						<IoMdNotifications className={classes.icon} />
+					</Badge>
+				) : (
+					<Dropdown overlay={menu} placement='bottomRight' trigger={["click"]}>
+						<Badge
+							count={alert.length}
+							offset={[38, 25]}
+							size='small'
+							showZero={false}>
+							<IoMdNotifications className={classes.icon} />
+						</Badge>
+					</Dropdown>
+				)}
+
+				<FaPowerOff onClick={logout} className={classes.icon} />
+			</div>
+		</div>
+	);
 };
 
 export default Navbar;
