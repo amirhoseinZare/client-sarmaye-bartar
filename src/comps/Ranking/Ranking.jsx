@@ -117,13 +117,13 @@ const Ranking = () => {
           if (rank <= 3) {
             switch (rank) {
               case 1:
-                <img className={classes.imageTable} src={first} />;
+                return <img className={classes.imageTable} src={first} />;
                 break;
               case 2:
-                <img className={classes.imageTable} src={twice} />;
+                return <img className={classes.imageTable} src={twice} />;
                 break;
               case 2:
-                <img className={classes.imageTable} src={third} />;
+                return <img className={classes.imageTable} src={third} />;
                 break;
             }
           } else {

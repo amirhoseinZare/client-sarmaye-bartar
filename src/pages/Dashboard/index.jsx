@@ -1,23 +1,29 @@
+// packages
 import React, { useState, useEffect } from "react";
-import { Row, Col, message } from "antd";
-import { Line } from "@ant-design/plots";
-import { Divider } from "antd";
+import { Row, Col, message, Skeleton, Divider } from "antd";
+
+// css
 import classes from "./Dashboard.module.scss";
+
+// comps
 import Navbar from "../../comps/Navbar/Navbar";
+import Ranking from "../../comps/Ranking/Ranking";
+import CurrentResults from "./comps/CurrentResults.component";
 
 // api
 import { DashboardApi } from "../../api";
+import { UsersApi } from "../../api/Users.api";
 
 // redux
 import { useSelector } from "react-redux";
-import { Skeleton } from "antd";
+
+// icon
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { IoMdCloseCircle } from "react-icons/io";
-import { USER_ID_KEY } from "../../core/variables.core";
-import { UsersApi } from "../../api/Users.api";
 
-import Ranking from "../../comps/Ranking/Ranking";
+// variables
+import { USER_ID_KEY } from "../../core/variables.core";
 
 const Dashboard = () => {
   const userData = useSelector((store) => store.user);
@@ -131,22 +137,11 @@ const Dashboard = () => {
           <Navbar />
           <Row className={classes.row}>
             <Col className={classes.col} xs={23} sm={23} md={20} lg={20}>
-              <div className={classes.container}>
-                <h2>Current Results</h2>
-                <Divider
-                  style={{
-                    borderColor: "rgb(177 177 177 / 40%)",
-                    width: "50%",
-                    marginBottom: 30,
-                    marginTop: 20,
-                  }}
-                />
-                {loading ? (
-                  <Skeleton active title={false} paragraph={{ rows: 12 }} />
-                ) : (
-                  <Line {...config} />
-                )}
-              </div>
+              <CurrentResults
+                config={config}
+                loading={loading}
+                classes={classes}
+              />
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={11} lg={12}>
               <div className={classes.container3}>
