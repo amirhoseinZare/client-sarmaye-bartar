@@ -1,7 +1,10 @@
+import React from "react";
 import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Form, Input, Button, Col, Select, DatePicker } from "antd";
 import { accountType } from "../../../../../core/enums";
+import moment from "moment";
+
 const { Option } = Select;
 
 const FormStyled = styled(Form)`
@@ -66,7 +69,9 @@ const FormStyled = styled(Form)`
   }
 `;
 
-const numberRegex = new RegExp(/^[0-9]*$/);
+const numberRegex = new RegExp(/^[۱۲۳۴۵۶۷۸۹۰0-9]*$/);
+const p2e = (s) =>
+  s?.toString().replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
 function AccountData({ userState, setData, data }) {
   const [state, setState] = useState({
@@ -154,7 +159,7 @@ function AccountData({ userState, setData, data }) {
         value: accountType["TCBridge-Demo"],
       },
       {
-        text: 'هیچکدام',
+        text: "هیچکدام",
         value: accountType["-"],
       },
     ],
@@ -172,7 +177,7 @@ function AccountData({ userState, setData, data }) {
         value: "MT5",
       },
       {
-        text: 'هیچکدام',
+        text: "هیچکدام",
         value: "-",
       },
     ],
@@ -219,14 +224,26 @@ function AccountData({ userState, setData, data }) {
     setFields(newFields);
   }, [data]);
 
-  const onFinish = () => {};
+  const setDate = (e) => {
+    let tempFields = fields.map((item) => {
+      if (item.name[0] === "startTradeDay") {
+        return {
+          name: [item.name[0]],
+          value: e,
+        };
+      } else {
+        return item;
+      }
+    });
+
+    setFields(tempFields);
+  };
 
   return (
     <FormStyled
       span={24}
       name="login"
       layout="vertical"
-      onFinish={onFinish}
       autoComplete="off"
       size="large"
       fields={fields}
@@ -237,16 +254,15 @@ function AccountData({ userState, setData, data }) {
           let fieldName = field.name[0];
 
           if (inputNum.includes(fieldName)) {
-            if (Number(field.value)) {
-              tempFields[index].value = Number(field.value);
+            if (Number(p2e(field.value)) >= 0) {
+              tempFields[index].value = Number(p2e(field.value));
             } else {
               tempFields[index].value = fields[index].value;
             }
-
           } else {
             tempFields[index].value = field.value;
           }
-          
+
           if (fieldName === "infinitive" && field.value == "true") {
             // tempFields["maxTradeDays"] = 0; =>
             tempFields[1].value = 0;
@@ -351,11 +367,11 @@ function AccountData({ userState, setData, data }) {
           </Select>
         </Form.Item>
       </Col>
-
       <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item label="تاریخ شروع" name="startTradeDay">
-          <DatePicker />
-        </Form.Item>
+        <DatePicker
+          defaultValue={moment(userState?.startTradeDay)}
+          onChange={setDate}
+        />
       </Col>
     </FormStyled>
   );

@@ -133,7 +133,7 @@ function Personal({ userState, setData }) {
         value: userState[fieldName],
       });
     }
-    console.log(newFields);
+
     setFields(newFields);
   }, [userState]);
 

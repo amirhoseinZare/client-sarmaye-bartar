@@ -66,7 +66,9 @@ const FormStyled = styled(Form)`
   }
 `;
 
-const numberRegex = new RegExp(/^[0-9]*$/);
+const numberRegex = new RegExp(/^[۱۲۳۴۵۶۷۸۹۰0-9]*$/);
+const p2e = (s) =>
+  s?.toString().replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
 function AccountData({ userState, setData }) {
   const [state, setState] = useState({
@@ -154,7 +156,7 @@ function AccountData({ userState, setData }) {
         value: accountType["TCBridge-Demo"],
       },
       {
-        text: 'هیچکدام',
+        text: "هیچکدام",
         value: accountType["-"],
       },
     ],
@@ -172,7 +174,7 @@ function AccountData({ userState, setData }) {
         value: "MT5",
       },
       {
-        text: 'هیچکدام',
+        text: "هیچکدام",
         value: accountType["-"],
       },
     ],
@@ -226,8 +228,8 @@ function AccountData({ userState, setData }) {
             let fieldName = field.name[0];
 
             if (inputNum.includes(fieldName)) {
-              if (Number(field.value)) {
-                tempState[field.name[0]] = Number(field.value);
+              if (Number(p2e(field.value)) >= 0) {
+                tempState[field.name[0]] = Number(p2e(field.value));
               } else {
                 tempState[field.name[0]] = "";
               }
