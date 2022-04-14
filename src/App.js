@@ -13,16 +13,14 @@ import openSocket from 'socket.io-client';
 import { setAlert } from "./redux/actions/alert"
 
 const socket = openSocket('http://localhost:3000');
-socket.on("alert", (data)=>{
-  console.log(data)
-  setAlert(JSON.parse(atob(data)))
-})
+
 
 function App() {
   const { pathname } = useLocation();
   const loading = useSelector((store) => store.loading.status);
 
   const user = useSelector((store) => store.nuser);
+  const userState = useSelector((state)=> state.user)
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(null);
 
@@ -35,6 +33,17 @@ function App() {
       });
     }
   }, []);
+
+  console.log(userState, user)
+  socket.on("alert", (data)=>{
+    const pushData = JSON.parse(atob(data))
+    if(userState){
+      if(userState._id.toString() === pushData.userId.toString() || userState.role==="admin"){
+        dispatch(setAlert(pushData))
+        console.log('added', pushData.userId, userState._id)
+      }
+    }
+  })
 
   return (
     <div className="App">
