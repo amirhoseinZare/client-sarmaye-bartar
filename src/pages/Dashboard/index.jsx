@@ -404,6 +404,7 @@ const Dashboard = () => {
             </Col>
           </Row>
           <Row className={classes.row}>
+            {console.log("test")}
             <Col
               xs={23}
               sm={23}

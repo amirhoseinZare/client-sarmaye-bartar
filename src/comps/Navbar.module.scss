@@ -32,7 +32,7 @@
         width: 45px;
         height: 45px;
         margin-left: 10px;
-		margin-right: 12px;
+        margin-right: 12px;
       }
       h3 {
         font-size: 16px;
@@ -44,8 +44,14 @@
         height: 250px;
       }
     }
-    .icon {
-      font-size: 22px;
+    .iconBox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .icon {
+        font-size: 22px;
+        margin: 0 12px;
+      }
     }
   }
 }
@@ -100,13 +106,13 @@
   // }
   .icon {
     color: #ffb629;
-	margin-left: 10px;
-  cursor: pointer;
+    margin-left: 10px;
+    cursor: pointer;
   }
 }
 
-@media (max-width:550px){
-	.logo{
-		display: none;
-	}
+@media (max-width: 550px) {
+  .logo {
+    display: none;
+  }
 }
