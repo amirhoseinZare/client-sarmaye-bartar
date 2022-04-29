@@ -310,7 +310,7 @@ const Dashboard = () => {
                       </div>
                       <div className={classes.text}>
                         <p>
-                          Profit Target {objectives["profitTarget"].percentDays} {objectives["profitTarget"].percentDays && "%"} (
+                          Profit Target {objectives["profitTarget"]?.percentDays} {objectives["profitTarget"]?.percentDays && "%"} (
                           {+objectives["profitTarget"]?.firstBalance *
                             (1 +
                               +objectives["profitTarget"]?.percentDays / 100)}

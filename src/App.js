@@ -12,8 +12,9 @@ import { setAuth } from "./redux/actions/auth";
 import openSocket from 'socket.io-client';
 import { setAlert } from "./redux/actions/alert"
 
-const socket = openSocket('http://localhost:3000');
 
+// const socket = openSocket('http://localhost:3000');
+const socket = openSocket("https://dashboard-sb.iran.liara.run")
 
 function App() {
   const { pathname } = useLocation();
