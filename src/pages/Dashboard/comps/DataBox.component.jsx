@@ -42,7 +42,7 @@ const DataBox = ({ classes, user }) => {
             }}
           />
           <div className={classes.item}>
-            <div>Sarmaye gozar bartar</div>
+            <div>Sarmayegozare Bartar</div>
             <div>Provider</div>
           </div>
           <Divider

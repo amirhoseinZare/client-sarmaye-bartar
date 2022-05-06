@@ -23,7 +23,8 @@ const alertReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case alertTypes.ADD_ALERT: {
       const { time, message, title, type } = action.payload;
-
+      if(state.length==10)
+        state.shift()
       return [
         ...state,
         {

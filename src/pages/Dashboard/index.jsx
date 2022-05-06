@@ -1,5 +1,5 @@
 // packages
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col, message, Skeleton, Divider } from "antd";
 
 // css
@@ -25,6 +25,9 @@ import { IoMdCloseCircle } from "react-icons/io";
 // variables
 import { USER_ID_KEY } from "../../core/variables.core";
 import DataBox from "./comps/DataBox.component";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Line } from 'react-chartjs-2';
+ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend );
 
 const Dashboard = () => {
   const userData = useSelector((store) => store.user);
@@ -74,62 +77,32 @@ const Dashboard = () => {
     });
   };
 
-  const config = {
-    data,
-    padding: "auto",
-    xField: "trades",
-    yField: "equity",
-    xAxis: {
-      tickCount: 5,
+  const options = useMemo(()=>({
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
       title: {
-        text: "Number of trades",
-        style: {
-          fontSize: 16,
-        },
+        display: true,
+        text: 'Chart.js Line Chart',
       },
     },
-    yAxis: {
-      tickCount: 15,
-      min: 0,
-      //  max: 5000,
-      // 文本标签
-      title: {
-        text: "Balance",
-        style: {
-          fontSize: 16,
-        },
+  }), [])
+
+  const labels = useMemo(()=>data.map(item=>item.trades), [data])
+  const dataSet = useMemo(()=>({
+    labels,
+    datasets: [
+      {
+        label: 'equity by trades',
+        data: data.map(item=>item.equity),
+        borderColor: 'rgb(25, 144, 255)',
+        backgroundColor: 'rgba(25, 144, 255, 0.5)',
       },
-      // 坐标轴线的配置项 null 表示不展示
-    },
-    // annotations: [
-    // 	// 低于中位数颜色变化
-    // 	{
-    // 		type: "regionFilter",
-    // 		start: ["min", "median"],
-    // 		end: ["max", "0"],
-    // 		color: "#F4664A",
-    // 	},
-    // 	{
-    // 		type: "text",
-    // 		position: ["min", "median"],
-    // 		// content: "中位数",
-    // 		offsetY: -4,
-    // 		style: {
-    // 			textBaseline: "bottom",
-    // 		},
-    // 	},
-    // 	{
-    // 		type: "line",
-    // 		start: ["min", "median"],
-    // 		end: ["max", "median"],
-    // 		style: {
-    // 			stroke: "#F4664A",
-    // 			lineDash: [2, 2],
-    // 		},
-    // 	},
-    // ],
-    smooth: true,
-  };
+      
+    ],
+  }), [data])
 
   return (
     <>
@@ -138,11 +111,7 @@ const Dashboard = () => {
           <Navbar />
           <Row className={classes.row}>
             <Col className={classes.col} xs={23} sm={23} md={20} lg={20}>
-              <CurrentResults
-                config={config}
-                loading={loading}
-                classes={classes}
-              />
+              <Line options={options} data={dataSet} />
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={11} lg={12}>
               <div className={classes.container3}>
