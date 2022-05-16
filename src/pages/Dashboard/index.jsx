@@ -85,7 +85,7 @@ const Dashboard = () => {
       },
       title: {
         display: true,
-        text: 'Chart.js Line Chart',
+        text: 'Performance',
       },
     },
   }), [])
@@ -115,7 +115,7 @@ const Dashboard = () => {
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={11} lg={12}>
               <div className={classes.container3}>
-                <h2 style={{ textAlign: "left" }}>Objectives</h2>
+                <h2 className={classes.title} style={{textAlign:"left"}}>Objectives</h2>
                 <Divider
                   style={{
                     borderColor: "rgb(177 177 177 / 40%)",
