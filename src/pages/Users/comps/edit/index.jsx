@@ -3,6 +3,7 @@ import { Steps, Button, message, Row } from "antd";
 import Personal from "./comps/personal";
 import AccountData from "./comps/accountData";
 import Token from "./comps/token";
+import ChangePassword from "./comps/changePassword"
 import styled from "styled-components";
 import { UsersApi } from "../../../../api/Users.api";
 import { useSelector } from "react-redux";
@@ -80,6 +81,8 @@ const Edit = ({ data, step = 0, closeModal }) => {
     if (response.success) {
       message.success(response.message);
       closeModal()
+      setUserData({})
+      setCurrent(0)
     } else {
       message.error(response.message);
     }
@@ -126,8 +129,21 @@ const Edit = ({ data, step = 0, closeModal }) => {
           />
         ),
       },
+      {
+        title:"تغییر پسورد",
+        content:(
+          <ChangePassword
+            userState={userData}
+            setData={setUserData}
+            data={data}
+            prev={prev}
+            next={next}
+            closeModal={closeModal}
+          />
+        )
+      }
     ],
-    [data, current]
+    [data, current, userData]
   );
 
   return (
