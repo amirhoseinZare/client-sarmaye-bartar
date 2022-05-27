@@ -64,7 +64,7 @@ const FormStyled = styled(Form)`
 `;
 
 const emailRegex = new RegExp(/^\S+@\S+\.\S+$/);
-const englishRegex = new RegExp(/^[a-z]+$/i);
+const englishRegex = new RegExp(/^[a-z]_@.+$/i);
 
 function Personal({ userState, setData, data }) {
   const [state, setState] = useState({
