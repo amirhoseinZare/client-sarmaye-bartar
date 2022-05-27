@@ -250,11 +250,11 @@ const Dashboard = () => {
                           ) : (
                             <>
                               {" "}
-                              {objectives["maxLoss"]?.passed
+                              {objectives["profitTarget"]?.passed
                                 ? "passed"
                                 : "failed"}
                               <span>
-                                {objectives["maxLoss"]?.passed ? (
+                                {objectives["profitTarget"]?.passed ? (
                                   <BsFillCheckCircleFill
                                     className={classes.icon}
                                   />
