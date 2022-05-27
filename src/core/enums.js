@@ -12,6 +12,8 @@ export const accountType = {
     "TCBridge-Demo":"TCBridge-Demo",
     
     "ICMarketsSC-Demo":"ICMarketsSC-Demo",
+    "ICMarketsSC-Demo05":"ICMarketsSC-Demo05",
+    "ICMarketsSC-Demo06":"ICMarketsSC-Demo06",
     "-":"-"
 }
 
