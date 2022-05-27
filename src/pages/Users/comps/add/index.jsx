@@ -77,6 +77,7 @@ const AddUsers = ({ step = 0, closeModal }) => {
     let response = await UsersApi.addUser(userData);
     if (response.success) {
       message.success(response.message);
+      setUserData({})
       setCurrent(0);
       closeModal();
     } else {
@@ -84,7 +85,7 @@ const AddUsers = ({ step = 0, closeModal }) => {
     }
   };
 
-  const steps = [
+  const steps = useMemo(()=>[
     {
       title: "اطلاعات شخصی کاربر",
       content: (
@@ -113,7 +114,7 @@ const AddUsers = ({ step = 0, closeModal }) => {
         />
       ),
     },
-  ];
+  ], [userData])
 
   return (
     <StyledRow>
