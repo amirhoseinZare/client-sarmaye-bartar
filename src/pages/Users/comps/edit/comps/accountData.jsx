@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Form, Input, Button, Col, Select, DatePicker } from "antd";
-import { accountType } from "../../../../../core/enums";
+import { accountType, maxLossLimit } from "../../../../../core/enums";
 import moment from "moment";
 
 const { Option } = Select;
@@ -110,6 +110,10 @@ function AccountData({ userState, setData, data }) {
       name: ["startTradeDay"],
       value: "",
     },
+    {
+      name: ["maxLossLimit"],
+      value: "",
+    },
   ]);
 
 
@@ -149,6 +153,8 @@ function AccountData({ userState, setData, data }) {
     ],
     []
   );
+
+  const maxLossLimitOpts = useMemo(()=>Object.keys(maxLossLimit).map(item=>({value:+item, key:item})), [])
 
   useEffect(() => {
     let tempState = { ...userState };
@@ -319,7 +325,27 @@ function AccountData({ userState, setData, data }) {
           </Select>
         </Form.Item>
       </Col>
+
+
       <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="max loss limit"
+          name="maxLossLimit"
+          rules={[
+            { required: true, message: "این فیلد اجباری است" },
+          ]}
+        >
+          <Select className="">
+            {maxLossLimitOpts.map((item) => (
+              <Option key={item.value} value={item.value}>{item.text}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Col>
+
+
+      <Col className="form-input" span={24} sm={24} md={24}>
+        تاریخ شروع:
         <DatePicker
           defaultValue={moment(userState?.startTradeDay)}
           onChange={setDate}

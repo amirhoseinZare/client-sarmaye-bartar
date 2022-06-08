@@ -17,3 +17,8 @@ export const accountType = {
     "-":"هیچکدام"
 }
 
+export const maxLossLimit = {
+    8:8,
+    10:10,
+    12:12
+}

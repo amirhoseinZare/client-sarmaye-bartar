@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Form, Input, Col, Select, DatePicker } from "antd";
-import { accountType } from "../../../../../core/enums";
+import { accountType, maxLossLimit } from "../../../../../core/enums";
 const { Option } = Select;
 
 const FormStyled = styled(Form)`
@@ -145,6 +145,8 @@ function AccountData({ userState, setData }) {
     ],
     []
   );
+
+  const maxLossLimitOpts = useMemo(()=>Object.keys(maxLossLimit).map(item=>({value:+item, key:item})), [])
 
   useEffect(() => {
     let newFields = [];
@@ -297,6 +299,22 @@ function AccountData({ userState, setData }) {
         >
           <Select className="">
             {infinitives.map((item) => (
+              <Option key={item.value} value={item.value}>{item.text}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="max loss limit"
+          name="maxLossLimit"
+          rules={[
+            { required: true, message: "این فیلد اجباری است" },
+          ]}
+        >
+          <Select className="">
+            {maxLossLimitOpts.map((item) => (
               <Option key={item.value} value={item.value}>{item.text}</Option>
             ))}
           </Select>

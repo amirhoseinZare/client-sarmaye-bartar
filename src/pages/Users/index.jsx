@@ -129,6 +129,11 @@ function Categories() {
           maxTradeDays || <IoInfiniteSharp className={classes.icons} />,
       },
       {
+        title: "maxLossLimit",
+        key: "maxLossLimit",
+        dataIndex: "maxLossLimit",
+      },
+      {
         title: "Profit Target Percent",
         key: "percentDays",
         dataIndex: "percentDays",
