@@ -14,6 +14,6 @@ export const accountType = {
     "ICMarketsSC-Demo":"ICMarketsSC-Demo",
     "ICMarketsSC-Demo05":"ICMarketsSC-Demo05",
     "ICMarketsSC-Demo06":"ICMarketsSC-Demo06",
-    "-":"-"
+    "-":"هیچکدام"
 }
 

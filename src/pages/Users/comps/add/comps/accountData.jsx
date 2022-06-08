@@ -110,56 +110,7 @@ function AccountData({ userState, setData }) {
   ]);
 
   const accountTypes = useMemo(
-    () => [
-      {
-        text: accountType["Alpari-mt5-demo"],
-        value: accountType["Alpari-mt5-demo"],
-      },
-      {
-        text: accountType["Alpari-pro-ECN-Demo"],
-        value: accountType["Alpari-pro-ECN-Demo"],
-      },
-      {
-        text: accountType["Amarkets-Demo"],
-        value: accountType["Amarkets-Demo"],
-      },
-      {
-        text: accountType["ICMarketsSC-Demo"],
-        value: accountType["ICMarketsSC-Demo"],
-      },
-      {
-        text: accountType["ICMarketsSC-Demo01"],
-        value: accountType["ICMarketsSC-Demo01"],
-      },
-      {
-        text: accountType["ICMarketsSC-Demo02"],
-        value: accountType["ICMarketsSC-Demo02"],
-      },
-      {
-        text: accountType["ICMarketsSC-Demo03"],
-        value: accountType["ICMarketsSC-Demo03"],
-      },
-      {
-        text: accountType["ICMarketsSC-Demo04"],
-        value: accountType["ICMarketsSC-Demo04"],
-      },
-      {
-        text: accountType["RoboForex-ECN"],
-        value: accountType["RoboForex-ECN"],
-      },
-      {
-        text: accountType["Roboforex-Demo"],
-        value: accountType["Roboforex-Demo"],
-      },
-      {
-        text: accountType["TCBridge-Demo"],
-        value: accountType["TCBridge-Demo"],
-      },
-      {
-        text: "هیچکدام",
-        value: accountType["-"],
-      },
-    ],
+    () => Object.values(accountType).map(item=>({text:item, value:accountType[item]})),
     []
   );
 
@@ -314,7 +265,7 @@ function AccountData({ userState, setData }) {
         >
           <Select className="">
             {accountTypes.map((item) => (
-              <Option key={item.value}>{item.text}</Option>
+              <Option key={item.value} value={item.value}>{item.text}</Option>
             ))}
           </Select>
         </Form.Item>
@@ -330,7 +281,7 @@ function AccountData({ userState, setData }) {
         >
           <Select className="">
             {platforms.map((item) => (
-              <Option key={item.value}>{item.text}</Option>
+              <Option key={item.value} value={item.value}>{item.text}</Option>
             ))}
           </Select>
         </Form.Item>
@@ -346,7 +297,7 @@ function AccountData({ userState, setData }) {
         >
           <Select className="">
             {infinitives.map((item) => (
-              <Option key={item.value}>{item.text}</Option>
+              <Option key={item.value} value={item.value}>{item.text}</Option>
             ))}
           </Select>
         </Form.Item>

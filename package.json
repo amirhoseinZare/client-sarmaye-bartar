@@ -10,6 +10,8 @@
     "antd": "^4.17.3",
     "axios": "^0.26.1",
     "chart.js": "^3.7.1",
+    "dotenv": "^10.0.0",
+    "env-cmd": "^10.1.0",
     "moment": "^2.29.2",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.1.0",
@@ -30,7 +32,10 @@
     "start": "set port=3001 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "env-cmd -f ./env/.env.dev react-scripts start",
+    "prod": "env-cmd -f ./env/.env.prod react-scripts build",
+    "stage": "env-cmd -f ./env/.env.stage react-scripts build"
   },
   "eslintConfig": {
     "extends": [

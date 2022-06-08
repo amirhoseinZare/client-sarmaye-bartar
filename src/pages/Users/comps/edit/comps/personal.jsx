@@ -187,7 +187,7 @@ function Personal({ userState, setData, data }) {
         >
           <Select className="">
             {isActiveOptions.map((item) => (
-              <Option key={item.value}>{item.text}</Option>
+              <Option key={item.value} value={item.value}>{item.text}</Option>
             ))}
           </Select>
         </Form.Item>
