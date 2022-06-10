@@ -90,12 +90,12 @@ const Dashboard = () => {
     },
   }), [])
 
-  const labels = useMemo(()=>data.map(item=>item.trades), [data])
+  const labels = useMemo(()=>data.map(item=>item.time), [data])
   const dataSet = useMemo(()=>({
     labels,
     datasets: [
       {
-        label: 'equity by trades',
+        label: 'minimum of every 15 minutes equity',
         data: data.map(item=>item.equity),
         borderColor: 'rgb(25, 144, 255)',
         backgroundColor: 'rgba(25, 144, 255, 0.5)',
@@ -194,7 +194,7 @@ const Dashboard = () => {
                       <div className={classes.text}>
                         <p>
                           Max Daily loss 5% (
-                          {+objectives["maxDailyLoss"]?.dayBalance * 0.95}$)
+                          {+objectives["maxDailyLoss"]?.limit}$)
                         </p>
                       </div>
                     </div>
@@ -226,8 +226,8 @@ const Dashboard = () => {
                       </div>
                       <div className={classes.text}>
                         <p>
-                          Max Loss 10% (
-                          {+objectives["maxLoss"]?.firstBalance * 0.9}
+                          Max Loss {+objectives["maxLoss"]?.allowableMaxLossLimit}% (
+                          {+objectives["maxLoss"]?.limit}
                           $)
                         </p>
                       </div>
@@ -280,10 +280,7 @@ const Dashboard = () => {
                       <div className={classes.text}>
                         <p>
                           Profit Target {objectives["profitTarget"]?.percentDays} {objectives["profitTarget"]?.percentDays && "%"} (
-                          {+objectives["profitTarget"]?.firstBalance *
-                            (1 +
-                              +objectives["profitTarget"]?.percentDays / 100)}
-                          $)
+                          {+objectives["profitTarget"]?.limit} $
                         </p>
                       </div>
                     </div>

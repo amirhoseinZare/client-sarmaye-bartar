@@ -47,7 +47,7 @@ class Service {
     // this.instance.defaults.timeout = 60000;
     // this.instance.defaults.baseURL = process.env.REACT_APP_SUB_API;
     // this.instance.defaults.baseURL = "http://localhost:3000";
-    this.instance.defaults.baseURL = process.env.REACT_APP_BASE_API_URL; //production
+    this.instance.defaults.baseURL = "https://sb-dashboard.iran.liara.run"
   }
 
   gets = (config) => {
