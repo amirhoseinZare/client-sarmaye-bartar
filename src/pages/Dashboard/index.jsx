@@ -192,12 +192,13 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div>
-                        <p>{objectives["maxDailyLoss"]?.equity}</p>
+                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>{+objectives["maxDailyLoss"]?.limit}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
-                          Max Daily loss 5% (
-                          {+objectives["maxDailyLoss"]?.limit}$)
+                          Max Daily loss 5% 
+                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
                         </p>
                       </div>
                     </div>
@@ -290,6 +291,7 @@ const Dashboard = () => {
                   </>
                 )}
               </div>
+              
             </Col>
            
           </Row>
