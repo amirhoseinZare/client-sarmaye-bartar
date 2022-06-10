@@ -110,8 +110,11 @@ const Dashboard = () => {
         <div className={classes.root}>
           <Navbar />
           <Row className={classes.row}>
-            <Col className={classes.col} xs={23} sm={23} md={20} lg={20}>
+            <Col className={classes.col} xs={23} sm={23} md={17} lg={17} >
               <Line options={options} data={dataSet} />
+            </Col>
+            <Col className={classes.col} xs={23} sm={23} md={6} lg={6}>
+              <DataBox classes={classes} user={user} />
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={11} lg={12}>
               <div className={classes.container3}>
@@ -280,7 +283,7 @@ const Dashboard = () => {
                       <div className={classes.text}>
                         <p>
                           Profit Target {objectives["profitTarget"]?.percentDays} {objectives["profitTarget"]?.percentDays && "%"} (
-                          {+objectives["profitTarget"]?.limit} $
+                          {+objectives["profitTarget"]?.limit} $ )
                         </p>
                       </div>
                     </div>
@@ -288,9 +291,7 @@ const Dashboard = () => {
                 )}
               </div>
             </Col>
-            <Col className={classes.col} xs={23} sm={23} md={7} lg={6}>
-              <DataBox classes={classes} user={user} />
-            </Col>
+           
           </Row>
           <Row className={classes.row}>
             <Col

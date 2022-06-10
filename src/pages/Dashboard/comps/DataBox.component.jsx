@@ -1,5 +1,6 @@
 import React from "react";
 import { Skeleton, Divider } from "antd";
+import { ReactComponent as LogoSvg  } from "../../../assets/logo.svg"
 
 const DataBox = ({ classes, user }) => {
   return (
@@ -70,6 +71,9 @@ const DataBox = ({ classes, user }) => {
             <div>Platform</div>
           </div>
         </div>
+      </div>
+      <div style={{width:"100%", display:"flex", justifyContent:"center"}}>
+        <LogoSvg style={{width:"80%", fill:"#24303C"}}/>
       </div>
     </div>
   );
