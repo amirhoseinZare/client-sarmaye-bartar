@@ -27,6 +27,7 @@ import { USER_ID_KEY } from "../../core/variables.core";
 import DataBox from "./comps/DataBox.component";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { ReactComponent as LogoSvg  } from "../../assets/logo.svg"
 ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend );
 
 const Dashboard = () => {
@@ -100,7 +101,7 @@ const Dashboard = () => {
         borderColor: 'rgb(25, 144, 255)',
         backgroundColor: 'rgba(25, 144, 255, 0.5)',
       },
-      
+
     ],
   }), [data])
 
@@ -116,7 +117,113 @@ const Dashboard = () => {
             <Col className={classes.col} xs={23} sm={23} md={6} lg={6}>
               <DataBox classes={classes} user={user} />
             </Col>
-            <Col className={classes.col} xs={23} sm={23} md={11} lg={12}>
+            <Col className={classes.col} xs={23} sm={23} md={11} lg={11}>
+              <div className={classes.container3}>
+                <h2 className={classes.title} style={{textAlign:"left"}}>Your statistics</h2>
+                <Divider
+                  style={{
+                    borderColor: "rgb(177 177 177 / 40%)",
+                    width: "50%",
+                    marginBottom: 30,
+                    marginTop: 0,
+                  }}
+                />
+                {loading ? (
+                  <Skeleton title={false} active paragraph={{ rows: 8 }} />
+                ) : (
+                  <>
+                    <div className={classes.body} style={{width:"100%"}}>
+                      <div className={classes.results}>
+                      </div>
+                      <div>
+                        <p>{objectives["maxLoss"]?.equity}</p>
+                      </div>
+                      <div className={classes.text}>
+                        <p>
+                          Equity
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ width: "97%", margin: "0 auto" }}>
+                      <Divider
+                        style={{
+                          borderColor: "rgb(177 177 177 / 40%)",
+                          width: "50%",
+                          marginBottom: 0,
+                          marginTop: 0,
+                        }}
+                      />
+                    </div>
+                    <div className={classes.body}>
+                      <div className={classes.results}>
+                      </div>
+                      <div>
+                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>{+objectives["profitTarget"]?.balance}</p>
+                      </div>
+                      <div className={classes.text}>
+                        <p>
+                          Balance
+                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                        </p>
+                      </div>
+                    </div>
+                     <div style={{ width: "97%", margin: "0 auto" }}>
+                      <Divider
+                        style={{
+                          borderColor: "rgb(177 177 177 / 40%)",
+                          width: "50%",
+                          marginBottom: 0,
+                          marginTop: 0,
+                        }}
+                      />
+                    </div>
+                    <div className={classes.body}>
+                      <div className={classes.results}>
+                      </div>
+                      <div>
+                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>{+objectives["profitTarget"]?.firstBalance}</p>
+                      </div>
+                      <div className={classes.text}>
+                        <p>
+                          First balance
+                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ width: "97%", margin: "0 auto" }}>
+                      <Divider
+                        style={{
+                          borderColor: "rgb(177 177 177 / 40%)",
+                          width: "50%",
+                          marginBottom: 0,
+                          marginTop: 0,
+                        }}
+                      />
+                    </div>
+                    <div className={classes.body}>
+                      <div className={classes.results}>
+                      </div>
+                      <div>
+                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>{+objectives["maxDailyLoss"]?.dayBalance}</p>
+                      </div>
+                      <div className={classes.text}>
+                        <p>
+                          Day Balance
+                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+              </div>
+
+            </Col>
+           
+            <Col className={classes.col} xs={23} sm={23} md={11} lg={11}>
               <div className={classes.container3}>
                 <h2 className={classes.title} style={{textAlign:"left"}}>Objectives</h2>
                 <Divider
@@ -283,17 +390,16 @@ const Dashboard = () => {
                       </div>
                       <div className={classes.text}>
                         <p>
-                          Profit Target {objectives["profitTarget"]?.percentDays} {objectives["profitTarget"]?.percentDays && "%"} (
-                          {+objectives["profitTarget"]?.limit} $ )
+                          Profit Target {objectives["profitTarget"]?.percentDays}{objectives["profitTarget"]?.percentDays &&"%"} 
+                          {/* ( {+objectives["profitTarget"]?.limit} $ ) */}
                         </p>
                       </div>
                     </div>
                   </>
                 )}
               </div>
-              
             </Col>
-           
+
           </Row>
           <Row className={classes.row}>
             <Col
