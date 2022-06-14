@@ -10,6 +10,37 @@ const { Option } = Select;
 const FormStyled = styled(Form)`
   display: flex;
   flex-wrap: wrap;
+  .form-account {
+    padding: 8px;
+    div.ant-select {
+      .ant-select-selector {
+        border-radius: 8px;
+        height: 46px;
+        height: 38px;
+      }
+      border-radius: 8px;
+      box-shadow: 0px 2px 3px rgba(207, 207, 217, 0.32);
+      font-size: 12px;
+      line-height: 18px;
+      ${"" /* color: #8286A2; */}
+    }
+  }
+  .form-account-input {
+    padding: 8px;
+    label {
+      color: rgba(0, 0, 0, 1);
+      font-size: 12px;
+      height: 16px;
+    }
+    input,.ant-picker-rtl {
+      height: 38px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 3px rgba(207, 207, 217, 0.32);
+      font-size: 12px;
+      line-height: 18px;
+      ${"" /* color: #8286A2; */}
+    }
+  }
   .form-input {
     padding: 8px;
     .ant-picker-rtl {
@@ -78,10 +109,15 @@ function AccountData({ userState, setData, data }) {
     loading: false,
     fetching: false,
   });
+  const [ isCustomeAccount , setIscustomAccount ] = useState(false)
 
   let inputNum = ["firstBalance", "maxTradeDays", "percentDays"];
 
   const [fields, setFields] = useState([
+    {
+      name: ["systemAccountType"],
+      value: "",
+    },
     {
       name: ["accountType"],
       value: "",
@@ -118,7 +154,7 @@ function AccountData({ userState, setData, data }) {
 
 
   const accountTypes = useMemo(
-    () => Object.values(accountType).map(item=>({text:item, value:accountType[item]})),
+    () => Object.values(accountType).map(({text, value})=>({text:text, value:value})),
     []
   );
 
@@ -163,8 +199,6 @@ function AccountData({ userState, setData, data }) {
         if (field.name[0] === "infinitive") {
           let infinitive = field.value === "true";
           tempState[field.name[0]] = infinitive;
-        } else {
-          tempState[field.name[0]] = field.value;
         }
         setData(tempState);
       }
@@ -280,22 +314,6 @@ function AccountData({ userState, setData, data }) {
 
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
-          label="نوع اکانت"
-          name="accountType"
-          rules={[
-            { required: true, message: "یکی از دسترسی ها را انتخاب نمایید." },
-          ]}
-        >
-          <Select className="">
-            {accountTypes.map((item) => (
-              <Option key={item.value} value={item.value}>{item.text}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-      </Col>
-
-      <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item
           label="پلتفرم"
           name="platform"
           rules={[
@@ -351,6 +369,35 @@ function AccountData({ userState, setData, data }) {
           onChange={setDate}
         />
       </Col>
+      
+      <Col className="form-account" span={24} sm={24} md={24}>
+        <Form.Item
+          label="نوع اکانت انتخابی"
+          name="accountType"
+          rules={[
+            { required: true, message: "یکی از سرور ها را انتخاب نمایید." },
+          ]}
+        >
+          <Select className="">
+            {accountTypes.map((item) => (
+              <Option key={item.value} value={item.value}>{item.text}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Col>
+
+      {isCustomeAccount && <Col className="form-account-input" span={24} sm={24} md={24}>
+        <Form.Item
+          
+          name="systemAccountType"
+          rules={[
+            { required: true, message: "لطفا نام یک سرور را تایپ کنید یا از فیلد بالا انتخاب کنید" },
+          ]}
+        >
+          <Input placeholder="لطفا اگر اکانت موردنظر شما در فیلد بالا نیست, اکانت موردنظر خود را تایپ کنید"/>
+        </Form.Item>
+      </Col>}
+
     </FormStyled>
   );
 }

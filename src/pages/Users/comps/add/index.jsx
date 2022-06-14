@@ -59,7 +59,7 @@ const StyledRow = styled(Row)`
 const AddUsers = ({ step = 0, closeModal }) => {
   const [userData, setUserData] = useState({});
   const [current, setCurrent] = useState(step);
-
+  const [loading, setLoading] = useState(false)
   // step function
   useEffect(() => {
     setCurrent(step);
@@ -75,7 +75,11 @@ const AddUsers = ({ step = 0, closeModal }) => {
 
   // add data function
   const addUser = async () => {
-    let response = await UsersApi.addUser(userData);
+    const { accountType, systemAccountType, ...body } = userData
+    body.accountType = accountType === "doesNotExist" ? systemAccountType : accountType
+    setLoading(true)
+    let response = await UsersApi.addUser(body);
+    setLoading(false)
     if (response.success) {
       message.success(response.message);
       setUserData({})
@@ -152,7 +156,7 @@ const AddUsers = ({ step = 0, closeModal }) => {
           </Button>
         )}
         {
-          <Button className="done-button" type="primary" onClick={addUser}>
+          <Button className="done-button" type="primary" onClick={addUser} loading={loading}>
             افزودن
           </Button>
         }

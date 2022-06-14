@@ -132,52 +132,6 @@ const Dashboard = () => {
                   <Skeleton title={false} active paragraph={{ rows: 8 }} />
                 ) : (
                   <>
-                    <div className={classes.body} style={{width:"100%"}}>
-                      <div className={classes.results}>
-                      </div>
-                      <div>
-                        <p>{objectives["maxLoss"]?.equity}</p>
-                      </div>
-                      <div className={classes.text}>
-                        <p>
-                          Equity
-                        </p>
-                      </div>
-                    </div>
-                    <div style={{ width: "97%", margin: "0 auto" }}>
-                      <Divider
-                        style={{
-                          borderColor: "rgb(177 177 177 / 40%)",
-                          width: "50%",
-                          marginBottom: 0,
-                          marginTop: 0,
-                        }}
-                      />
-                    </div>
-                    <div className={classes.body}>
-                      <div className={classes.results}>
-                      </div>
-                      <div>
-                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>{+objectives["profitTarget"]?.balance}</p>
-                      </div>
-                      <div className={classes.text}>
-                        <p>
-                          Balance
-                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
-                        </p>
-                      </div>
-                    </div>
-                     <div style={{ width: "97%", margin: "0 auto" }}>
-                      <Divider
-                        style={{
-                          borderColor: "rgb(177 177 177 / 40%)",
-                          width: "50%",
-                          marginBottom: 0,
-                          marginTop: 0,
-                        }}
-                      />
-                    </div>
                     <div className={classes.body}>
                       <div className={classes.results}>
                       </div>
@@ -207,6 +161,55 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>{+objectives["profitTarget"]?.balance}</p>
+                      </div>
+                      <div className={classes.text}>
+                        <p>
+                          Balance
+                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ width: "97%", margin: "0 auto" }}>
+                      <Divider
+                        style={{
+                          borderColor: "rgb(177 177 177 / 40%)",
+                          width: "50%",
+                          marginBottom: 0,
+                          marginTop: 0,
+                        }}
+                      />
+                    </div>
+
+                    <div className={classes.body} style={{width:"100%", fontWeight:"bolder"}}>
+                      <div className={classes.results} style={{fontWeight:"bolder"}}>
+                      </div>
+                      <div>
+                        <p style={{fontWeight:"bolder"}}>{objectives["maxLoss"]?.equity}</p>
+                      </div>
+                      <div className={classes.text}>
+                        <p style={{fontWeight:"bolder"}}>
+                          Equity
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style={{ width: "97%", margin: "0 auto" }}>
+                      <Divider
+                        style={{
+                          borderColor: "rgb(177 177 177 / 40%)",
+                          width: "50%",
+                          marginBottom: 0,
+                          marginTop: 0,
+                        }}
+                      />
+                    </div>
+
+                    <div className={classes.body}>
+                      <div className={classes.results}>
+                      </div>
+                      <div>
+                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
                         <p>{+objectives["maxDailyLoss"]?.dayBalance}</p>
                       </div>
                       <div className={classes.text}>
@@ -215,7 +218,9 @@ const Dashboard = () => {
                           {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
                         </p>
                       </div>
+                    
                     </div>
+
                   </>
                 )}
 

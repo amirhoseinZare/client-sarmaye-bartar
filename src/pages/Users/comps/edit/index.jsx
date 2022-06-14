@@ -61,7 +61,7 @@ const Edit = ({ data, step = 0, closeModal }) => {
   let user = data;
 
   const [userData, setUserData] = useState({});
-
+  const [ loading, setLoading ] = useState(false)
   // step function
   useEffect(() => {
     setCurrent(step);
@@ -77,7 +77,11 @@ const Edit = ({ data, step = 0, closeModal }) => {
 
   // patch data function
   const patchData = async () => {
-    let response = await UsersApi.patchUser(user._id, userData);
+    setLoading(true)
+    const { accountType, systemAccountType, ...body } = userData
+    setLoading(false)
+    body.accountType = accountType === "doesNotExist" ? systemAccountType : accountType
+    let response = await UsersApi.patchUser(user._id, body);
     if (response.success) {
       message.success(response.message);
       closeModal()
@@ -170,7 +174,7 @@ const Edit = ({ data, step = 0, closeModal }) => {
           </Button>
         )}
         {
-          <Button className="done-button" type="primary" onClick={patchData}>
+          <Button className="done-button" type="primary" onClick={patchData} loading={loading}>
             ثبت
           </Button>
         }
