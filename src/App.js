@@ -13,7 +13,7 @@ import openSocket from 'socket.io-client';
 import { setAlert } from "./redux/actions/alert"
 
 // const socket = openSocket('http://localhost:3000');
-const socket = openSocket("https://sb-dashboard.iran.liara.run" )
+const socket = openSocket("https://cron-dashboard.iran.liara.run/" )
 
 function App() {
   const { pathname } = useLocation();

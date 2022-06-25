@@ -28,6 +28,7 @@ import DataBox from "./comps/DataBox.component";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { ReactComponent as LogoSvg  } from "../../assets/logo.svg"
+import { FaLess } from "react-icons/fa";
 ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend );
 
 const Dashboard = () => {
@@ -82,7 +83,7 @@ const Dashboard = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        display:false,
       },
       title: {
         display: true,
@@ -96,13 +97,15 @@ const Dashboard = () => {
     labels,
     datasets: [
       {
-        label: 'minimum of every 15 minutes equity',
+        label: '',
         data: data.map(item=>item.equity),
-        borderColor: 'rgb(25, 144, 255)',
-        backgroundColor: 'rgba(25, 144, 255, 0.5)',
+        borderColor: 'rgb(59,72,89)',
+        backgroundColor: 'rgba(59,72,89, 0.1)',
+        pointStyle: 'dash'
       },
 
     ],
+    
   }), [data])
 
   return (
@@ -137,7 +140,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>{+objectives["profitTarget"]?.firstBalance}</p>
+                        <p>$ {+objectives["profitTarget"]?.firstBalance}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -161,7 +164,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>{+objectives["profitTarget"]?.balance}</p>
+                        <p>$ {+objectives["profitTarget"]?.balance}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -185,7 +188,7 @@ const Dashboard = () => {
                       <div className={classes.results} style={{fontWeight:"bolder"}}>
                       </div>
                       <div>
-                        <p style={{fontWeight:"bolder"}}>{objectives["maxLoss"]?.equity}</p>
+                        <p style={{fontWeight:"bolder"}}>$ {objectives["maxLoss"]?.equity}</p>
                       </div>
                       <div className={classes.text}>
                         <p style={{fontWeight:"bolder"}}>
@@ -210,7 +213,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>{+objectives["maxDailyLoss"]?.dayBalance}</p>
+                        <p>$ {+objectives["maxDailyLoss"]?.dayBalance}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -305,7 +308,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>{+objectives["maxDailyLoss"]?.limit}</p>
+                        <p>$ {+objectives["maxDailyLoss"]?.limit}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -339,7 +342,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{objectives["maxLoss"]?.equity}</p> */}
-                        <p>{+objectives["maxLoss"]?.limit}</p>
+                        <p>$ {+objectives["maxLoss"]?.limit}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -389,7 +392,7 @@ const Dashboard = () => {
                           {user.infinitive ? (
                             "-"
                           ) : (
-                            <>{objectives["profitTarget"]?.balance}</>
+                            <>$ {objectives["profitTarget"]?.balance}</>
                           )}
                         </p>
                       </div>
