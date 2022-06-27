@@ -99,7 +99,7 @@ const Dashboard = () => {
     },
   }), [])
 
-  const labels = useMemo(()=>data ? data.map(item=>item.startBrokerTime.split(" ")[0]): [], [data])
+  const labels = useMemo(()=>data ? data.map(item=>item.startBrokerTime): [], [data])
   const dataSet = useMemo(()=>({
     labels,
     datasets: [
@@ -114,7 +114,7 @@ const Dashboard = () => {
     ],
     
   }), [data])
-  console.log(loading)
+
   return (
     <>
       {user.isAuth ? (
