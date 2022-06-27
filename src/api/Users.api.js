@@ -30,4 +30,8 @@ UsersApi.getUser = function (id, body) {
   return this.instance.get(`${this.baseApisUrl}/${id}`, body);
 };
 
+UsersApi.getChart = function (userId) {
+  return this.instance.get(`${this.baseApisUrl}/chart/equity/${userId}`)
+}
+
 export { UsersApi };

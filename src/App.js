@@ -13,7 +13,7 @@ import openSocket from 'socket.io-client';
 import { setAlert } from "./redux/actions/alert"
 
 // const socket = openSocket('http://localhost:3000');
-const socket = openSocket("https://cron-dashboard.iran.liara.run/" )
+// const socket = openSocket("https://cron-dashboard.iran.liara.run/" )
 
 function App() {
   const { pathname } = useLocation();
@@ -34,16 +34,16 @@ function App() {
     }
   }, []);
 
-  console.log(userState, user)
-  socket.on("alert", (data)=>{
-    const pushData = JSON.parse(atob(data))
-    if(userState){
-      if(userState._id.toString() === pushData.userId.toString() || userState.role==="admin"){
-        dispatch(setAlert(pushData))
-        console.log('added', pushData.userId, userState._id)
-      }
-    }
-  })
+  // console.log(userState, user)
+  // socket.on("alert", (data)=>{
+  //   const pushData = JSON.parse(atob(data))
+  //   if(userState){
+  //     if(userState._id.toString() === pushData.userId.toString() || userState.role==="admin"){
+  //       dispatch(setAlert(pushData))
+  //       console.log('added', pushData.userId, userState._id)
+  //     }
+  //   }
+  // })
 
   return (
     <div className="App">

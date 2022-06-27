@@ -54,28 +54,35 @@ const Dashboard = () => {
 
   const [data, setData] = useState([]);
   const [objectives, setObjectives] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    chart:false,
+    objective:false
+  });
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(s=>({ ...s, chart:true, objective:true  }));
     if (user._id) {
-      asyncFetch(user._id);
+      asyncFetch({userId:user._id, mtAccountId:user.mtAccountId});
     }
   }, [user]);
 
-  const asyncFetch = (userId) => {
-    DashboardApi.chart(userId).then((response) => {
-      setData(response.result);
-      if (response.success) {
-        setLoading(false);
+  const asyncFetch = ({userId, mtAccountId}) => {
+    UsersApi.getChart(mtAccountId).then((response) => {
+      setLoading(s=>({ ...s, chart:false }));
+      if (!response.success) {
+        message.error(response.message)
+        return 
       }
+      setData(response.result);
     });
 
     DashboardApi.objectives(userId).then((response) => {
-      setObjectives(response.result);
-      if (response.success) {
-        setLoading(false);
+      setLoading(s=>({ ...s, objective:false }));
+      if (!response.success) {
+        message.error(response.message)
+        return
       }
+      setObjectives(response.result);
     });
   };
 
@@ -92,13 +99,13 @@ const Dashboard = () => {
     },
   }), [])
 
-  const labels = useMemo(()=>data.map(item=>item.time), [data])
+  const labels = useMemo(()=>data ? data.map(item=>item.startBrokerTime.split(" ")[0]): [], [data])
   const dataSet = useMemo(()=>({
     labels,
     datasets: [
       {
         label: '',
-        data: data.map(item=>item.equity),
+        data: data ? data.map(item=>item.minEquity) : [],
         borderColor: 'rgb(59,72,89)',
         backgroundColor: 'rgba(59,72,89, 0.1)',
         pointStyle: 'dash'
@@ -107,7 +114,7 @@ const Dashboard = () => {
     ],
     
   }), [data])
-
+  console.log(loading)
   return (
     <>
       {user.isAuth ? (
@@ -115,7 +122,8 @@ const Dashboard = () => {
           <Navbar />
           <Row className={classes.row}>
             <Col className={classes.col} xs={23} sm={23} md={17} lg={17} >
-              <Line options={options} data={dataSet} />
+              {loading.chart ? <Skeleton title={false} active paragraph={{ rows: 15 }} /> : 
+                <Line options={options} data={dataSet} /> }
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={6} lg={6}>
               <DataBox classes={classes} user={user} />
@@ -131,10 +139,9 @@ const Dashboard = () => {
                     marginTop: 0,
                   }}
                 />
-                {loading ? (
+                {loading.objective ? (
                   <Skeleton title={false} active paragraph={{ rows: 8 }} />
-                ) : (
-                  <>
+                ) : ( <>
                     <div className={classes.body}>
                       <div className={classes.results}>
                       </div>
@@ -253,7 +260,7 @@ const Dashboard = () => {
                     <h3>Trading Objectives</h3>
                   </div>
                 </div>
-                {loading ? (
+                {loading.objective ? (
                   <Skeleton title={false} active paragraph={{ rows: 8 }} />
                 ) : (
                   <>
