@@ -113,11 +113,6 @@ function Personal({ userState, setData, data }) {
         setFields(allFields);
       }}
     >
-        <div>
-          <Alert message="پسورد انتخابی شما برای یوزر اعمال خواهد شد و بعد از اعمال تغییر یوزر قادر به لاگین با پسورد قبلی نخواهد بود" type="info"/>
-          <Alert message="پسورد انتخابی شما باید بالا تر از ۸ کاراکتر باشد در غیر این صورت خطای اعتبارسنجی دریافت خواهید کرد" type="info"/>
-          <Alert message="اگر نیازی به تغییر پسورد کاربر نیست میتوانید این فیلد را رها کنید" type="info"/>
-        </div>
         <br/>
         <Col className="form-input" span={24} sm={12} md={8}>
             <Form.Item 

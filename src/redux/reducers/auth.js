@@ -19,7 +19,8 @@ const INITIAL_STATE = {
   user_login: "",
   user_nicename: "",
   _id: "",
-  isAuth:false
+  isAuth:false,
+  mtAccountId:""
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -44,6 +45,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         user_login,
         user_nicename,
         _id,
+        mtAccountId
       } = action.payload;
 
       return {
@@ -66,7 +68,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         user_login,
         user_nicename,
         _id,
-        isAuth:true
+        isAuth:true,
+        mtAccountId
       };
     }
     default:

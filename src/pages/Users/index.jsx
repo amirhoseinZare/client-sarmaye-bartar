@@ -97,24 +97,24 @@ function Categories() {
         dataIndex: "user_login",
         render: (username) => username || "-",
       },
-      {
-        title: "Equity",
-        key: "equity",
-        dataIndex: "equity",
-        render: (equity) => equity || "-",
-      },
-      {
-        title: "بالانس",
-        key: "balance",
-        dataIndex: "balance",
-        render: (balance) => balance || "-",
-      },
-      {
-        title: "بالانس روز",
-        key: "dayBalance",
-        dataIndex: "dayBalance",
-        render: (dayBalance) => dayBalance || "-",
-      },
+      // {
+      //   title: "Equity",
+      //   key: "equity",
+      //   dataIndex: "equity",
+      //   render: (equity) => equity || "-",
+      // },
+      // {
+      //   title: "بالانس",
+      //   key: "balance",
+      //   dataIndex: "balance",
+      //   render: (balance) => balance || "-",
+      // },
+      // {
+      //   title: "بالانس روز",
+      //   key: "dayBalance",
+      //   dataIndex: "dayBalance",
+      //   render: (dayBalance) => dayBalance || "-",
+      // },
       {
         title: "بالانس اولیه",
         key: "firstBalance",
@@ -205,6 +205,21 @@ function Categories() {
               className={classes.icons}
               style={{ color: "#38ada9" }}
               onClick={() => copyText(mtAccountId)}
+            />
+          ) : (
+            "-"
+          ),
+      },
+      {
+        title: "آیدی دیتابیس",
+        key: "_id",
+        dataIndex: "_id",
+        render: (_id) =>
+        _id ? (
+            <MdContentCopy
+              className={classes.icons}
+              style={{ color: "#38ada9" }}
+              onClick={() => copyText(_id)}
             />
           ) : (
             "-"

@@ -13,6 +13,11 @@ class Service {
         const token = localStorage.getItem(TOKEN_LOCAL_KEY);
         if (token) {
           config.headers["x-auth-token"] = token;
+          config.headers['User-Agent'] = 'PostmanRuntime/7.29.0'
+          config.headers['Connection'] = 'keep-alive'
+          config.headers['Accept-Encoding'] = 'gzip, deflate, br'
+          config.headers['Connection'] = 'keep-alive'
+
         }
         return config;
       },
@@ -40,14 +45,14 @@ class Service {
               window.location.pathname = "/404";
           }  
         }
-        return error.response.data
+        return error?.response?.data
       }
     );
 
     // this.instance.defaults.timeout = 60000;
     // this.instance.defaults.baseURL = process.env.REACT_APP_SUB_API;
-    // this.instance.defaults.baseURL = "http://localhost:3000";
-    this.instance.defaults.baseURL = "https://panel.sarmayegozarebartar.com"
+    this.instance.defaults.baseURL = "http://localhost:8000";
+    // this.instance.defaults.baseURL = "https://panel.sarmayegozarebartar.com"
   }
 
   gets = (config) => {

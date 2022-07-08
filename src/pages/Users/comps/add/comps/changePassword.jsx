@@ -115,9 +115,6 @@ function Personal({ userState, setData, data }) {
         setFields(allFields);
       }}
     >
-
-        <Alert message="در صورت اعمال نکردن پسورد در این بخش 12345678 برای یوزر به صورت پیش فرض قرار خواهد گرفت." type="info"/>
-        <Alert message="پسورد انتخابی شما باید بالا تر از ۸ کاراکتر باشد در غیر این صورت خطای اعتبارسنجی دریافت خواهید کرد" type="info"/>
         <Col className="form-input" span={24} sm={12} md={8}>
             <Form.Item label="پسورد" name="user_pass"
             rules={[

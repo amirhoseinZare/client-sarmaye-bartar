@@ -1,6 +1,6 @@
 // packages
 import React, { useState, useEffect, useMemo } from "react";
-import { Row, Col, message, Skeleton, Divider } from "antd";
+import { Row, Col, message, Skeleton, Divider, Statistic  } from "antd";
 
 // css
 import classes from "./Dashboard.module.scss";
@@ -30,6 +30,15 @@ import { Line } from 'react-chartjs-2';
 import { ReactComponent as LogoSvg  } from "../../assets/logo.svg"
 import { FaLess } from "react-icons/fa";
 ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend );
+const { Countdown } = Statistic;
+const todayBrokerEndTime = new Date()
+todayBrokerEndTime.setUTCHours(21)
+todayBrokerEndTime.setUTCMinutes(0)
+todayBrokerEndTime.setUTCSeconds(0)
+todayBrokerEndTime.setUTCMilliseconds(0)
+const tomorrowBrokerTime = todayBrokerEndTime.getTime() + 86400*1000
+
+const deadline = new Date().getTime() < todayBrokerEndTime ? todayBrokerEndTime : tomorrowBrokerTime
 
 const Dashboard = () => {
   const userData = useSelector((store) => store.user);
@@ -66,6 +75,8 @@ const Dashboard = () => {
     }
   }, [user]);
 
+  console.log(user)
+
   const asyncFetch = ({userId, mtAccountId}) => {
     UsersApi.getChart(mtAccountId).then((response) => {
       setLoading(s=>({ ...s, chart:false }));
@@ -94,7 +105,7 @@ const Dashboard = () => {
       },
       title: {
         display: true,
-        text: 'Performance',
+        text: 'Performance & Balance',
       },
     },
   }), [])
@@ -110,9 +121,15 @@ const Dashboard = () => {
         backgroundColor: 'rgba(59,72,89, 0.1)',
         pointStyle: 'dash'
       },
-
+      {
+        label: '',
+        data: data ? data.map(item=>item.minBalance) : [],
+        borderColor: 'rgb(255,182,41)',
+        backgroundColor: 'rgb(255,182,41, 0.1)',
+        pointStyle: 'dash'
+      },
     ],
-    
+
   }), [data])
 
   return (
@@ -240,7 +257,7 @@ const Dashboard = () => {
            
             <Col className={classes.col} xs={23} sm={23} md={11} lg={11}>
               <div className={classes.container3}>
-                <h2 className={classes.title} style={{textAlign:"left"}}>Objectives</h2>
+                <div style={{display: "flex", justifyContent: "space-between", flexDirection: "row-reverse"}}><h2 className={classes.title} style={{textAlign:"left"}}>Objectives </h2> <Countdown value={deadline} /></div>
                 <Divider
                   style={{
                     borderColor: "rgb(177 177 177 / 40%)",
@@ -267,20 +284,22 @@ const Dashboard = () => {
                     <div className={classes.body}>
                       <div className={classes.results}>
                         <p className={classes.status}>
-                          {objectives["minimumTradeDaysObjective"]?.passed
+                          {/* {objectives["minimumTradeDaysObjective"]?.passed
                             ? "passed"
-                            : "failed"}
+                            : "failed"} */}
                           <span>
-                            {objectives["minimumTradeDaysObjective"]?.passed ? (
+                            {/* {objectives["minimumTradeDaysObjective"]?.passed ? (
                               <BsFillCheckCircleFill className={classes.icon} />
                             ) : (
                               <IoMdCloseCircle className={classes.iconRed} />
-                            )}
+                            )} */}
+                            updating...
                           </span>
                         </p>
                       </div>
                       <div>
-                        <p>{objectives["minimumTradeDaysObjective"]?.count}</p>
+                        updating...
+                        {/* <p>{objectives["minimumTradeDaysObjective"]?.count}</p> */}
                       </div>
                       <div className={classes.text}>
                         <p>
