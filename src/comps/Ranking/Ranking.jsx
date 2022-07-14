@@ -70,12 +70,12 @@ const Ranking = () => {
         dataIndex: "display_name",
         render: (name) => name || "-",
       },
-      {
-        title: "ایمیل",
-        key: "user_email",
-        dataIndex: "user_email",
-        render: (email) => email || "-",
-      },
+      // {
+      //   title: "ایمیل",
+      //   key: "user_email",
+      //   dataIndex: "user_email",
+      //   render: (email) => email || "-",
+      // },
       {
         title: "Equity",
         key: "equity",
