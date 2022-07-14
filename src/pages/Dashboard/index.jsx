@@ -63,13 +63,10 @@ const Dashboard = () => {
 
   const [data, setData] = useState([]);
   const [objectives, setObjectives] = useState([]);
-  const [loading, setLoading] = useState({
-    chart:false,
-    objective:false
-  });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(s=>({ ...s, chart:true, objective:true  }));
+    setLoading(true);
     if (user._id) {
       asyncFetch({userId:user._id, mtAccountId:user.mtAccountId});
     }
@@ -79,22 +76,17 @@ const Dashboard = () => {
 
   const asyncFetch = ({userId, mtAccountId}) => {
     UsersApi.getChart(mtAccountId).then((response) => {
-      setLoading(s=>({ ...s, chart:false }));
+      setLoading(true);
       if (!response.success) {
         message.error(response.message)
         return 
       }
-      setData(response.result);
-    });
+      const {chart, objective} = response.result
+      setData(chart);
+      setObjectives(objective);
+      setLoading(false);
+    })
 
-    DashboardApi.objectives(userId).then((response) => {
-      setLoading(s=>({ ...s, objective:false }));
-      if (!response.success) {
-        message.error(response.message)
-        return
-      }
-      setObjectives(response.result);
-    });
   };
 
   const options = useMemo(()=>({
@@ -139,7 +131,7 @@ const Dashboard = () => {
           <Navbar />
           <Row className={classes.row}>
             <Col className={classes.col} xs={23} sm={23} md={17} lg={17} >
-              {loading.chart ? <Skeleton title={false} active paragraph={{ rows: 15 }} /> : 
+              {loading ? <Skeleton title={false} active paragraph={{ rows: 15 }} /> : 
                 <Line options={options} data={dataSet} /> }
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={6} lg={6}>
@@ -156,7 +148,7 @@ const Dashboard = () => {
                     marginTop: 0,
                   }}
                 />
-                {loading.objective ? (
+                {loading ? (
                   <Skeleton title={false} active paragraph={{ rows: 8 }} />
                 ) : ( <>
                     <div className={classes.body}>
@@ -277,7 +269,7 @@ const Dashboard = () => {
                     <h3>Trading Objectives</h3>
                   </div>
                 </div>
-                {loading.objective ? (
+                {loading ? (
                   <Skeleton title={false} active paragraph={{ rows: 8 }} />
                 ) : (
                   <>
