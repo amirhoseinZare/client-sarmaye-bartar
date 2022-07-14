@@ -23,7 +23,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { IoMdCloseCircle } from "react-icons/io";
 
 // variables
-import { USER_ID_KEY } from "../../core/variables.core";
+import { USER_ID_KEY, STAT_KEY } from "../../core/variables.core";
 import DataBox from "./comps/DataBox.component";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
@@ -61,7 +61,10 @@ const Dashboard = () => {
     }
   }, [userData]);
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    chart:[],
+    objectives:[]
+  });
   const [objectives, setObjectives] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -72,8 +75,19 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  console.log(user)
-
+  useEffect(()=>{
+    const {
+      chart, 
+      objective
+    } = JSON.parse(atob(localStorage.getItem(STAT_KEY)))
+    if((!chart) || (!objective))
+      return
+    setData({
+      chart, 
+      objectives:objective
+    });
+    // setObjectives(objective);
+  }, [])
   const asyncFetch = ({userId, mtAccountId}) => {
     UsersApi.getChart(mtAccountId).then((response) => {
       setLoading(true);
@@ -82,9 +96,15 @@ const Dashboard = () => {
         return 
       }
       const {chart, objective} = response.result
-      setData(chart);
-      setObjectives(objective);
+      setData({
+        chart, 
+        objectives:objective
+      });
       setLoading(false);
+      localStorage.setItem(STAT_KEY, btoa(JSON.stringify({
+        chart,
+        objective
+      }))) 
     })
 
   };
@@ -102,27 +122,27 @@ const Dashboard = () => {
     },
   }), [])
 
-  const labels = useMemo(()=>data ? data.map(item=>item.startBrokerTime): [], [data])
+  const labels = useMemo(()=>data.chart ? data.chart.map(item=>item.startBrokerTime): [], [data.chart])
   const dataSet = useMemo(()=>({
     labels,
     datasets: [
       {
         label: '',
-        data: data ? data.map(item=>item.minEquity) : [],
+        data: data.chart ? data.chart.map(item=>item.minEquity) : [],
         borderColor: 'rgb(59,72,89)',
         backgroundColor: 'rgba(59,72,89, 0.1)',
         pointStyle: 'dash'
       },
       {
         label: '',
-        data: data ? data.map(item=>item.minBalance) : [],
+        data: data.chart ? data.chart.map(item=>item.minBalance) : [],
         borderColor: 'rgb(255,182,41)',
         backgroundColor: 'rgb(255,182,41, 0.1)',
         pointStyle: 'dash'
       },
     ],
 
-  }), [data])
+  }), [data.chart])
 
   return (
     <>
@@ -155,13 +175,13 @@ const Dashboard = () => {
                       <div className={classes.results}>
                       </div>
                       <div>
-                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>$ {+objectives["profitTarget"]?.firstBalance}</p>
+                        {/* <p>{data.objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>$ {+data.objectives["profitTarget"]?.firstBalance}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
                           First balance
-                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                          {/* ( {+data.objectives["maxDailyLoss"]?.limit}$) */}
                         </p>
                       </div>
                     </div>
@@ -179,13 +199,13 @@ const Dashboard = () => {
                       <div className={classes.results}>
                       </div>
                       <div>
-                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>$ {+objectives["profitTarget"]?.balance}</p>
+                        {/* <p>{data.objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>$ {+data.objectives["profitTarget"]?.balance}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
                           Balance
-                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                          {/* ( {+data.objectives["maxDailyLoss"]?.limit}$) */}
                         </p>
                       </div>
                     </div>
@@ -204,7 +224,7 @@ const Dashboard = () => {
                       <div className={classes.results} style={{fontWeight:"bolder"}}>
                       </div>
                       <div>
-                        <p style={{fontWeight:"bolder"}}>$ {objectives["maxLoss"]?.equity}</p>
+                        <p style={{fontWeight:"bolder"}}>$ {data.objectives["maxLoss"]?.equity}</p>
                       </div>
                       <div className={classes.text}>
                         <p style={{fontWeight:"bolder"}}>
@@ -228,13 +248,13 @@ const Dashboard = () => {
                       <div className={classes.results}>
                       </div>
                       <div>
-                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>$ {+objectives["maxDailyLoss"]?.dayBalance}</p>
+                        {/* <p>{data.objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>$ {+data.objectives["maxDailyLoss"]?.dayBalance}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
                           Day Balance
-                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                          {/* ( {+data.objectives["maxDailyLoss"]?.limit}$) */}
                         </p>
                       </div>
                     
@@ -276,11 +296,11 @@ const Dashboard = () => {
                     <div className={classes.body}>
                       <div className={classes.results}>
                         <p className={classes.status}>
-                          {/* {objectives["minimumTradeDaysObjective"]?.passed
+                          {/* {data.objectives["minimumTradeDaysObjective"]?.passed
                             ? "passed"
                             : "failed"} */}
                           <span>
-                            {/* {objectives["minimumTradeDaysObjective"]?.passed ? (
+                            {/* {data.objectives["minimumTradeDaysObjective"]?.passed ? (
                               <BsFillCheckCircleFill className={classes.icon} />
                             ) : (
                               <IoMdCloseCircle className={classes.iconRed} />
@@ -291,7 +311,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         updating...
-                        {/* <p>{objectives["minimumTradeDaysObjective"]?.count}</p> */}
+                        {/* <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p> */}
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -312,11 +332,11 @@ const Dashboard = () => {
                     <div className={classes.body}>
                       <div className={classes.results}>
                         <p className={classes.status}>
-                          {objectives["maxDailyLoss"]?.passed
+                          {data.objectives["maxDailyLoss"]?.passed
                             ? "passed"
                             : "failed"}
                           <span>
-                            {objectives["maxDailyLoss"]?.passed ? (
+                            {data.objectives["maxDailyLoss"]?.passed ? (
                               <BsFillCheckCircleFill className={classes.icon} />
                             ) : (
                               <AiFillCloseCircle className={classes.iconRed} />
@@ -325,13 +345,13 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div>
-                        {/* <p>{objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>$ {+objectives["maxDailyLoss"]?.limit}</p>
+                        {/* <p>{data.objectives["maxDailyLoss"]?.equity}</p> */}
+                        <p>$ {+data.objectives["maxDailyLoss"]?.limit}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
                           Max Daily loss 5% 
-                          {/* ( {+objectives["maxDailyLoss"]?.limit}$) */}
+                          {/* ( {+data.objectives["maxDailyLoss"]?.limit}$) */}
                         </p>
                       </div>
                     </div>
@@ -348,9 +368,9 @@ const Dashboard = () => {
                     <div className={classes.body}>
                       <div className={classes.results}>
                         <p className={classes.status}>
-                          {objectives["maxLoss"]?.passed ? "passed" : "failed"}
+                          {data.objectives["maxLoss"]?.passed ? "passed" : "failed"}
                           <span>
-                            {objectives["maxLoss"]?.passed ? (
+                            {data.objectives["maxLoss"]?.passed ? (
                               <BsFillCheckCircleFill className={classes.icon} />
                             ) : (
                               <AiFillCloseCircle className={classes.iconRed} />
@@ -359,13 +379,13 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div>
-                        {/* <p>{objectives["maxLoss"]?.equity}</p> */}
-                        <p>$ {+objectives["maxLoss"]?.limit}</p>
+                        {/* <p>{data.objectives["maxLoss"]?.equity}</p> */}
+                        <p>$ {+data.objectives["maxLoss"]?.limit}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
-                          Max Loss {+objectives["maxLoss"]?.allowableMaxLossLimit}% 
-                          {/* ( {+objectives["maxLoss"]?.limit} $) */}
+                          Max Loss {+data.objectives["maxLoss"]?.allowableMaxLossLimit}% 
+                          {/* ( {+data.objectives["maxLoss"]?.limit} $) */}
                         </p>
                       </div>
                     </div>
@@ -387,11 +407,11 @@ const Dashboard = () => {
                           ) : (
                             <>
                               {" "}
-                              {objectives["profitTarget"]?.passed
+                              {data.objectives["profitTarget"]?.passed
                                 ? "passed"
                                 : "failed"}
                               <span>
-                                {objectives["profitTarget"]?.passed ? (
+                                {data.objectives["profitTarget"]?.passed ? (
                                   <BsFillCheckCircleFill
                                     className={classes.icon}
                                   />
@@ -410,14 +430,14 @@ const Dashboard = () => {
                           {user.infinitive ? (
                             "-"
                           ) : (
-                            <>$ {objectives["profitTarget"]?.balance}</>
+                            <>$ {data.objectives["profitTarget"]?.balance}</>
                           )}
                         </p>
                       </div>
                       <div className={classes.text}>
                         <p>
-                          Profit Target {objectives["profitTarget"]?.percentDays}{objectives["profitTarget"]?.percentDays &&"%"} 
-                          {/* ( {+objectives["profitTarget"]?.limit} $ ) */}
+                          Profit Target {data.objectives["profitTarget"]?.percentDays}{data.objectives["profitTarget"]?.percentDays &&"%"} 
+                          {/* ( {+data.objectives["profitTarget"]?.limit} $ ) */}
                         </p>
                       </div>
                     </div>

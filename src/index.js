@@ -11,6 +11,7 @@ import Modal from "./comps/Modal/index";
 // import dotenv from 'dotenv'
 
 // dotenv.config();
+// console.log = ()=>{}
 
 ReactDOM.render(
   <Provider store={store}>

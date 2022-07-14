@@ -16,8 +16,6 @@ class Service {
           config.headers['User-Agent'] = 'PostmanRuntime/7.29.0'
           config.headers['Connection'] = 'keep-alive'
           config.headers['Accept-Encoding'] = 'gzip, deflate, br'
-          config.headers['Connection'] = 'keep-alive'
-
         }
         return config;
       },
