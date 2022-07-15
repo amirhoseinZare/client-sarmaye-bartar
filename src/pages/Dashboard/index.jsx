@@ -298,12 +298,12 @@ const Dashboard = () => {
                             ) : (
                               <IoMdCloseCircle className={classes.iconRed} />
                             )} */}
-                            updating...
+                            ...updating
                           </span>
                         </p>
                       </div>
                       <div>
-                        updating...
+                        ...updating
                         {/* <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p> */}
                       </div>
                       <div className={classes.text}>
