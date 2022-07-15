@@ -65,7 +65,7 @@ const Dashboard = () => {
     chart:[],
     objectives:[]
   });
-  const [objectives, setObjectives] = useState([]);
+  
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -75,19 +75,6 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  useEffect(()=>{
-    const {
-      chart, 
-      objective
-    } = JSON.parse(atob(localStorage.getItem(STAT_KEY)))
-    if((!chart) || (!objective))
-      return
-    setData({
-      chart, 
-      objectives:objective
-    });
-    // setObjectives(objective);
-  }, [])
   const asyncFetch = ({userId, mtAccountId}) => {
     UsersApi.getChart(mtAccountId).then((response) => {
       setLoading(true);
@@ -112,13 +99,13 @@ const Dashboard = () => {
   const options = useMemo(()=>({
     responsive: true,
     plugins: {
-      legend: {
-        display:false,
-      },
-      title: {
-        display: true,
-        text: 'Performance & Balance',
-      },
+      // legend: {
+      //   pointStyle: 'dash',
+      // },
+      // title: {
+      //   display: true,
+      //   text: 'Performance & Balance',
+      // },
     },
   }), [])
 
@@ -127,18 +114,24 @@ const Dashboard = () => {
     labels,
     datasets: [
       {
-        label: '',
+        label: 'equity',
         data: data.chart ? data.chart.map(item=>item.minEquity) : [],
         borderColor: 'rgb(59,72,89)',
         backgroundColor: 'rgba(59,72,89, 0.1)',
-        pointStyle: 'dash'
+        pointStyle: 'dash',
+        tension: 0.4,
+        cubicInterpolationMode: 'monotone',
+
       },
       {
-        label: '',
+        label: 'balance',
         data: data.chart ? data.chart.map(item=>item.minBalance) : [],
         borderColor: 'rgb(255,182,41)',
         backgroundColor: 'rgb(255,182,41, 0.1)',
-        pointStyle: 'dash'
+        pointStyle: 'dash',
+        tension: 0.4,
+        cubicInterpolationMode: 'monotone',
+
       },
     ],
 
