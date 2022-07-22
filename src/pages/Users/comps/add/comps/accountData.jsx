@@ -382,6 +382,36 @@ function AccountData({ userState, setData }) {
         </Form.Item>
       </Col>}
 
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="MetaTrader username"
+          name="metaUsername"
+          rules={[
+            {
+              required: true,
+              message: "لطفا MetaTrader username را وارد نمایید.",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="MetaTrader password"
+          name="metaPassword"
+          rules={[
+            {
+              required: true,
+              message: "لطفا MetaTrader password را وارد نمایید.",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+
     </FormStyled>
   );
 }
