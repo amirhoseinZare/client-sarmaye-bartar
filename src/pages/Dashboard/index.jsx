@@ -242,7 +242,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{data.objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>$ {+data.objectives["maxDailyLoss"]?.dayBalance}</p>
+                        <p>$ {+data.objectives["maxDailyLoss"]?.dayBalance === null ? "updating..." : +data.objectives["maxDailyLoss"]?.dayBalance}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -303,7 +303,9 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div>
-                        ...updating
+                        <p className={classes.status}>
+                          <span>...updating</span>
+                        </p>
                         {/* <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p> */}
                       </div>
                       <div className={classes.text}>
@@ -325,11 +327,13 @@ const Dashboard = () => {
                     <div className={classes.body}>
                       <div className={classes.results}>
                         <p className={classes.status}>
-                          {data.objectives["maxDailyLoss"]?.passed
-                            ? "passed"
+                          {data.objectives["maxDailyLoss"]?.passed === null ? "...updating" :
+                            data.objectives["maxDailyLoss"]?.passed ? "passed"
                             : "failed"}
                           <span>
-                            {data.objectives["maxDailyLoss"]?.passed ? (
+                            {
+                              data.objectives["maxDailyLoss"]?.passed === null ? "" :
+                            data.objectives["maxDailyLoss"]?.passed ? (
                               <BsFillCheckCircleFill className={classes.icon} />
                             ) : (
                               <AiFillCloseCircle className={classes.iconRed} />
@@ -339,7 +343,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         {/* <p>{data.objectives["maxDailyLoss"]?.equity}</p> */}
-                        <p>$ {+data.objectives["maxDailyLoss"]?.limit}</p>
+                        <p>{ data.objectives["maxDailyLoss"]?.passed === null ? "...updating" : `$ ${+data.objectives["maxDailyLoss"]?.limit}`}</p>
                       </div>
                       <div className={classes.text}>
                         <p>

@@ -1,43 +1,25 @@
-// packages
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Col, Row, message, Modal, Tag } from "antd";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
-
-// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/actions/modal";
-
-// api
 import { UsersApi } from "../../api/Users.api";
-
-// components
 import CustomeTable from "../../comps/CustomeTable";
 import Edit from "./comps/edit";
 import AddUsers from "./comps/add";
 import Navbar from "../../comps/Navbar/Navbar";
-// import Filter from "./comps/filters";
-
-// style file
 import classes from "./style.module.scss";
 import "./customAntd.scss";
-
-// icons
 import { IoInfiniteSharp } from "react-icons/io5";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import {
-  AiFillCheckCircle,
-  AiFillCloseCircle,
-  AiOutlineUserAdd,
-  AiFillEye,
-} from "react-icons/ai";
+import {  AiFillCheckCircle, AiFillCloseCircle, AiOutlineUserAdd, AiFillEye, } from "react-icons/ai";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
-
-// core var
 import { USER_ID_KEY } from "../../core/variables.core";
 import Filters from "./comps/filters";
 import Ranking from "../../comps/Ranking/Ranking";
+import { IoIosAddCircleOutline } from "react-icons/io"
 
 const { confirm } = Modal;
 
@@ -64,7 +46,14 @@ let copyText = (text) => {
 function Categories() {
   let user = useSelector((state) => state.user);
   let navigate = useNavigate();
-
+  const addUserDrawdownTracker = async (mtAccountId)=>{
+    const call = await UsersApi.sendDrawdownTracker(mtAccountId)
+    if(call.success){
+      message.success(call.message)
+      return
+    }
+    message.error(call.message)
+  }
   const dispatch = useDispatch();
   const [state, setState] = useState({
     rows: [],
@@ -180,21 +169,21 @@ function Categories() {
         dataIndex: "user_registered",
         render: (user_registered) => user_registered || "-",
       },
-      {
-        title: "توکن",
-        key: "mtAccessToken",
-        dataIndex: "mtAccessToken",
-        render: (mtAccessToken) =>
-          mtAccessToken ? (
-            <MdContentCopy
-              className={classes.icons}
-              style={{ color: "#38ada9" }}
-              onClick={() => copyText(mtAccessToken)}
-            />
-          ) : (
-            "-"
-          ),
-      },
+      // {
+      //   title: "توکن",
+      //   key: "mtAccessToken",
+      //   dataIndex: "mtAccessToken",
+      //   render: (mtAccessToken) =>
+      //     mtAccessToken ? (
+      //       <MdContentCopy
+      //         className={classes.icons}
+      //         style={{ color: "#38ada9" }}
+      //         onClick={() => copyText(mtAccessToken)}
+      //       />
+      //     ) : (
+      //       "-"
+      //     ),
+      // },
       {
         title: "آیدی",
         key: "mtAccountId",
@@ -210,20 +199,36 @@ function Categories() {
             "-"
           ),
       },
+      // {
+      //   title: "آیدی دیتابیس",
+      //   key: "_id",
+      //   dataIndex: "_id",
+      //   render: (_id) =>
+      //   _id ? (
+      //       <MdContentCopy
+      //         className={classes.icons}
+      //         style={{ color: "#38ada9" }}
+      //         onClick={() => copyText(_id)}
+      //       />
+      //     ) : (
+      //       "-"
+      //     ),
+      // },
       {
-        title: "آیدی دیتابیس",
-        key: "_id",
-        dataIndex: "_id",
-        render: (_id) =>
-        _id ? (
+        title:"drawdown id",
+        key: "trackerId",
+        render: ({trackerId, mtAccountId}) => {
+          return trackerId ? (
             <MdContentCopy
               className={classes.icons}
               style={{ color: "#38ada9" }}
-              onClick={() => copyText(_id)}
+              onClick={() => copyText(trackerId)}
             />
           ) : (
-            "-"
-          ),
+            <IoIosAddCircleOutline className={classes.icons} onClick={() => addUserDrawdownTracker(mtAccountId)} />
+          )
+        }
+        ,
       },
       {
         title: "حذف",

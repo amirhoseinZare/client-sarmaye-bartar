@@ -34,4 +34,10 @@ UsersApi.getChart = function (userId) {
   return this.instance.get(`${this.baseApisUrl}/chart/equity/${userId}`)
 }
 
+UsersApi.sendDrawdownTracker = function (mtAccountId) {
+  return this.instance.post(`${this.baseApisUrl}/tracker/send`, {
+    mtAccountId
+  })
+}
+
 export { UsersApi };
