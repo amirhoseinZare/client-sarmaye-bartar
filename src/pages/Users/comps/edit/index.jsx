@@ -78,9 +78,10 @@ const Edit = ({ data, step = 0, closeModal }) => {
   // patch data function
   const patchData = async () => {
     setLoading(true)
-    const { accountType, systemAccountType, ...body } = userData
+    const { accountType, systemAccountType,  ...body } = userData
     setLoading(false)
     body.accountType = accountType === "doesNotExist" ? systemAccountType : accountType
+    body.role = "user"
     let response = await UsersApi.patchUser(user._id, body);
     if (response.success) {
       message.success(response.message);

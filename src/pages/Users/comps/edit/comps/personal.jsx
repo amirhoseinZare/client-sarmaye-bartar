@@ -64,7 +64,7 @@ const FormStyled = styled(Form)`
 `;
 
 const emailRegex = new RegExp(/^\S+@\S+\.\S+$/);
-const englishRegex = new RegExp(/^[a-z]_@.+$/i);
+const englishRegex = new RegExp(/^[a-z0-9_.]+$/i);
 
 function Personal({ userState, setData, data }) {
   const [state, setState] = useState({
@@ -177,7 +177,7 @@ function Personal({ userState, setData, data }) {
         </Form.Item>
       </Col>
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="سطح دسترسی"
           name="role"
@@ -191,7 +191,7 @@ function Personal({ userState, setData, data }) {
             ))}
           </Select>
         </Form.Item>
-      </Col>
+      </Col> */}
     </FormStyled>
   );
 }

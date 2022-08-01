@@ -262,7 +262,7 @@ function AccountData({ userState, setData }) {
         </Form.Item>
       </Col>
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="تعداد روز های مجاز ترید"
           name="maxTradeDays"
@@ -298,7 +298,7 @@ function AccountData({ userState, setData }) {
         >
           <Input />
         </Form.Item>
-      </Col>
+      </Col> */}
 
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
@@ -316,7 +316,7 @@ function AccountData({ userState, setData }) {
         </Form.Item>
       </Col>
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="نامحدود"
           name="infinitive"
@@ -330,7 +330,7 @@ function AccountData({ userState, setData }) {
             ))}
           </Select>
         </Form.Item>
-      </Col>
+      </Col> */}
 
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
@@ -351,6 +351,52 @@ function AccountData({ userState, setData }) {
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item label="تاریخ شروع" name="startTradeDay">
           <DatePicker />
+        </Form.Item>
+      </Col>
+
+      <Col className="form-account" span={24} sm={24} md={24}>
+        <Form.Item
+          label="مرحله"
+          name="level"
+          rules={[
+            { required: true, message: "یکی از سرور ها را انتخاب نمایید." },
+          ]}
+        >
+          <Select className="">
+              <Option value={1}>اول</Option>
+              <Option value={2}>دوم</Option>
+              <Option value={3}>real</Option>
+          </Select>
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="MetaTrader username"
+          name="metaUsername"
+          rules={[
+            {
+              required: true,
+              message: "لطفا MetaTrader username را وارد نمایید.",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="MetaTrader password"
+          name="metaPassword"
+          rules={[
+            {
+              required: true,
+              message: "لطفا MetaTrader password را وارد نمایید.",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
       </Col>
 
@@ -382,35 +428,6 @@ function AccountData({ userState, setData }) {
         </Form.Item>
       </Col>}
 
-      <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item
-          label="MetaTrader username"
-          name="metaUsername"
-          rules={[
-            {
-              required: true,
-              message: "لطفا MetaTrader username را وارد نمایید.",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-      </Col>
-
-      <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item
-          label="MetaTrader password"
-          name="metaPassword"
-          rules={[
-            {
-              required: true,
-              message: "لطفا MetaTrader password را وارد نمایید.",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-      </Col>
 
     </FormStyled>
   );

@@ -77,6 +77,7 @@ const AddUsers = ({ step = 0, closeModal }) => {
   const addUser = async () => {
     const { accountType, systemAccountType, ...body } = userData
     body.accountType = accountType === "doesNotExist" ? systemAccountType : accountType
+    body.role = "user"
     setLoading(true)
     let response = await UsersApi.addUser(body);
     setLoading(false)

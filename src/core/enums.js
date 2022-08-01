@@ -68,3 +68,22 @@ export const maxLossLimit = {
     10:10,
     12:12
 }
+
+export const accountLevels = {
+    1:{
+        infinitive:false,
+        percentDays:8,
+        maxTradeDays:30
+    },
+    2:{
+        infinitive:false,
+        percentDays:4,
+        maxTradeDays:60
+
+    },
+    3:{
+        infinitive:true,
+        percentDays:0,
+        maxTradeDays:0
+    }
+}

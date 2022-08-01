@@ -282,7 +282,7 @@ function AccountData({ userState, setData, data }) {
         </Form.Item>
       </Col>
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="تعداد روز های مجاز ترید"
           name="maxTradeDays"
@@ -295,9 +295,9 @@ function AccountData({ userState, setData, data }) {
         >
           <Input />
         </Form.Item>
-      </Col>
+      </Col> */}
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="Profit Target Percent"
           name="percentDays"
@@ -310,7 +310,7 @@ function AccountData({ userState, setData, data }) {
         >
           <Input />
         </Form.Item>
-      </Col>
+      </Col> */}
 
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
@@ -328,7 +328,7 @@ function AccountData({ userState, setData, data }) {
         </Form.Item>
       </Col>
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="نامحدود"
           name="infinitive"
@@ -342,7 +342,7 @@ function AccountData({ userState, setData, data }) {
             ))}
           </Select>
         </Form.Item>
-      </Col>
+      </Col> */}
 
 
       <Col className="form-input" span={24} sm={12} md={8}>
@@ -368,6 +368,22 @@ function AccountData({ userState, setData, data }) {
           defaultValue={moment(userState?.startTradeDay)}
           onChange={setDate}
         />
+      </Col>
+
+      <Col className="form-account" span={24} sm={24} md={24}>
+        <Form.Item
+          label="مرحله"
+          name="level"
+          rules={[
+            { required: true, message: "یکی از سرور ها را انتخاب نمایید." },
+          ]}
+        >
+          <Select className="">
+              <Option value={1}>اول</Option>
+              <Option value={2}>دوم</Option>
+              <Option value={3}>real</Option>
+          </Select>
+        </Form.Item>
       </Col>
       
       <Col className="form-account" span={24} sm={24} md={24}>
