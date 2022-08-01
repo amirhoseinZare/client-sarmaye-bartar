@@ -7,6 +7,7 @@ import ChangePassword from "./comps/changePassword"
 import styled from "styled-components";
 import { UsersApi } from "../../../../api/Users.api";
 import { useSelector } from "react-redux";
+import { accountLevels } from "../../../../core/enums"
 
 const { Step } = Steps;
 
@@ -78,11 +79,15 @@ const Edit = ({ data, step = 0, closeModal }) => {
   // patch data function
   const patchData = async () => {
     setLoading(true)
-    const { accountType, systemAccountType,  ...body } = userData
+    const { accountType, systemAccountType, level,  ...body } = userData
     setLoading(false)
     body.accountType = accountType === "doesNotExist" ? systemAccountType : accountType
     body.role = "user"
-    let response = await UsersApi.patchUser(user._id, body);
+    const payload = {
+      ...body,
+      ...accountLevels[level],
+    }
+    let response = await UsersApi.patchUser(user._id, payload);
     if (response.success) {
       message.success(response.message);
       closeModal()

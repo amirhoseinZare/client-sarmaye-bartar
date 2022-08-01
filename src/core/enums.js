@@ -73,17 +73,19 @@ export const accountLevels = {
     1:{
         infinitive:false,
         percentDays:8,
-        maxTradeDays:30
+        maxTradeDays:30,
+        level:1,
     },
     2:{
         infinitive:false,
         percentDays:4,
-        maxTradeDays:60
-
+        maxTradeDays:60,
+        level:2,
     },
     3:{
         infinitive:true,
         percentDays:0,
-        maxTradeDays:0
+        maxTradeDays:0,
+        level:3,
     }
 }

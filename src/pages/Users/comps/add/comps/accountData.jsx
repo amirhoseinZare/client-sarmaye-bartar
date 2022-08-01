@@ -128,17 +128,21 @@ function AccountData({ userState, setData }) {
       name: ["firstBalance"],
       value: "",
     },
+    // {
+    //   name: ["maxTradeDays"],
+    //   value: "",
+    // },
+    // {
+    //   name: ["percentDays"],
+    //   value: "",
+    // },
+    // {
+    //   name: ["infinitive"],
+    //   value: "",
+    // },
     {
-      name: ["maxTradeDays"],
-      value: "",
-    },
-    {
-      name: ["percentDays"],
-      value: "",
-    },
-    {
-      name: ["infinitive"],
-      value: "",
+      level:["level"],
+      value:""
     },
     {
       name: ["startTradeDay"],

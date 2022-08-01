@@ -130,17 +130,21 @@ function AccountData({ userState, setData, data }) {
       name: ["firstBalance"],
       value: "",
     },
+    // {
+    //   name: ["maxTradeDays"],
+    //   value: "",
+    // },
+    // {
+    //   name: ["percentDays"],
+    //   value: "",
+    // },
+    // {
+    //   name: ["infinitive"],
+    //   value: "",
+    // },
     {
-      name: ["maxTradeDays"],
-      value: "",
-    },
-    {
-      name: ["percentDays"],
-      value: "",
-    },
-    {
-      name: ["infinitive"],
-      value: "",
+      level:["level"],
+      value:""
     },
     {
       name: ["startTradeDay"],
@@ -151,7 +155,6 @@ function AccountData({ userState, setData, data }) {
       value: "",
     },
   ]);
-
 
   const accountTypes = useMemo(
     () => Object.values(accountType).map(({text, value})=>({text:text, value:value})),

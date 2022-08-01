@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { UsersApi } from "../../../../api/Users.api";
 import { useSelector } from "react-redux";
 import ChangePassword from "./comps/changePassword"
+import { accountLevels } from "../../../../core/enums"
 
 const { Step } = Steps;
 
@@ -75,11 +76,16 @@ const AddUsers = ({ step = 0, closeModal }) => {
 
   // add data function
   const addUser = async () => {
-    const { accountType, systemAccountType, ...body } = userData
+    const { accountType, systemAccountType,level, ...body } = userData
     body.accountType = accountType === "doesNotExist" ? systemAccountType : accountType
     body.role = "user"
+    const payload = {
+      ...body,
+      ...accountLevels[level],
+      type:"primary"
+    }
     setLoading(true)
-    let response = await UsersApi.addUser(body);
+    let response = await UsersApi.addUser(payload);
     setLoading(false)
     if (response.success) {
       message.success(response.message);

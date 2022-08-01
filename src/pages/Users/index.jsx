@@ -147,6 +147,12 @@ function Categories() {
         render: (platform) => platform || "-",
       },
       {
+        title: "مرحله",
+        key: "level",
+        dataIndex: "level",
+        render: (level) => level || "unkonwn",
+      },
+      {
         title: "نوع اکانت",
         key: "accountType",
         dataIndex: "accountType",
