@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { Col, Row, message, Modal, Tag } from "antd";
+import { Col, Row, message, Modal, Tag, Dropdown, Menu } from "antd";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import classes from "./style.module.scss";
 import "./customAntd.scss";
 import { IoInfiniteSharp } from "react-icons/io5";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import {  AiFillCheckCircle, AiFillCloseCircle, AiOutlineUserAdd, AiFillEye, } from "react-icons/ai";
+import { AiFillCheckCircle, AiFillCloseCircle, AiOutlineUserAdd, AiFillEye, AiOutlineArrowDown, AiOutlineMore, AiOutlineUser } from "react-icons/ai";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import { USER_ID_KEY } from "../../core/variables.core";
@@ -87,60 +87,42 @@ function Categories() {
         dataIndex: "user_login",
         render: (username) => username || "-",
       },
-      // {
-      //   title: "Equity",
-      //   key: "equity",
-      //   dataIndex: "equity",
-      //   render: (equity) => equity || "-",
-      // },
-      // {
-      //   title: "بالانس",
-      //   key: "balance",
-      //   dataIndex: "balance",
-      //   render: (balance) => balance || "-",
-      // },
-      // {
-      //   title: "بالانس روز",
-      //   key: "dayBalance",
-      //   dataIndex: "dayBalance",
-      //   render: (dayBalance) => dayBalance || "-",
-      // },
       {
         title: "بالانس اولیه",
         key: "firstBalance",
         dataIndex: "firstBalance",
         render: (firstBalance) => firstBalance || "-",
       },
-      {
-        title: "تعداد روز های مجاز ترید",
-        key: "maxTradeDays",
-        dataIndex: "maxTradeDays",
-        render: (maxTradeDays) =>
-          maxTradeDays || <IoInfiniteSharp className={classes.icons} />,
-      },
+      // {
+      //   title: "تعداد روز های مجاز ترید",
+      //   key: "maxTradeDays",
+      //   dataIndex: "maxTradeDays",
+      //   render: (maxTradeDays) =>
+      //     maxTradeDays || <IoInfiniteSharp className={classes.icons} />,
+      // },
       {
         title: "maxLossLimit",
         key: "maxLossLimit",
         dataIndex: "maxLossLimit",
       },
-      {
-        title: "Profit Target Percent",
-        key: "percentDays",
-        dataIndex: "percentDays",
-        render: (percentDays) =>
-          percentDays || <IoInfiniteSharp className={classes.icons} />,
-      },
-      {
-        title: "نامحدود",
-        key: "infinitive",
-        dataIndex: "infinitive",
-        render: (infinitive) =>
-          infinitive ? (
-            <AiFillCheckCircle className={classes["check-icon"]} />
-          ) : (
-            <AiFillCloseCircle className={classes["close-icon"]} />
-          ),
-      },
+      // {
+      //   title: "Profit Target Percent",
+      //   key: "percentDays",
+      //   dataIndex: "percentDays",
+      //   render: (percentDays) =>
+      //     percentDays || <IoInfiniteSharp className={classes.icons} />,
+      // },
+      // {
+      //   title: "نامحدود",
+      //   key: "infinitive",
+      //   dataIndex: "infinitive",
+      //   render: (infinitive) =>
+      //     infinitive ? (
+      //       <AiFillCheckCircle className={classes["check-icon"]} />
+      //     ) : (
+      //       <AiFillCloseCircle className={classes["close-icon"]} />
+      //     ),
+      // },
       {
         title: "پلتفرم",
         key: "platform",
@@ -176,21 +158,7 @@ function Categories() {
         dataIndex: "user_registered",
         render: (user_registered) => user_registered || "-",
       },
-      // {
-      //   title: "توکن",
-      //   key: "mtAccessToken",
-      //   dataIndex: "mtAccessToken",
-      //   render: (mtAccessToken) =>
-      //     mtAccessToken ? (
-      //       <MdContentCopy
-      //         className={classes.icons}
-      //         style={{ color: "#38ada9" }}
-      //         onClick={() => copyText(mtAccessToken)}
-      //       />
-      //     ) : (
-      //       "-"
-      //     ),
-      // },
+    
       {
         title: "آیدی",
         key: "mtAccountId",
@@ -206,21 +174,7 @@ function Categories() {
             "-"
           ),
       },
-      // {
-      //   title: "آیدی دیتابیس",
-      //   key: "_id",
-      //   dataIndex: "_id",
-      //   render: (_id) =>
-      //   _id ? (
-      //       <MdContentCopy
-      //         className={classes.icons}
-      //         style={{ color: "#38ada9" }}
-      //         onClick={() => copyText(_id)}
-      //       />
-      //     ) : (
-      //       "-"
-      //     ),
-      // },
+     
       {
         title:"drawdown id",
         key: "trackerId",
@@ -274,6 +228,17 @@ function Categories() {
           />
         ),
       },
+      {
+        title:"add account",
+        key:"add account",
+        render:(props)=>{
+          return <span>
+            <AiOutlineUserAdd 
+              className={classes["icons"]}
+            />
+          </span>
+        }
+      }
     ],
     [state.rows]
   );
@@ -341,7 +306,7 @@ function Categories() {
     );
   };
 
-  const openAddModal = (step = 0) => {
+  const openAddModal = (step = 0, defaultEmail="") => {
     dispatch(
       setModal({
         visible: true,
@@ -349,6 +314,7 @@ function Categories() {
         width: 700,
         children: (
           <AddUsers
+            email={defaultEmail}
             closeModal={() => {
               dispatch(setModal({ visible: false }));
               getUsersData();
@@ -357,7 +323,7 @@ function Categories() {
         ),
         closeCallback: () => {
           getUsersData();
-        },
+        }
       })
     );
   };

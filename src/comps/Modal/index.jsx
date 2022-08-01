@@ -20,9 +20,9 @@ const CustomeModal = ({ props }) => {
 		width=500,
 		closeCallback=null,
 		icon="",
-		children=null
+		children=null,
+		childProps=null
 	} = modalState;
-
 
 	const closeModal = () => {
 		dispatch(

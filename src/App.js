@@ -34,17 +34,6 @@ function App() {
     }
   }, []);
 
-  // console.log(userState, user)
-  // socket.on("alert", (data)=>{
-  //   const pushData = JSON.parse(atob(data))
-  //   if(userState){
-  //     if(userState._id.toString() === pushData.userId.toString() || userState.role==="admin"){
-  //       dispatch(setAlert(pushData))
-  //       console.log('added', pushData.userId, userState._id)
-  //     }
-  //   }
-  // })
-
   return (
     <div className="App">
       <Routes>
