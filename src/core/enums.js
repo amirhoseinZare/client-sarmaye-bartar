@@ -89,3 +89,10 @@ export const accountLevels = {
         level:3,
     }
 }
+
+export const displayAccountLevelsEnum = {
+    1:"first",
+    2:"second",
+    3:"real",
+    10:"unkown"
+}

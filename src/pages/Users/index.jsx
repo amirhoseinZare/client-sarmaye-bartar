@@ -20,6 +20,7 @@ import { USER_ID_KEY } from "../../core/variables.core";
 import Filters from "./comps/filters";
 import Ranking from "../../comps/Ranking/Ranking";
 import { IoIosAddCircleOutline } from "react-icons/io"
+import { displayAccountLevelsEnum } from "../../core/enums"
 
 const { confirm } = Modal;
 
@@ -150,7 +151,7 @@ function Categories() {
         title: "مرحله",
         key: "level",
         dataIndex: "level",
-        render: (level) => level || "unkonwn",
+        render: (level) => displayAccountLevelsEnum[level] || "unkonwn",
       },
       {
         title: "نوع اکانت",
