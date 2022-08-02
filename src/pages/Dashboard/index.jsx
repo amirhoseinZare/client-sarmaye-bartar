@@ -143,7 +143,7 @@ const Dashboard = () => {
       {user.isAuth ? (
         <div className={classes.root}>
           <Navbar />
-          <UserMenu />
+          {/* <UserMenu /> */}
           <Row className={classes.row}>
             <Col className={classes.col} xs={23} sm={23} md={17} lg={17} >
               {loading ? <Skeleton title={false} active paragraph={{ rows: 15 }} /> : 
