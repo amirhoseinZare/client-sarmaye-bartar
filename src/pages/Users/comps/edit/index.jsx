@@ -86,6 +86,7 @@ const Edit = ({ data, step = 0, closeModal }) => {
     const payload = {
       ...body,
       ...accountLevels[level],
+      maxLossLimit:12
     }
     let response = await UsersApi.patchUser(user._id, payload);
     if (response.success) {

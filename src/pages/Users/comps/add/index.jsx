@@ -58,6 +58,7 @@ const StyledRow = styled(Row)`
 `;
 
 const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
+
   const [userData, setUserData] = useState({});
   const [current, setCurrent] = useState(step);
   const [loading, setLoading] = useState(false)
@@ -82,7 +83,8 @@ const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
     const payload = {
       ...body,
       ...accountLevels[level],
-      type:"primary"
+      type:"primary",
+      maxLossLimit:12
     }
     setLoading(true)
     let response = await UsersApi.addUser(payload);
@@ -109,7 +111,7 @@ const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
       content: (
         <AccountData
           setData={setUserData}
-          userState={userData}
+          userState={{...userData, user_email:userEmail}}
           prev={prev}
           next={next}
         />
@@ -137,7 +139,7 @@ const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
         />
       ),
     }
-  ], [userData])
+  ], [userData,userEmail])
 
   return (
     <StyledRow>

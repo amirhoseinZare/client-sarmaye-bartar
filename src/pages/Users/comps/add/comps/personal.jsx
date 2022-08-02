@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { Form, Input, Col, Select } from "antd";
 
 const { Option } = Select;
@@ -66,7 +67,8 @@ const FormStyled = styled(Form)`
 const emailRegex = new RegExp(/^\S+@\S+\.\S+$/);
 const englishRegex = new RegExp(/^[a-z0-9_.]+$/i);
 
-function Personal({ userState, setData, userEmail }) {
+function Personal({ userState, setData }) {
+  const defaultEmail = useSelector(state=>state.defaultEmail)
   const [state, setState] = useState({
     loading: false,
     fetching: false,
@@ -79,25 +81,6 @@ function Personal({ userState, setData, userEmail }) {
     },
     {
       name: ["user_login"],
-      value: userEmail,
-    },
-    {
-      name: ["user_email"],
-      value: "",
-    },
-    {
-      name: ["role"],
-      value: "",
-    },
-  ]);
-
-  const [checkFields, setCheckFields] = useState([
-    {
-      name: ["display_name"],
-      value: "",
-    },
-    {
-      name: ["user_login"],
       value: "",
     },
     {
@@ -109,20 +92,6 @@ function Personal({ userState, setData, userEmail }) {
       value: "",
     },
   ]);
-
-  const isActiveOptions = useMemo(
-    () => [
-      {
-        text: "ادمین",
-        value: "admin",
-      },
-      {
-        text: "تریدر",
-        value: "user",
-      },
-    ],
-    []
-  );
 
   useEffect(() => {
     let newFields = [];
@@ -135,7 +104,7 @@ function Personal({ userState, setData, userEmail }) {
     }
 
     setFields(newFields);
-  }, [userState]);
+  }, [userState, defaultEmail]);
 
   const onFinish = () => {};
 

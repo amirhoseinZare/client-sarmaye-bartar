@@ -349,7 +349,7 @@ function AccountData({ userState, setData, data }) {
       </Col> */}
 
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="max loss limit"
           name="maxLossLimit"
@@ -363,7 +363,7 @@ function AccountData({ userState, setData, data }) {
             ))}
           </Select>
         </Form.Item>
-      </Col>
+      </Col> */}
 
 
       <Col className="form-input" span={24} sm={24} md={24}>

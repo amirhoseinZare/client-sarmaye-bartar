@@ -203,8 +203,10 @@ function AccountData({ userState, setData }) {
 
   useEffect(()=>{
     if(fields.length===0)return
-    const isCustom = fields.find(item=>item.name[0]==="accountType")?.value === accountType.doesNotExist.value
-    setIscustomAccount(isCustom)
+    const accountTypeValue = fields.find(item=>item.name[0]==="accountType")?.value 
+    const isCustom = accountTypeValue === accountType.doesNotExist.value
+    if(accountTypeValue)
+      setIscustomAccount(isCustom)
   }, [fields])
 
   const onFinish = () => {};
@@ -336,7 +338,7 @@ function AccountData({ userState, setData }) {
         </Form.Item>
       </Col> */}
 
-      <Col className="form-input" span={24} sm={12} md={8}>
+      {/* <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="max loss limit"
           name="maxLossLimit"
@@ -350,7 +352,7 @@ function AccountData({ userState, setData }) {
             ))}
           </Select>
         </Form.Item>
-      </Col>
+      </Col> */}
 
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item label="تاریخ شروع" name="startTradeDay">

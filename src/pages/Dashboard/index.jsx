@@ -27,6 +27,7 @@ import { USER_ID_KEY, STAT_KEY } from "../../core/variables.core";
 import DataBox from "./comps/DataBox.component";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import UserMenu from "../../layouts/Menu"
 import { ReactComponent as LogoSvg  } from "../../assets/logo.svg"
 import { FaLess } from "react-icons/fa";
 ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend );
@@ -142,6 +143,7 @@ const Dashboard = () => {
       {user.isAuth ? (
         <div className={classes.root}>
           <Navbar />
+          <UserMenu />
           <Row className={classes.row}>
             <Col className={classes.col} xs={23} sm={23} md={17} lg={17} >
               {loading ? <Skeleton title={false} active paragraph={{ rows: 15 }} /> : 

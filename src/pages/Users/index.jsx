@@ -21,6 +21,7 @@ import Filters from "./comps/filters";
 import Ranking from "../../comps/Ranking/Ranking";
 import { IoIosAddCircleOutline } from "react-icons/io"
 import { displayAccountLevelsEnum } from "../../core/enums"
+import { setDefaultEmail } from "../../redux/actions/defaultEmail"
 
 const { confirm } = Modal;
 
@@ -228,17 +229,17 @@ function Categories() {
           />
         ),
       },
-      {
-        title:"add account",
-        key:"add account",
-        render:(props)=>{
-          return <span>
-            <AiOutlineUserAdd 
-              className={classes["icons"]}
-            />
-          </span>
-        }
-      }
+      // {
+      //   title:"add account",
+      //   key:"add account",
+      //   render:(record)=>{
+      //     return <span onClick={()=>openAddModal(0, record.user_email)}>
+      //       <AiOutlineUserAdd 
+      //         className={classes["icons"]}
+      //       />
+      //     </span>
+      //   }
+      // }
     ],
     [state.rows]
   );
@@ -307,6 +308,9 @@ function Categories() {
   };
 
   const openAddModal = (step = 0, defaultEmail="") => {
+    dispatch(
+      setDefaultEmail(defaultEmail)
+    )
     dispatch(
       setModal({
         visible: true,
@@ -381,7 +385,7 @@ function Categories() {
           />
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-          <div className={classes["icon-box"]} onClick={openAddModal}>
+          <div className={classes["icon-box"]} onClick={()=>openAddModal(0, "")}>
             <AiOutlineUserAdd className={classes["add-user-icon"]} />
           </div>
         </Col>
