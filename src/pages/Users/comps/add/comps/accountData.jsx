@@ -268,44 +268,6 @@ function AccountData({ userState, setData }) {
         </Form.Item>
       </Col>
 
-      {/* <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item
-          label="تعداد روز های مجاز ترید"
-          name="maxTradeDays"
-          rules={[
-            {
-              required: true,
-              message: "تعداد روز های مجاز ترید را وارد نمایید.",
-            },
-            {
-              pattern: numberRegex,
-              message: "لطفا یک عدد انگلیسی وارد نمایید!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-      </Col>
-
-      <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item
-          label="Profit Target Percent"
-          name="percentDays"
-          rules={[
-            {
-              required: true,
-              message: "لطفا Profit Target Percent را وارد نمایید.",
-            },
-            {
-              pattern: numberRegex,
-              message: "لطفا یک عدد انگلیسی وارد نمایید!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-      </Col> */}
-
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
           label="پلتفرم"
@@ -321,38 +283,6 @@ function AccountData({ userState, setData }) {
           </Select>
         </Form.Item>
       </Col>
-
-      {/* <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item
-          label="نامحدود"
-          name="infinitive"
-          rules={[
-            { required: true, message: "یکی از دسترسی ها را انتخاب نمایید." },
-          ]}
-        >
-          <Select className="">
-            {infinitives.map((item) => (
-              <Option key={item.value} value={item.value}>{item.text}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-      </Col> */}
-
-      {/* <Col className="form-input" span={24} sm={12} md={8}>
-        <Form.Item
-          label="max loss limit"
-          name="maxLossLimit"
-          rules={[
-            { required: true, message: "این فیلد اجباری است" },
-          ]}
-        >
-          <Select className="">
-            {maxLossLimitOpts.map((item) => (
-              <Option key={item.value} value={item.value}>{item.text}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-      </Col> */}
 
       <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item label="تاریخ شروع" name="startTradeDay">

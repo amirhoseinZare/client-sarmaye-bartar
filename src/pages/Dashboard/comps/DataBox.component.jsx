@@ -16,6 +16,24 @@ const DataBox = ({ classes, user }) => {
           }}
         />
         <div className={classes.body}>
+
+          {user.metaUsername ? <>
+            <div className={classes.item}>
+              <div>
+                {user.metaUsername}
+              </div>
+              <div>MetaTrader Username</div>
+            </div>
+            <Divider
+              style={{
+                borderColor: "rgb(177 177 177 / 40%)",
+                width: "50%",
+                marginBottom: 15,
+                marginTop: 15,
+              }}
+            />
+          </> : null}
+
           <div className={classes.item}>
             <div>
               {user.startTradeDay ? user.startTradeDay.slice(0, 9) : "-"}

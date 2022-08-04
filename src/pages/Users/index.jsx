@@ -187,7 +187,7 @@ function Categories() {
               onClick={() => copyText(trackerId)}
             />
           ) : (
-            <IoIosAddCircleOutline className={classes.icons} onClick={() => addUserDrawdownTracker(mtAccountId)} />
+            <span onClick={() => addUserDrawdownTracker(mtAccountId)}><IoIosAddCircleOutline className={classes.icons}  /></span>
           )
         }
         ,
