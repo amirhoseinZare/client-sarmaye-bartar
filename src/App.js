@@ -1,6 +1,8 @@
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard/index";
 import Users from "./pages/Users/index";
+import Requests from "./pages/Requests/index"
+
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Spinner } from "./comps/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +56,17 @@ function App() {
           }
         />
 
+        <Route 
+          path="/requests" 
+          element={
+            <PrivateRoute roles={["admin"]}>
+              <Requests />
+            </PrivateRoute>
+          } 
+        />
+
         <Route path="*" element={<NotFoundPage />} />
+        
       </Routes>
       {loading && <Spinner />}
     </div>

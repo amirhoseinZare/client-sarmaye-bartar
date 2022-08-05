@@ -36,6 +36,7 @@ class Service {
       (error) => {
         if(window.location.pathname!=="/404" && window.location.pathname!=="/login"){
           const status = error.response.status
+          console.log({status})
           switch(status){
             case 401:
               window.location.pathname = "/login";      

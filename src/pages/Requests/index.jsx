@@ -1,26 +1,21 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { Col, Row, message, Modal, Tag, Dropdown, Menu, ConfigProvider } from "antd";
+import { useState, useEffect, useMemo } from "react";
+import { Col, Row, message, Modal, Tag  } from "antd";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/actions/modal";
 import { UsersApi } from "../../api/Users.api";
 import CustomeTable from "../../comps/CustomeTable";
-import Edit from "./comps/edit";
-import AddUsers from "./comps/add";
+// import Edit from "./comps/edit";
+// import AddUsers from "./comps/add";
 import Navbar from "../../comps/Navbar/Navbar";
 import classes from "./style.module.scss";
-import "./customAntd.scss";
-import { IoInfiniteSharp } from "react-icons/io5";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { AiFillCheckCircle, AiFillCloseCircle, AiOutlineUserAdd, AiFillEye, AiOutlineArrowDown, AiOutlineMore, AiOutlineUser } from "react-icons/ai";
-import { MdContentCopy, MdDelete } from "react-icons/md";
+import {  AiOutlineUserAdd, AiFillEye } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import { USER_ID_KEY } from "../../core/variables.core";
-import Filters from "../Requests/comps/filters";
+import Filters from "./comps/filters";
 import Ranking from "../../comps/Ranking/Ranking";
-import { IoIosAddCircleOutline } from "react-icons/io"
-import { displayAccountLevelsEnum } from "../../core/enums"
 import { setDefaultEmail } from "../../redux/actions/defaultEmail"
 import MenuLayout from "../../layouts/Menu"
 
@@ -73,139 +68,32 @@ function Categories() {
   const columns = useMemo(
     () => [
       {
-        title: "نام",
-        key: "display_name",
-        dataIndex: "display_name",
-        render: (name) => name || "-",
-      },
-      {
-        title: "ایمیل",
+        title: "email",
         key: "user_email",
         dataIndex: "user_email",
-        render: (email) => email || "-",
+        render: (user_email) => user_email || "-",
       },
       {
-        title: "نام کاربری",
-        key: "user_login",
-        dataIndex: "user_login",
-        render: (username) => username || "-",
+        title: "type",
+        key: "type",
+        dataIndex: "type",
+        render: (type) => type || "-",
       },
       {
-        title: "بالانس اولیه",
-        key: "firstBalance",
-        dataIndex: "firstBalance",
-        render: (firstBalance) => firstBalance || "-",
+        title: "status",
+        key: "status",
+        dataIndex: "status",
+        render: (status) => status || "-",
       },
-      // {
-      //   title: "تعداد روز های مجاز ترید",
-      //   key: "maxTradeDays",
-      //   dataIndex: "maxTradeDays",
-      //   render: (maxTradeDays) =>
-      //     maxTradeDays || <IoInfiniteSharp className={classes.icons} />,
-      // },
+      
       {
-        title: "maxLossLimit",
-        key: "maxLossLimit",
-        dataIndex: "maxLossLimit",
-      },
-      // {
-      //   title: "Profit Target Percent",
-      //   key: "percentDays",
-      //   dataIndex: "percentDays",
-      //   render: (percentDays) =>
-      //     percentDays || <IoInfiniteSharp className={classes.icons} />,
-      // },
-      // {
-      //   title: "نامحدود",
-      //   key: "infinitive",
-      //   dataIndex: "infinitive",
-      //   render: (infinitive) =>
-      //     infinitive ? (
-      //       <AiFillCheckCircle className={classes["check-icon"]} />
-      //     ) : (
-      //       <AiFillCloseCircle className={classes["close-icon"]} />
-      //     ),
-      // },
-      {
-        title: "پلتفرم",
-        key: "platform",
-        dataIndex: "platform",
-        render: (platform) => platform || "-",
+        title: "create time",
+        key: "createdAt",
+        dataIndex: "createdAt",
+        render: (createdAt) => createdAt || "-",
       },
       {
-        title: "مرحله",
-        key: "level",
-        dataIndex: "level",
-        render: (level) => displayAccountLevelsEnum[level] || "unkonwn",
-      },
-      {
-        title: "نوع اکانت",
-        key: "accountType",
-        dataIndex: "accountType",
-        render: (accountType) => accountType || "-",
-      },
-      {
-        title: "نوع کاربر",
-        key: "role",
-        dataIndex: "role",
-        render: (role) =>
-          role === "admin" ? (
-            <Tag color="cyan">ادمین</Tag>
-          ) : (
-            <Tag color="magenta">تریدر</Tag>
-          ),
-      },
-      {
-        title: "زمان ثبت نام",
-        key: "user_registered",
-        dataIndex: "user_registered",
-        render: (user_registered) => user_registered || "-",
-      },
-    
-      {
-        title: "آیدی",
-        key: "mtAccountId",
-        dataIndex: "mtAccountId",
-        render: (mtAccountId) =>
-          mtAccountId ? (
-            <MdContentCopy
-              className={classes.icons}
-              style={{ color: "#38ada9" }}
-              onClick={() => copyText(mtAccountId)}
-            />
-          ) : (
-            "-"
-          ),
-      },
-     
-      {
-        title:"drawdown id",
-        key: "trackerId",
-        render: ({trackerId, mtAccountId}) => {
-          return trackerId ? (
-            <MdContentCopy
-              className={classes.icons}
-              style={{ color: "#38ada9" }}
-              onClick={() => copyText(trackerId)}
-            />
-          ) : (
-            <span onClick={() => addUserDrawdownTracker(mtAccountId)}><IoIosAddCircleOutline className={classes.icons}  /></span>
-          )
-        }
-        ,
-      },
-      {
-        title: "حذف",
-        key: "delUser",
-        render: (userDel) => (
-          <MdDelete
-            className={classes["close-icon"]}
-            onClick={() => openDeleteModal(userDel)}
-          />
-        ),
-      },
-      {
-        title: "ویرایش",
+        title: "update",
         key: "editUser",
         render: (userEdit) => {
           return (
@@ -218,30 +106,20 @@ function Categories() {
         },
       },
       {
-        title: "ورود به پنل کاربر",
+        title: "analyze",
         key: "loginToUserPanel",
         render: (userAdd) => (
           <AiFillEye
             style={{ color: "#16a085" }}
             className={classes["icons"]}
             onClick={() => {
-              setUserId(userAdd._id);
+              setUserId(userAdd.accountId);
               navigate("/dashboard");
             }}
           />
         ),
       },
-      // {
-      //   title:"add account",
-      //   key:"add account",
-      //   render:(record)=>{
-      //     return <span onClick={()=>openAddModal(0, record.user_email)}>
-      //       <AiOutlineUserAdd 
-      //         className={classes["icons"]}
-      //       />
-      //     </span>
-      //   }
-      // }
+    
     ],
     [state.rows]
   );
@@ -293,14 +171,7 @@ function Categories() {
         title: "ویرایش",
         width: 700,
         children: (
-          <Edit
-            data={data}
-            step={step}
-            closeModal={() => {
-              dispatch(setModal({ visible: false }));
-              getUsersData();
-            }}
-          />
+          null
         ),
         closeCallback: () => {
           getUsersData();
@@ -319,13 +190,14 @@ function Categories() {
         title: "افزودن کاربر",
         width: 700,
         children: (
-          <AddUsers
-            email={defaultEmail}
-            closeModal={() => {
-              dispatch(setModal({ visible: false }));
-              getUsersData();
-            }}
-          />
+          null
+          // <AddUsers
+          //   email={defaultEmail}
+          //   closeModal={() => {
+          //     dispatch(setModal({ visible: false }));
+          //     getUsersData();
+          //   }}
+          // />
         ),
         closeCallback: () => {
           getUsersData();
@@ -369,7 +241,7 @@ function Categories() {
           xl={22}
           className={classes.titleBox}
         >
-          <h2>لیست کاربران</h2>
+          <h2>لیست درخواست ها</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
           <Filters setFilter={setFilter} filter={filter} />
