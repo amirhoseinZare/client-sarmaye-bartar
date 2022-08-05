@@ -26,13 +26,14 @@
 
 @media screen and (min-width: 700px) {
   .nav {
-    padding: 0 15px;
+    padding: 0 10px;
     .trader {
-      img {
+      svg {
         width: 45px;
         height: 45px;
         margin-left: 10px;
         margin-right: 12px;
+        fill:#FFB629;
       }
       h3 {
         font-size: 16px;
@@ -57,6 +58,9 @@
 }
 
 .nav {
+  position: fixed !important;
+  top:0;
+  z-index: 2;
   background-color: #24303c;
   position: relative;
   top: 0;

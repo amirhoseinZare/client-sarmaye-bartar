@@ -36,7 +36,7 @@ const DataBox = ({ classes, user }) => {
 
           <div className={classes.item}>
             <div>
-              {user.startTradeDay ? user.startTradeDay.slice(0, 9) : "-"}
+              {user.startTradeDay ? user.startTradeDay.split(" ")[0] : "-"}
             </div>
             <div>start</div>
           </div>
@@ -49,7 +49,7 @@ const DataBox = ({ classes, user }) => {
             }}
           />
           <div className={classes.item}>
-            <div>{user.endTradeDay ? user.endTradeDay.slice(0, 9) : "-"}</div>
+            <div>{user.endTradeDay ? user.endTradeDay.split(" ")[0] : "-"}</div>
             <div>end</div>
           </div>
           <Divider

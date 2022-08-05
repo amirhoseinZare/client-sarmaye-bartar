@@ -291,28 +291,27 @@ const Dashboard = () => {
                     <div className={classes.body}>
                       <div className={classes.results}>
                         <p className={classes.status}>
-                          {/* {data.objectives["minimumTradeDaysObjective"]?.passed
+                          {data.objectives["minimumTradeDaysObjective"]?.passed
                             ? "passed"
-                            : "failed"} */}
+                            : "failed"}
                           <span>
-                            {/* {data.objectives["minimumTradeDaysObjective"]?.passed ? (
+                            {data.objectives["minimumTradeDaysObjective"]?.passed ? (
                               <BsFillCheckCircleFill className={classes.icon} />
                             ) : (
                               <IoMdCloseCircle className={classes.iconRed} />
-                            )} */}
-                            ...updating
+                            )}
                           </span>
                         </p>
                       </div>
                       <div>
-                        <p className={classes.status}>
+                        {/* <p className={classes.status}>
                           <span>...updating</span>
-                        </p>
-                        {/* <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p> */}
+                        </p> */}
+                        <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
-                          Minimum {user.infinitive ? "-" : "5"} Tradings day
+                          Minimum {user.infinitive ? "-" : "5 Trading days"} 
                         </p>
                       </div>
                     </div>

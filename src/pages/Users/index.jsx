@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { Col, Row, message, Modal, Tag, Dropdown, Menu } from "antd";
+import { Col, Row, message, Modal, Tag, Dropdown, Menu, ConfigProvider } from "antd";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,7 @@ import Ranking from "../../comps/Ranking/Ranking";
 import { IoIosAddCircleOutline } from "react-icons/io"
 import { displayAccountLevelsEnum } from "../../core/enums"
 import { setDefaultEmail } from "../../redux/actions/defaultEmail"
+import MenuLayout from "../../layouts/Menu"
 
 const { confirm } = Modal;
 
@@ -38,6 +39,7 @@ const StyledRow = styled(Row)`
   .tag {
     border-radius: 12px;
   }
+  width:calc(100% - 175px);
 `;
 
 let copyText = (text) => {
@@ -403,6 +405,8 @@ function Categories() {
           <Ranking />
         </Col>
       </StyledRow>
+      <MenuLayout />
+
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { TOKEN_LOCAL_KEY } from "../../core/variables.core";
 import { IoMdNotifications } from "react-icons/io";
+import { BiUserCircle } from "react-icons/bi"
 
 // antd
 import { Badge, Menu, Dropdown } from "antd";
@@ -37,14 +38,9 @@ const Navbar = () => {
 
 	return (
 		<div className={classes.nav}>
-			<div className={classes.trader}>
-				<img src={traderImg} alt='' />
-				<h3>{user.display_name}</h3>
-			</div>
-			<div className={classes.logo}>
-				<img src={logo} alt='' />
-			</div>
 			<div className={classes.iconBox}>
+			<FaPowerOff onClick={logout} className={classes.icon} />
+
 				{alert.length === 0 ? (
 					<Badge
 						count={alert.length}
@@ -65,7 +61,13 @@ const Navbar = () => {
 					</Dropdown>
 				)}
 
-				<FaPowerOff onClick={logout} className={classes.icon} />
+			</div>
+			<div className={classes.logo}>
+				<img src={logo} alt='' />
+			</div>
+			<div className={classes.trader}>
+				<h3>{user.user_email}</h3>
+				<BiUserCircle />
 			</div>
 		</div>
 	);

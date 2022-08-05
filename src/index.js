@@ -17,7 +17,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <React.StrictMode>
-        <ConfigProvider direction="rtl">
+        <ConfigProvider direction="ltr">
           <Modal />
           <App />
         </ConfigProvider>

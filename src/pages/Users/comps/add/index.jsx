@@ -57,7 +57,7 @@ const StyledRow = styled(Row)`
   }
 `;
 
-const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
+const AddUsers = ({ step = 0, closeModal}) => {
 
   const [userData, setUserData] = useState({});
   const [current, setCurrent] = useState(step);
@@ -103,7 +103,7 @@ const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
     {
       title: "اطلاعات شخصی کاربر",
       content: (
-        <Personal setData={setUserData} userState={userData} next={next} userEmail={userEmail}/>
+        <Personal setData={setUserData} userState={userData} next={next}/>
       ),
     },
     {
@@ -111,7 +111,7 @@ const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
       content: (
         <AccountData
           setData={setUserData}
-          userState={{...userData, user_email:userEmail}}
+          userState={{...userData}}
           prev={prev}
           next={next}
         />
@@ -139,7 +139,7 @@ const AddUsers = ({ step = 0, closeModal, email:userEmail }) => {
         />
       ),
     }
-  ], [userData,userEmail])
+  ], [userData])
 
   return (
     <StyledRow>

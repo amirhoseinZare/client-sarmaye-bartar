@@ -1,59 +1,72 @@
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
-import React from 'react';
+import { Menu, Button, ConfigProvider } from 'antd';
+import {
+  AppstoreOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  PieChartOutlined,
+  DesktopOutlined,
+  ContainerOutlined,
+  MailOutlined,
+} from '@ant-design/icons';
+import { useState } from 'react';
 import styled from "styled-components"
 
-const StyledMenu = styled(Menu)`
-  height:100%;
+const StyledRoot = styled.div`
+  width:256px;
   position:fixed;
-  left:0;
   top:0;
+  left:0;
+  height:100vh;
+  width:175px;
+  .ant-menu-dark {
+    padding-top:56px;
+    background:#24303C;
+    height:100vh;
+    &.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+      background-color: #FFB629;
+    }
+  }
 `
 
-function getItem(label, key, icon, children, type) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  };
+const { SubMenu } = Menu;
+
+const AdminLayout = ()=> {
+    const [state, setState] = useState({
+      collapsed: false,
+    })
+
+    const toggleCollapsed = () => {
+      setState({
+        collapsed: !state.collapsed,
+      });
+    };
+
+    return (
+          <StyledRoot>
+            {/* <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
+              {state.collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
+            </Button> */}
+            <ConfigProvider direction='ltr'>
+              <Menu
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                mode="inline"
+                theme="dark"
+                inlineCollapsed={state.collapsed}
+              >
+                <Menu.Item key="1" icon={<PieChartOutlined />}>
+                  Users
+                </Menu.Item>
+                <SubMenu key="sub1" icon={<MailOutlined />} title="Requests">
+                  <Menu.Item key="5">Next phase</Menu.Item>
+                  <Menu.Item key="6">Extend</Menu.Item>
+                  <Menu.Item key="7">Reset</Menu.Item>
+                  <Menu.Item key="8">Profit withdrawal</Menu.Item>
+                </SubMenu>
+              </Menu>
+            </ConfigProvider>
+          </StyledRoot>
+    );
 }
 
-const items = [
-  getItem('Navigation One', 'sub1', <MailOutlined />, [
-    getItem('Item 1', 'g1', null, [getItem('Option 1', '1'), getItem('Option 2', '2')], 'group'),
-    getItem('Item 2', 'g2', null, [getItem('Option 3', '3'), getItem('Option 4', '4')], 'group'),
-  ]),
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-  ]),
-  getItem('Navigation Three', 'sub4', <SettingOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
-    getItem('Option 11', '11'),
-    getItem('Option 12', '12'),
-  ]),
-];
-
-const App = () => {
-  const onClick = ()=>{
-    console.log('hello')
-  }
-  return (
-    <StyledMenu
-      onClick={onClick}
-      style={{
-        width: 256,
-      }}
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
-      mode="inline"
-      items={items}
-    />
-  );
-};
-
-export default App;
+export default AdminLayout
