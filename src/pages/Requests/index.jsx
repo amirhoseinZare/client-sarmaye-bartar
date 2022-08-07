@@ -241,7 +241,7 @@ function Categories() {
           xl={22}
           className={classes.titleBox}
         >
-          <h2>لیست درخواست ها</h2>
+          <h2>Requests</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
           <Filters setFilter={setFilter} filter={filter} />

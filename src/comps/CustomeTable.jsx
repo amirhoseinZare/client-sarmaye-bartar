@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Table, ConfigProvider } from "antd";
 import styled from "styled-components";
 
 const StyledTable = styled(Table)`
@@ -68,13 +68,16 @@ const StyledTable = styled(Table)`
 const CustomTable = ({ columns, rows, pagination, ...otherProps }) => {
   const { position = ["bottomCenter"] } = pagination;
   return (
-    <StyledTable
-      columns={columns}
-      dataSource={rows}
-      pagination={{ ...pagination, position }}
-      {...otherProps}
-      xScroll="scroll"
-    />
+    <ConfigProvider direction="rtl">
+      <StyledTable
+        columns={columns}
+        dataSource={rows}
+        pagination={{ ...pagination, position }}
+        {...otherProps}
+        xScroll="scroll"
+      />
+    </ConfigProvider>
+    
   );
 };
 

@@ -11,9 +11,8 @@ import AddUsers from "./comps/add";
 import Navbar from "../../comps/Navbar/Navbar";
 import classes from "./style.module.scss";
 import "./customAntd.scss";
-import { IoInfiniteSharp } from "react-icons/io5";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { AiFillCheckCircle, AiFillCloseCircle, AiOutlineUserAdd, AiFillEye, AiOutlineArrowDown, AiOutlineMore, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUserAdd, AiFillEye } from "react-icons/ai";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import { USER_ID_KEY } from "../../core/variables.core";
@@ -81,8 +80,8 @@ function Categories() {
       {
         title: "ایمیل",
         key: "user_email",
-        dataIndex: "user_email",
-        render: (email) => email || "-",
+        dataIndex: "",
+        render: ({user_email, accountEmail}) => user_email || accountEmail,
       },
       {
         title: "نام کاربری",
@@ -369,7 +368,7 @@ function Categories() {
           xl={22}
           className={classes.titleBox}
         >
-          <h2>لیست کاربران</h2>
+          <h2>Users</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
           <Filters setFilter={setFilter} filter={filter} />

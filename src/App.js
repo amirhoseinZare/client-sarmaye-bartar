@@ -11,6 +11,7 @@ import PrivateRoute from "./comps/PrivateRoute";
 import { useEffect, useState } from "react";
 import { AuthApi } from "./api";
 import { setAuth } from "./redux/actions/auth";
+import Accounts from "./pages/Accounts"
 import openSocket from 'socket.io-client';
 import { setAlert } from "./redux/actions/alert"
 
@@ -63,6 +64,15 @@ function App() {
               <Requests />
             </PrivateRoute>
           } 
+        />
+
+        <Route
+          path="/accounts"
+          element={
+            <PrivateRoute roles={["user"]}>
+              <Accounts />
+            </PrivateRoute>
+          }
         />
 
         <Route path="*" element={<NotFoundPage />} />
