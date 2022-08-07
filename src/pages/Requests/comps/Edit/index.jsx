@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Form, Input, Button, Col, Select, Modal, message } from "antd";
 import { RequestApi } from "../../../../api/Request.api";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../../../redux/actions/modal"
 
 const { Option } = Select;
 
@@ -67,12 +69,12 @@ const FormStyled = styled(Form)`
   }
 `;
 
-function Personal({ data }) {
+function Personal({ data, getUsersData }) {
+  const dispatch = useDispatch()
   const [state, setState] = useState({
     loading: false,
     fetching: false,
   });
-  console.log(data)
   const [fields, setFields] = useState([
     {
       name: ["status"],
@@ -98,12 +100,14 @@ function Personal({ data }) {
     const call = await RequestApi.patch(data._id,{
       status:fields[0].value
     })
-    setState(s=>({...s, loading:true}))
+    setState(s=>({...s, loading:false}))
     if(!call.success){
       message.error(call.message)
       return
     }
     message.success(call.message)
+    dispatch(setModal({ visible: false }));
+    getUsersData()
   }
 
   return (

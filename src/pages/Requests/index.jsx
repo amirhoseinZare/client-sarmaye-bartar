@@ -149,7 +149,7 @@ function Requests() {
         visible: true,
         title: "ویرایش",
         width: 700,
-        children: <Edit data={data}/>,
+        children: <Edit data={data} getUsersData={getUsersData}/>,
         closeCallback: () => {
           getUsersData();
         },
@@ -173,7 +173,7 @@ function Requests() {
           <h2>Requests</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-          <Filters setFilter={setFilter} filter={filter} />
+          {/* <Filters setFilter={setFilter} filter={filter} /> */}
           <CustomeTable
             columns={columns}
             rows={state.rows}
