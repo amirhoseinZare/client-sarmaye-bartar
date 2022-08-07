@@ -16,7 +16,7 @@ import { AiOutlineUserAdd, AiFillEye } from "react-icons/ai";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import { USER_ID_KEY } from "../../core/variables.core";
-import Filters from "../Requests/comps/filters";
+import Filters from "./comps/filters";
 import Ranking from "../../comps/Ranking/Ranking";
 import { IoIosAddCircleOutline } from "react-icons/io"
 import { displayAccountLevelsEnum } from "../../core/enums"

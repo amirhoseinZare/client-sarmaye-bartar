@@ -32,7 +32,7 @@ const FormStyled = styled(Form)`
       font-size: 12px;
       height: 16px;
     }
-    input,.ant-picker-rtl {
+    input,.ant-picker {
       height: 38px;
       border-radius: 8px;
       box-shadow: 0px 2px 3px rgba(207, 207, 217, 0.32);
@@ -43,11 +43,11 @@ const FormStyled = styled(Form)`
   }
   .form-input {
     padding: 8px;
-    .ant-picker-rtl {
+    .ant-picker {
       width: 100%;
     }
     ${"" /* height: 105px; */}
-    input,.ant-picker-rtl {
+    input,.ant-picker {
       max-width: 305px;
       height: 38px;
       border-radius: 8px;

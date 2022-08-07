@@ -21,8 +21,8 @@
     font-family: "Vazir" !important;
   }
 
-  .ant-input-rtl,
-  .ant-input-affix-wrapper-rtl {
+  .ant-input,
+  .ant-input-affix-wrapper {
     border: none !important;
     height: 100%;
     font-size: 16px;
@@ -33,7 +33,7 @@
     }
   }
 
-  .ant-input-affix-wrapper-rtl {
+  .ant-input-affix-wrapper {
     border-radius: 50px;
   }
 
@@ -41,8 +41,8 @@
     width: 100%;
   }
 
-  .ant-input-rtl,
-  .ant-input-affix-wrapper-rtl {
+  .ant-input,
+  .ant-input-affix-wrapper {
     box-shadow: none !important;
     background-color: transparent !important;
   }

@@ -6,7 +6,6 @@ import Token from "./comps/token";
 import styled from "styled-components";
 import { UsersApi } from "../../../../api/Users.api";
 import { useSelector } from "react-redux";
-import ChangePassword from "./comps/changePassword"
 import { accountLevels } from "../../../../core/enums"
 
 const { Step } = Steps;
@@ -128,17 +127,7 @@ const AddUsers = ({ step = 0, closeModal}) => {
         />
       ),
     },
-    {
-      title: "پسورد",
-      content: (
-        <ChangePassword
-          setData={setUserData}
-          userState={userData}
-          prev={prev}
-          next={next}
-        />
-      ),
-    }
+    
   ], [userData])
 
   return (
