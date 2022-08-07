@@ -1,23 +1,19 @@
 import { useState, useEffect, useMemo } from "react";
-import { Col, Row, message, Modal, Tag  } from "antd";
+import { Col, Row, message, Modal } from "antd";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/actions/modal";
-import { UsersApi } from "../../api/Users.api";
+import { RequestApi } from "../../api/Request.api";
 import CustomeTable from "../../comps/CustomeTable";
-// import Edit from "./comps/edit";
-// import AddUsers from "./comps/add";
 import Navbar from "../../comps/Navbar/Navbar";
 import classes from "./style.module.scss";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
-import {  AiOutlineUserAdd, AiFillEye } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import { USER_ID_KEY } from "../../core/variables.core";
 import Filters from "./comps/filters";
-import Ranking from "../../comps/Ranking/Ranking";
-import { setDefaultEmail } from "../../redux/actions/defaultEmail"
 import MenuLayout from "../../layouts/Menu"
+import Edit from "./comps/Edit"
 
 const { confirm } = Modal;
 
@@ -35,24 +31,12 @@ const StyledRow = styled(Row)`
     border-radius: 12px;
   }
   width:calc(100% - 180px);
+
 `;
 
-let copyText = (text) => {
-  navigator.clipboard.writeText(text);
-  message.success("کپی با موفقیت انجام شد.");
-};
-
-function Categories() {
+function Requests() {
   let user = useSelector((state) => state.user);
   let navigate = useNavigate();
-  const addUserDrawdownTracker = async (mtAccountId)=>{
-    const call = await UsersApi.sendDrawdownTracker(mtAccountId)
-    if(call.success){
-      message.success(call.message)
-      return
-    }
-    message.error(call.message)
-  }
   const dispatch = useDispatch();
   const [state, setState] = useState({
     rows: [],
@@ -113,7 +97,7 @@ function Categories() {
             style={{ color: "#16a085" }}
             className={classes["icons"]}
             onClick={() => {
-              setUserId(userAdd.accountId);
+              setUserId(userAdd.userId);
               navigate("/dashboard");
             }}
           />
@@ -139,11 +123,7 @@ function Categories() {
   const getUsersData = async () => {
     setState((s) => ({ ...s, loading: true }));
 
-    let response = await UsersApi.all(
-      filter.pageSize,
-      filter.pageNumber,
-      filter.user_email
-    );
+    let response = await RequestApi.gets();
 
     setState((s) => ({ ...s, loading: false }));
 
@@ -164,15 +144,12 @@ function Categories() {
   }, [filter]);
 
   const openEditModal = (data, step = 0) => {
-    console.log(data);
     dispatch(
       setModal({
         visible: true,
         title: "ویرایش",
         width: 700,
-        children: (
-          null
-        ),
+        children: <Edit data={data}/>,
         closeCallback: () => {
           getUsersData();
         },
@@ -180,59 +157,11 @@ function Categories() {
     );
   };
 
-  const openAddModal = (step = 0, defaultEmail="") => {
-    dispatch(
-      setDefaultEmail(defaultEmail)
-    )
-    dispatch(
-      setModal({
-        visible: true,
-        title: "افزودن کاربر",
-        width: 700,
-        children: (
-          null
-          // <AddUsers
-          //   email={defaultEmail}
-          //   closeModal={() => {
-          //     dispatch(setModal({ visible: false }));
-          //     getUsersData();
-          //   }}
-          // />
-        ),
-        closeCallback: () => {
-          getUsersData();
-        }
-      })
-    );
-  };
-
-  const openDeleteModal = (data) => {
-    confirm({
-      title: <span style={{ color: "#eb4d4b" }}>حذف کاربر</span>,
-      content: `کاربر "${data.display_name}" حذف شود؟`,
-      icon: <ExclamationCircleOutlined />,
-      okText: "بله",
-      okType: "danger",
-      cancelText: "خیر",
-      async onOk() {
-        let response = await UsersApi.delUser(data._id);
-        if (response.success) {
-          message.success(response.message);
-          getUsersData();
-        } else {
-          message.error(response.message);
-          getUsersData();
-        }
-      },
-      onCancel() {},
-    });
-  };
 
   return (
     <div className={classes.users}>
       <Navbar name={user?.display_name} />
       <StyledRow>
-        {/* <Filter setFilter={setFilter} filter={filter} search={getUsersData} /> */}
         <Col
           xs={22}
           sm={22}
@@ -258,24 +187,7 @@ function Categories() {
             loading={state.loading}
           />
         </Col>
-        <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-          <div className={classes["icon-box"]} onClick={()=>openAddModal(0, "")}>
-            <AiOutlineUserAdd className={classes["add-user-icon"]} />
-          </div>
-        </Col>
-        <Col
-          xs={22}
-          sm={22}
-          md={22}
-          lg={22}
-          xl={22}
-          className={classes.titleBox}
-        >
-          <h2 style={{ marginTop: "100px" }}>برترین کاربران</h2>
-        </Col>
-        <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-          <Ranking />
-        </Col>
+        
       </StyledRow>
       <MenuLayout />
 
@@ -283,4 +195,4 @@ function Categories() {
   );
 }
 
-export default Categories;
+export default Requests;

@@ -91,6 +91,10 @@ function Personal({ userState, setData }) {
       name: ["role"],
       value: "",
     },
+    {
+      name:["type"],
+      value:"primary"
+    }
   ]);
 
   useEffect(() => {
@@ -178,21 +182,24 @@ function Personal({ userState, setData }) {
         </Form.Item>
       </Col>
 
-      {/* <Col className="form-input" span={24} sm={12} md={8}>
+      <Col className="form-input" span={24} sm={12} md={8}>
         <Form.Item
-          label="سطح دسترسی"
-          name="role"
+          label="اکانت اول"
+          name="type"
           rules={[
-            { required: true, message: "یکی از دسترسی ها را انتخاب نمایید." },
+            {
+              required: true,
+              message: "این فیلد ضروری است",
+            },
           ]}
         >
-          <Select className="">
-            {isActiveOptions.map((item) => (
-              <Option key={item.value} value={item.value}>{item.text}</Option>
-            ))}
+          <Select className="" span={24} sm={12} md={8}>
+              <Option value="primary">بله</Option>
+              <Option value="secondary">خیر</Option>
           </Select>
         </Form.Item>
-      </Col> */}
+      </Col>
+
     </FormStyled>
   );
 }

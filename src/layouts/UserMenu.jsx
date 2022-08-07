@@ -1,4 +1,4 @@
-import { Menu, Button, ConfigProvider } from 'antd';
+import { Menu, Button, ConfigProvider, Layout } from 'antd';
 import {
   AppstoreOutlined,
   UserSwitchOutlined,
@@ -6,6 +6,9 @@ import {
   PlusOutlined,
   ReloadOutlined,
   EuroCircleOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+  UploadOutlined
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import styled from "styled-components"
@@ -19,6 +22,9 @@ const StyledContainer = styled.div`
     height: 100%;
     background-color: #f0f1f4;
     padding-bottom: 20px;
+    @media only screen and (max-width: 1250px) {
+      width:calc(100% );
+    }
   }
 `
 
@@ -51,9 +57,13 @@ const StyledMenuRoot = styled.div`
       padding-left:24px !important;  
     }
   }
+  @media only screen and (max-width: 1250px) {
+    display:none;
+  }
 `
 
 const { SubMenu } = Menu;
+const {Sider} = Layout
 
 const UserLayout = (props)=> {
     const location = useLocation()
@@ -103,6 +113,25 @@ const UserLayout = (props)=> {
                 </Menu.Item>
               </Menu>
             </StyledMenuRoot>
+            <Sider
+              breakpoint="lg"
+              collapsedWidth="0"
+              onBreakpoint={broken => {
+                console.log(broken);
+              }}
+              onCollapse={(collapsed, type) => {
+                console.log(collapsed, type);
+              }}
+            >
+              <div className="logo" />
+              <Menu
+                theme="dark"
+                mode="inline"
+                defaultSelectedKeys={['4']}
+              >
+                <Menu.Item>تست</Menu.Item>
+              </Menu>
+          </Sider>
           <StyledContainer>
             <div className='main-page'>
               {props.children}

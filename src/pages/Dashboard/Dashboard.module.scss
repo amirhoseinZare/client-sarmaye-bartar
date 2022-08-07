@@ -240,6 +240,11 @@
     }
   }
 }
+// @media only screen and (max-width: 1250px) {
+//   .root {
+//   width:100%;
+//   }
+// }
 .root {
   .row {
     display: flex;
@@ -342,5 +347,10 @@
         }
       }
     }
+  }
+
+  .logo {
+    width: 180px;
+    margin-top: 8px;
   }
 }

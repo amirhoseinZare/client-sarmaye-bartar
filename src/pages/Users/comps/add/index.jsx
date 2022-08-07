@@ -82,7 +82,7 @@ const AddUsers = ({ step = 0, closeModal}) => {
     const payload = {
       ...body,
       ...accountLevels[level],
-      type:"primary",
+      // type:"primary",
       maxLossLimit:12
     }
     setLoading(true)

@@ -5,8 +5,6 @@ import { BsFillCircleFill } from "react-icons/bs"
 import { LineChartOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 import { setAuth } from '../../redux/actions/auth'
-import { BsFillCheckCircleFill } from "react-icons/bs";
-import { IoMdCloseCircle } from "react-icons/io";
 
 const StyledRoot = styled.div`
     b {
@@ -61,6 +59,9 @@ const StyledRoot = styled.div`
             }
         }
     }
+    .ant-row {
+        justify-content:center;
+    }
 `
 
 const Accounts = ()=>{
@@ -74,28 +75,11 @@ const Accounts = ()=>{
     return (
         <StyledRoot>
              {user.isAuth && <Row gutter={16}>
-                {/* <Col lg={12} md={24} sm={24}>
-                    <Card title={user.user_login} bordered={false}>
-                        <p><b>First Balance:</b> {user.firstBalance}</p>
-                        <p><b>Account Type:</b> {user.accountType}</p>
-                        <p><b>Platform: </b>{user.platform}</p>
-                        <p><b>Level:</b> {user.infinitive ? "Real": user.level}</p>
-                            {!user.infinitive && <ul>
-                                <li><b>Max trade days:</b> {user.infinitive ? "-": user.maxTradeDays}</li>
-                                <li><b>Profit target percent:</b> {user.infinitive ? "-": user.percentDays}</li>
-                            </ul>}
-                        <p><b>Start:</b> {user.startTradeDay}</p>
-                        <p><b>End:</b> {user.endTradeDay}</p>
-                        <p className={`user-status ${user.status ? 'active-status': 'deactive-status'}`}>
-                            <span><b>{user.status}</b> <BsFillCircleFill/></span>
-                        </p>
-                        <div className='dashobard-link'><Link to="/dashboard" onClick={()=>changeCurrentAuth(user)}>See Analyze <LineChartOutlined /></Link></div>
-                    </Card>
-                </Col> */}
                 {
                     user.accounts.map(account=>{
+
                         return (
-                            <Col lg={12}md={24} sm={24}>
+                            <Col lg={22} md={22} sm={22} xs={22}>
                                 <Card title={account.user_login} bordered={false}>
                                     <p><b>First Balance:</b> {account.firstBalance}</p>
                                     <p><b>Account Type:</b> {account.accountType}</p>
@@ -123,4 +107,3 @@ const Accounts = ()=>{
 
 export default Accounts
 
-{/* <IoMdCloseCircle className={classes.iconRed} /> */}

@@ -7,9 +7,9 @@ import {
   ReloadOutlined,
   EuroCircleOutlined,
 } from '@ant-design/icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 const StyledRoot = styled.div`
   position:fixed;
@@ -45,8 +45,24 @@ const StyledRoot = styled.div`
 const { SubMenu } = Menu;
 
 const AdminLayout = ()=> {
+    const location = useLocation()
+    const routes= {
+      "/users":{
+        route:"/users",
+        key:"1"
+      },
+      "/requests":{
+        route:"/requests",
+        key:"2"
+      }
+    }
+    useEffect(()=>{
+      if(state.currentRoute !== routes[location.pathname].key)
+        setState(s=>({...s, currentRoute:routes[location.pathname].key}))
+    }, [location])
     const [state, setState] = useState({
       collapsed: false,
+      currentRoute: "1"
     })
 
     const toggleCollapsed = () => {
@@ -63,6 +79,7 @@ const AdminLayout = ()=> {
         <ConfigProvider direction='ltr'>
           <Menu
             defaultSelectedKeys={['1']}
+            selectedKeys={[state.currentRoute]}
             defaultOpenKeys={['sub1']}
             mode="inline"
             theme="dark"
@@ -71,12 +88,10 @@ const AdminLayout = ()=> {
             <Menu.Item key="1" icon={<UserSwitchOutlined />}>
               <Link to={"/users"}>Users</Link>
             </Menu.Item>
-            <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Requests">
-              <Menu.Item key="5" icon={<ArrowUpOutlined />}><Link to={"/requests?page=next-phase"}>Next phase</Link></Menu.Item>
-              <Menu.Item key="6" icon={<PlusOutlined />}><Link to={"/requests?page=extend"}>Extend</Link></Menu.Item>
-              <Menu.Item key="7" icon={<ReloadOutlined />}><Link to={"/requests?page=reset"}>Reset</Link></Menu.Item>
-              <Menu.Item key="8" icon={<EuroCircleOutlined />}><Link to={"/requests?page=profit-withdrawal"}>Profit withdrawal</Link></Menu.Item>
-            </SubMenu>
+            <Menu.Item key="2" icon={<AppstoreOutlined />}>
+              <Link to={"/requests"}>Requests</Link>
+            </Menu.Item>
+            
           </Menu>
         </ConfigProvider>
       </StyledRoot>

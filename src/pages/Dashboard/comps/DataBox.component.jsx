@@ -1,6 +1,7 @@
 import React from "react";
 import { Skeleton, Divider } from "antd";
 import { ReactComponent as LogoSvg  } from "../../../assets/logo.svg"
+import newLogo from "../../../assets/new-logo.jfif"
 
 const DataBox = ({ classes, user }) => {
   return (
@@ -88,10 +89,22 @@ const DataBox = ({ classes, user }) => {
             <div>{user.platform}</div>
             <div>Platform</div>
           </div>
+          <Divider
+            style={{
+              borderColor: "rgb(177 177 177 / 40%)",
+              width: "50%",
+              marginBottom: 15,
+              marginTop: 15,
+            }}
+          />
+          <div className={classes.item}>
+            <div>{user.level}</div>
+            <div>Account level</div>
+          </div>
         </div>
       </div>
       <div style={{width:"100%", display:"flex", justifyContent:"center"}}>
-        <LogoSvg style={{width:"80%", fill:"#24303C"}}/>
+        <img src={newLogo} className={classes.logo}/>
       </div>
     </div>
   );
