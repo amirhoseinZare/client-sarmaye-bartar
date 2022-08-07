@@ -1,6 +1,6 @@
 // packages
 import React, { useState, useEffect, useMemo } from "react";
-import { Row, Col, message, Skeleton, Divider, Statistic  } from "antd";
+import { Row, Col, message, Skeleton, Divider, Statistic,Button  } from "antd";
 
 // css
 import classes from "./Dashboard.module.scss";
@@ -12,6 +12,7 @@ import CurrentResults from "./comps/CurrentResults.component";
 // api
 import { DashboardApi } from "../../api";
 import { UsersApi } from "../../api/Users.api";
+import { RequestApi } from "../../api/Request.api";
 
 // redux
 import { useSelector } from "react-redux";
@@ -134,7 +135,27 @@ const Dashboard = () => {
     ],
 
   }), [data.chart])
-  console.log({isAuth:user.isAuth})
+
+  const [buttons, setButtons] = useState({
+    extend:false,
+    reset:false,
+    nextPhase:false
+  })
+
+  const sendRequest = async (type) =>{
+    setButtons(s=>({...s, [type]:true}))
+    const call = await RequestApi.post({
+      type,
+      userId:user._id
+    })
+    setButtons(s=>({...s, [type]:false}))
+    if(!call.success){
+      message.error(call.message)
+      return
+    }
+    message.success(call.message)
+  }
+
   return (
     <>
       {user.isAuth ? (
@@ -151,7 +172,25 @@ const Dashboard = () => {
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={11} lg={11}>
               <div className={classes.container3}>
-                <h2 className={classes.title} style={{textAlign:"left"}}>Your statistics</h2>
+                  <h2 className={classes.title} style={{textAlign:"left", display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
+                      <div>
+                        {new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance &&  <div>
+                          <Button onClick={()=>sendRequest("extend")} loading={buttons.extend} classes={classes.extend} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>extend 10 days</Button>
+                        </div>}
+                        {new Date(user.endTradeDay).getTime() < new Date().getTime() &&
+                        data.objectives["minimumTradeDaysObjective"]?.passed &&  data.objectives["minimumTradeDaysObjective"]?.passed &&  
+                        data.objectives["profitTarget"]?.passed && data.objectives["maxLoss"]?.passed &&  <div>
+                          <Button onClick={()=>sendRequest("nextPhase")} loading={buttons.nextPhase} classes={classes.nextPhase} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>next phase</Button>
+                        </div>}
+                        {new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance &&
+                          <div>
+                          <Button onClick={()=>sendRequest("reset")} loading={buttons.reset} classes={classes.reset} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>reset account</Button>
+                        </div>}
+                      </div>
+                      <p style={{margin:0}}>Your statistics</p>
+                      
+                  </h2>
+                
                 <Divider
                   style={{
                     borderColor: "rgb(177 177 177 / 40%)",

@@ -2,6 +2,8 @@
   .row{
     .col{
       .container3{
+        display: flex;
+        
         h3{
           font-size: 14px;
         }
@@ -353,4 +355,19 @@
     width: 180px;
     margin-top: 8px;
   }
+
+
+
+}
+
+.extend {
+}
+
+.nextPhase {
+  background-color: #24303C;
+}
+
+.reset {
+  background-color: #24303C;
+
 }
