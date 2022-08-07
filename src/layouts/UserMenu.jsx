@@ -7,11 +7,22 @@ import {
   ReloadOutlined,
   EuroCircleOutlined,
 } from '@ant-design/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
+import Navbar from "../comps/Navbar/Navbar";
 
-const StyledRoot = styled.div`
+const StyledContainer = styled.div`
+  .main-page {
+    width:calc(100% - 180px);
+    margin-top: 60px;
+    height: 100%;
+    background-color: #f0f1f4;
+    padding-bottom: 20px;
+  }
+`
+
+const StyledMenuRoot = styled.div`
   position:fixed;
   top:0;
   left:0;
@@ -44,11 +55,27 @@ const StyledRoot = styled.div`
 
 const { SubMenu } = Menu;
 
-const UserLayout = ()=> {
+const UserLayout = (props)=> {
+    const location = useLocation()
+    const routes= {
+      "/dashboard":{
+        route:"/dashboard",
+        key:"1"
+      },
+      "/accounts":{
+        route:"/accounts",
+        key:"2"
+      },
+    }
+    useEffect(()=>{
+      if(state.currentRoute !== routes[location.pathname].key)
+        setState(s=>({...s, currentRoute:routes[location.pathname].key}))
+    }, [location])
     const [state, setState] = useState({
       collapsed: false,
+      currentRoute: "1"
     })
-
+    
     const toggleCollapsed = () => {
       setState({
         collapsed: !state.collapsed,
@@ -56,29 +83,33 @@ const UserLayout = ()=> {
     };
 
     return (
-      <StyledRoot>
-        {/* <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-          {state.collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
-        </Button> */}
+      <div>
+        <Navbar />
         <ConfigProvider direction='ltr'>
-          <Menu
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            mode="inline"
-            theme="dark"
-            inlineCollapsed={state.collapsed}
-          >
-            <Menu.Item key="1" icon={<UserSwitchOutlined />}>
-              <Link to={"/dashboard"}>dashboard</Link>
-            </Menu.Item>
-            <SubMenu key="accounts" icon={<AppstoreOutlined />} title="Accounts">
-              <Menu.Item key="5" icon={<ArrowUpOutlined />}><Link to={"/accounts?page=next-phase"}>Next phase</Link></Menu.Item>
-              <Menu.Item key="6" icon={<PlusOutlined />}><Link to={"/accounts?page=extend"}>Extend</Link></Menu.Item>
-            </SubMenu>
-          </Menu>
-          {children}
+            <StyledMenuRoot>
+              <Menu
+                defaultSelectedKeys={['1']}
+                selectedKeys={[state.currentRoute]}
+                defaultOpenKeys={['sub1']}
+                mode="inline"
+                theme="dark"
+                inlineCollapsed={state.collapsed}
+              >
+                <Menu.Item key="1" icon={<UserSwitchOutlined />}>
+                  <Link to={"/dashboard"}>dashboard</Link>
+                </Menu.Item>
+                <Menu.Item key="2" icon={<UserSwitchOutlined />}>
+                  <Link to={"/accounts"}>accounts</Link>
+                </Menu.Item>
+              </Menu>
+            </StyledMenuRoot>
+          <StyledContainer>
+            <div className='main-page'>
+              {props.children}
+            </div>
+          </StyledContainer>
         </ConfigProvider>
-      </StyledRoot>
+      </div>
     );
 }
 

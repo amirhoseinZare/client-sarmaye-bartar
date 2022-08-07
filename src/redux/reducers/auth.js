@@ -20,7 +20,9 @@ const INITIAL_STATE = {
   user_nicename: "",
   _id: "",
   isAuth:false,
-  mtAccountId:""
+  mtAccountId:"",
+  accounts:[],
+  level:""
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -45,7 +47,10 @@ const authReducer = (state = INITIAL_STATE, action) => {
         user_login,
         user_nicename,
         _id,
-        mtAccountId
+        mtAccountId,
+        accounts,
+        level,
+        status
       } = action.payload;
 
       return {
@@ -69,7 +74,10 @@ const authReducer = (state = INITIAL_STATE, action) => {
         user_nicename,
         _id,
         isAuth:true,
-        mtAccountId
+        mtAccountId,
+        accounts: accounts || state.accounts,
+        level,
+        status
       };
     }
     default:

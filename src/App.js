@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { AuthApi } from "./api";
 import { setAuth } from "./redux/actions/auth";
 import Accounts from "./pages/Accounts"
+import UserMenu from "./layouts/UserMenu"
 import openSocket from 'socket.io-client';
 import { setAlert } from "./redux/actions/alert"
 
@@ -28,6 +29,9 @@ function App() {
     if (userData !== user && (!["/404", "/login"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
         console.log(response)
+        const result = response.result
+        const { accounts=[], ...userData} = response.result
+        result.accounts.push(userData)
         dispatch(setAuth(response.result));
         setUserData(response.result);
       });
@@ -43,7 +47,9 @@ function App() {
           path="/dashboard"
           element={
             <PrivateRoute roles={["admin", "user"]}>
-              <Dashboard />
+              <UserMenu>
+                <Dashboard />
+              </UserMenu>
             </PrivateRoute>
           }
         />
@@ -70,7 +76,9 @@ function App() {
           path="/accounts"
           element={
             <PrivateRoute roles={["user"]}>
-              <Accounts />
+              <UserMenu>
+                <Accounts />
+              </UserMenu>
             </PrivateRoute>
           }
         />
