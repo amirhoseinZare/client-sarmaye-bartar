@@ -123,7 +123,12 @@ function Requests() {
   const getUsersData = async () => {
     setState((s) => ({ ...s, loading: true }));
 
-    let response = await RequestApi.gets();
+    let response = await RequestApi.gets({
+      params:{
+        pageNumber:filter.pageNumber,
+        pageSize:filter.pageSize
+      }
+    });
 
     setState((s) => ({ ...s, loading: false }));
 

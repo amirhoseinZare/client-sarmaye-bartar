@@ -6,7 +6,7 @@ const StyledTable = styled(Table)`
   border-radius: 12px !important;
   border-radius: 10px 8px 8px 10px;
   overflow: hidden;
-
+  margin-bottom:48px;
   .table {
     border-radius: 10px 8px 8px 10px;
   }
@@ -65,14 +65,14 @@ const StyledTable = styled(Table)`
   }
 `;
 
-const CustomTable = ({ columns, rows, pagination, ...otherProps }) => {
+const CustomTable = ({ columns, rows, pagination, disablePagination=false, ...otherProps }) => {
   const { position = ["bottomCenter"] } = pagination;
   return (
-    <ConfigProvider direction="rtl">
+    <ConfigProvider direction="rtl" disablePagination={disablePagination}>
       <StyledTable
         columns={columns}
         dataSource={rows}
-        pagination={{ ...pagination, position }}
+        pagination={disablePagination ? false : { ...pagination, position }}
         {...otherProps}
         xScroll="scroll"
       />

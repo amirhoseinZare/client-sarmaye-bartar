@@ -8,7 +8,9 @@ import {
   EuroCircleOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  UploadOutlined
+  UploadOutlined,
+  BarChartOutlined,
+  
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import styled from "styled-components"
@@ -18,7 +20,7 @@ import Navbar from "../comps/Navbar/Navbar";
 const StyledContainer = styled.div`
   .main-page {
     width:calc(100% - 180px);
-    margin-top: 60px;
+    margin-top: 30px;
     height: 100%;
     background-color: #f0f1f4;
     padding-bottom: 20px;
@@ -35,17 +37,23 @@ const StyledMenuRoot = styled.div`
   height:100vh;
   width:180px;
   .ant-menu-item-selected {
-    span {
-      color:#24303C !important;
+    span.ant-menu-title-content {
+      a {
+        color:#0F4C75 !important;
+
+      }
     }
-    color:#24303C !important;
+    span {
+      color:#0F4C75 !important;
+    }
+    color:#0F4C75 !important;
   }
   .ant-menu-dark {
     padding-top:56px;
     background:#24303C;
     height:100vh;
     &.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
-      background-color: #FFB629;
+      background-color: #BBE1FA;
     }
     .ant-menu-submenu-title {
       padding-left:24px !important;  
@@ -105,10 +113,10 @@ const UserLayout = (props)=> {
                 theme="dark"
                 inlineCollapsed={state.collapsed}
               >
-                <Menu.Item key="1" icon={<UserSwitchOutlined />}>
+                <Menu.Item key="1" icon={<BarChartOutlined />}>
                   <Link to={"/dashboard"}>dashboard</Link>
                 </Menu.Item>
-                <Menu.Item key="2" icon={<UserSwitchOutlined />}>
+                <Menu.Item key="2" icon={<UserOutlined />}>
                   <Link to={"/accounts"}>accounts</Link>
                 </Menu.Item>
               </Menu>

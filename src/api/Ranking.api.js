@@ -8,9 +8,9 @@ RankingApi.post = null;
 RankingApi.patch = null;
 RankingApi.delete = null;
 
-RankingApi.Rank = function (pageSize, pageNumber) {
+RankingApi.Rank = function (pageSize, pageNumber, firstBalance) {
   return this.instance.get(
-    `${this.baseApisUrl}/rankings/balance/?pageSize=${pageSize}&pageNumber=${pageNumber}`
+    `${this.baseApisUrl}/rankings/balance/?pageSize=${pageSize}&pageNumber=${pageNumber}${firstBalance?`&firstBalance=${firstBalance}`:""}`
   );
 };
 

@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message,Tabs  } from "antd";
 import React, { useState, useEffect, useMemo } from "react";
 import { RankingApi } from "../../api/index";
 import CustomTable from "../CustomeTable";
@@ -12,6 +12,8 @@ import { AiFillEye } from "react-icons/ai";
 import first from "../../assets/1.png";
 import twice from "../../assets/2.png";
 import third from "../../assets/3.png";
+
+const { TabPane } = Tabs;
 
 const Ranking = () => {
   let user = useSelector((state) => state.user);
@@ -28,6 +30,18 @@ const Ranking = () => {
     pageSize: 10,
   });
 
+  const tabEnum = {
+    "0":"All",
+    "1":"$5,000",
+    "2":"$10,000",
+    "3":"$25,000",
+    "4":"$50,000",
+    "5":"$100,000",
+    "6":"$200,000",
+  }
+
+  const [ tab, setTab ] = useState("6")
+
   const setUserId = (id) => {
     localStorage.setItem(USER_ID_KEY, id);
   };
@@ -43,7 +57,7 @@ const Ranking = () => {
   const columnsAdmin = useMemo(
     () => [
       {
-        title: "رتبه",
+        title: "",
         key: "rank",
         dataIndex: "rank",
         render: (rank) => {
@@ -55,7 +69,7 @@ const Ranking = () => {
               case 2:
                 return <img className={classes.imageTable} src={twice} />;
                 break;
-              case 2:
+              case 3:
                 return <img className={classes.imageTable} src={third} />;
                 break;
             }
@@ -65,7 +79,7 @@ const Ranking = () => {
         },
       },
       {
-        title: "نام",
+        title: "User",
         key: "display_name",
         dataIndex: "display_name",
         render: (name) => name || "-",
@@ -83,12 +97,23 @@ const Ranking = () => {
         render: (equity) => equity || "-",
       },
       {
-        title: "بالانس",
+        title: "First Balance",
+        key: "firstBalance",
+        dataIndex: "firstBalance",
+        render: (firstBalance) => firstBalance || "-",
+      },
+      {
+        title: "Balance",
         key: "balance",
         dataIndex: "balance",
         render: (balance) => balance || "-",
       },
-
+      {
+        title: "Profit percent",
+        key: "profit",
+        dataIndex: "",
+        render: ({firstBalance, balance}) => `%${(Math.round(((balance - firstBalance) / (firstBalance) * 100) * 100) / 100).toFixed(2)}`
+      },
       {
         title: "ورود به پنل کاربر",
         key: "loginToUserPanel",
@@ -110,7 +135,7 @@ const Ranking = () => {
   const columnsUser = useMemo(
     () => [
       {
-        title: "رتبه",
+        title: "",
         key: "rank",
         dataIndex: "rank",
         render: (rank) => {
@@ -122,7 +147,7 @@ const Ranking = () => {
               case 2:
                 return <img className={classes.imageTable} src={twice} />;
                 break;
-              case 2:
+              case 3:
                 return <img className={classes.imageTable} src={third} />;
                 break;
             }
@@ -132,11 +157,17 @@ const Ranking = () => {
         },
       },
       {
-        title: "نام",
+        title: "User",
         key: "display_name",
         dataIndex: "display_name",
         render: (name) => name || "-",
       },
+      // {
+      //   title: "ایمیل",
+      //   key: "user_email",
+      //   dataIndex: "user_email",
+      //   render: (email) => email || "-",
+      // },
       {
         title: "Equity",
         key: "equity",
@@ -144,10 +175,22 @@ const Ranking = () => {
         render: (equity) => equity || "-",
       },
       {
-        title: "بالانس",
+        title: "First Balance",
+        key: "firstBalance",
+        dataIndex: "firstBalance",
+        render: (firstBalance) => firstBalance || "-",
+      },
+      {
+        title: "Balance",
         key: "balance",
         dataIndex: "balance",
         render: (balance) => balance || "-",
+      },
+      {
+        title: "Profit percent",
+        key: "profit",
+        dataIndex: "",
+        render: ({firstBalance, balance}) => `${(Math.round(((balance - firstBalance) / (firstBalance) * 100) * 100) / 100).toFixed(2)} %`
       },
     ],
     [state.rows]
@@ -155,8 +198,8 @@ const Ranking = () => {
 
   const getUsersData = async () => {
     setState((s) => ({ ...s, loading: true }));
-
-    let response = await RankingApi.Rank(filter.pageSize, filter.pageNumber);
+    const firstBalance = tabEnum[tab].replace(",", "").replace("$", "")
+    let response = await RankingApi.Rank(filter.pageSize, filter.pageNumber, firstBalance === "All" ? undefined : +firstBalance );
 
     setState((s) => ({ ...s, loading: false }));
 
@@ -181,21 +224,37 @@ const Ranking = () => {
 
   useEffect(() => {
     getUsersData();
-  }, [filter]);
+  }, [filter, tab]);
+
+  const onChange = (key) => {
+    setTab(key);
+  };
 
   return (
-    <CustomTable
-      columns={user?.role === "admin" ? columnsAdmin : columnsUser}
-      rows={state.rows}
-      pagination={{
-        current: filter.pageNumber,
-        pageSize: filter.pageSize,
-        total: state.totalCount,
-        position: ["bottomRight"],
-      }}
-      onChange={handleTableChange}
-      loading={state.loading}
-    />
+    <>
+      <Tabs onChange={onChange} type="card" defaultActiveKey={tab} size="middle">
+        {
+          Object.keys(tabEnum).map(tebItem=>{
+            return <TabPane tab={tabEnum[tebItem]} key={tebItem} />
+          })
+        }
+       
+      </Tabs>
+      <CustomTable
+        columns={user?.role === "admin" ? columnsAdmin : columnsUser}
+        rows={state.rows}
+        pagination={{
+          current: filter.pageNumber,
+          pageSize: filter.pageSize,
+          total: state.totalCount,
+          position: ["bottomRight"],
+        }}
+        disablePagination={true}
+        onChange={handleTableChange}
+        loading={state.loading}
+      />
+    </>
+   
   );
 };
 

@@ -28,12 +28,13 @@
   .nav {
     padding: 0 10px;
     .trader {
+      color:#BBE1FA;
       svg {
         width: 45px;
         height: 45px;
         margin-left: 10px;
         margin-right: 12px;
-        fill:#FFB629;
+        fill:#BBE1FA;
       }
       h3 {
         font-size: 16px;
@@ -71,6 +72,7 @@
   align-items: center;
   justify-content: space-between;
   .trader {
+
     display: flex;
     align-items: center;
 
@@ -79,7 +81,7 @@
     }
 
     h3 {
-      color: #fff;
+      color: #BBE1FA;
       margin-top: 10px;
     }
   }
@@ -109,7 +111,7 @@
   // 	color: #fafafa;
   // }
   .icon {
-    color: #ffb629;
+    color: #BBE1FA;;
     margin-left: 10px;
     cursor: pointer;
   }
