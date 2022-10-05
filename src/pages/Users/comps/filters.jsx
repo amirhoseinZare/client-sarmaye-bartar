@@ -97,10 +97,12 @@ const Filter = ({setFilter, filter, search})=>{
             user_login,
             platform,
             level,
-            accountType
+            accountType,
+            metaUsername,
+            standardType
         } = model
         model.accountType = (!model.accountType) ? '' : accountTypeEnum[accountType].value
-        if(display_name || user_email || user_login || platform || level || accountType)
+        if(display_name || user_email || user_login || platform || level || accountType || metaUsername || standardType)
             pageNumber = 1
         const sanitizedFilters = Object.fromEntries(Object.entries(filter).map(item=>{
             if(typeof item[1] === "string")
@@ -195,7 +197,7 @@ const Filter = ({setFilter, filter, search})=>{
 
                         <Col className="form-input" span={24} sm={12} md={4}>
                             <Form.Item
-                                label={'نوع اکانت'}
+                                label={'سرور'}
                                 name="accountType"
                                 rules={[]}
                                 // value={input.name}
@@ -207,6 +209,31 @@ const Filter = ({setFilter, filter, search})=>{
                                         if(item.value==='none')
                                             return <Option key={item.value} value={''}>هیچکدام</Option>
                                     })}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+
+                        <Col className="form-input" span={24} sm={12} md={4}>
+                            <Form.Item
+                                label={'نام کاربری متا'}
+                                name="metaUsername"
+                                rules={[]}
+                                // value={input.name}
+                            >
+                               <Input />
+                            </Form.Item>
+                        </Col>
+
+                        <Col className="form-input" span={24} sm={12} md={4}>
+                            <Form.Item
+                                label={'نوع اکانت'}
+                                name="standardType"
+                                rules={[]}
+                            >
+                                <Select>
+                                    <Option value={'standard'}>{'standard'}</Option>
+                                    <Option value={'ecn'}>{'ecn'}</Option>
+                                    <Option value={''}>{'هیچکدام'}</Option>
                                 </Select>
                             </Form.Item>
                         </Col>

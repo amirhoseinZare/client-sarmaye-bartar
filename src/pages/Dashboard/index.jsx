@@ -326,7 +326,7 @@ const Dashboard = () => {
                   <>
                     <div className={classes.body}>
                       <div className={classes.results}>
-                        <p className={classes.status}>
+                        {/* <p className={classes.status}>
                           {data.objectives["minimumTradeDaysObjective"]?.passed
                             ? "passed"
                             : "failed"}
@@ -337,13 +337,15 @@ const Dashboard = () => {
                               <IoMdCloseCircle className={classes.iconRed} />
                             )}
                           </span>
-                        </p>
+                        </p> */}
+                        ...updating
                       </div>
                       <div>
                         {/* <p className={classes.status}>
                           <span>...updating</span>
                         </p> */}
-                        <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p>
+                        {/* <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p> */}
+                        ...updating
                       </div>
                       <div className={classes.text}>
                         <p>

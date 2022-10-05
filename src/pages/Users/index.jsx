@@ -138,10 +138,16 @@ function Categories() {
         render: (level) => displayAccountLevelsEnum[level] || "unkonwn",
       },
       {
-        title: "نوع اکانت",
+        title: "سرور",
         key: "accountType",
         dataIndex: "accountType",
         render: (accountType) => accountType || "-",
+      },
+      {
+        title: "نام‌کاربری متا",
+        key: "metaUsername",
+        dataIndex: "metaUsername",
+        render: (metaUsername) => metaUsername || '-',
       },
       {
         title: "نوع کاربر",
@@ -153,6 +159,12 @@ function Categories() {
           ) : (
             <Tag color="magenta">تریدر</Tag>
           ),
+      },
+      {
+        title: "نوع اکانت",
+        key: "standardType",
+        dataIndex: "standardType",
+        render: (standardType) => standardType || '-'
       },
       {
         title: "زمان ثبت نام",
