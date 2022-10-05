@@ -259,13 +259,7 @@ function Categories() {
 
   const getUsersData = async () => {
     setState((s) => ({ ...s, loading: true }));
-
-    let response = await UsersApi.all(
-      filter.pageSize,
-      filter.pageNumber,
-      filter.user_email
-    );
-
+    let response = await UsersApi.all(filter);
     setState((s) => ({ ...s, loading: false }));
 
     if (!response.success) {

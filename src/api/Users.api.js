@@ -8,10 +8,8 @@ UsersApi.post = null;
 UsersApi.patch = null;
 UsersApi.delete = null;
 
-UsersApi.all = function (pageSize, pageNumber, user_email="") {
-  return this.instance.get(
-    `${this.baseApisUrl}?pageSize=${pageSize}&pageNumber=${pageNumber}&user_email=${user_email}`
-  );
+UsersApi.all = function (config) {
+  return this.instance.get(`${this.baseApisUrl}`, {params:config});
 };
 
 UsersApi.delUser = function (id) {

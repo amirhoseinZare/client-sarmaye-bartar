@@ -35,7 +35,7 @@ class Service {
       },
       (error) => {
         if(window.location.pathname!=="/404" && window.location.pathname!=="/login"){
-          const status = error.response.status
+          const status = error?.response?.status
           console.log({status})
           switch(status){
             case 401:
@@ -52,6 +52,7 @@ class Service {
     // this.instance.defaults.timeout = 60000;
     // this.instance.defaults.baseURL = process.env.REACT_APP_SUB_API;
     this.instance.defaults.baseURL = "http://localhost:8000";
+    // this.instance.defaults.baseURL = "https://sb-dashboard.iran.liara.run"
     // this.instance.defaults.baseURL = "https://panel.sarmayegozarebartar.com"
   }
 
