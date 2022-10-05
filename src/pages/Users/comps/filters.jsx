@@ -99,10 +99,12 @@ const Filter = ({setFilter, filter, search})=>{
             level,
             accountType,
             metaUsername,
-            standardType
+            standardType,
+            hasFailedMaxLoss,
+            hasFailedDailyLoss
         } = model
         model.accountType = (!model.accountType) ? '' : accountTypeEnum[accountType].value
-        if(display_name || user_email || user_login || platform || level || accountType || metaUsername || standardType)
+        if(display_name || user_email || user_login || platform || level || accountType || metaUsername || standardType || typeof hasFailedMaxLoss === 'boolean' || typeof hasFailedDailyLoss === 'boolean')
             pageNumber = 1
         const sanitizedFilters = Object.fromEntries(Object.entries(filter).map(item=>{
             if(typeof item[1] === "string")
