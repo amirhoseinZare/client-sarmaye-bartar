@@ -2,21 +2,53 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard/index";
 import Users from "./pages/Users/index";
 import Requests from "./pages/Requests/index"
-
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Spinner } from "./comps/index";
 import { useDispatch, useSelector } from "react-redux";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFound.page";
 import PrivateRoute from "./comps/PrivateRoute";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { AuthApi } from "./api";
 import { setAuth } from "./redux/actions/auth";
 import Accounts from "./pages/Accounts"
 import UserMenu from "./layouts/UserMenu"
-import openSocket from 'socket.io-client';
-import { setAlert } from "./redux/actions/alert"
+import BottomNavigation from 'reactjs-bottom-navigation'
+import './assets/css/general.scss'
+import {
+  UserOutlined,
+  BarChartOutlined,
+  ProfileOutlined,
+  PieChartOutlined
+} from '@ant-design/icons';
 
 function App() {
+  const bottomNavItems = useMemo(()=>[
+    {
+      title: 'dashboard',
+      icon: <BarChartOutlined style={{ fontSize: '18px' }} />,
+      activeIcon: <BarChartOutlined style={{ fontSize: '18px', color: '#fff' }} />,
+      link: '/dashboard'
+    },
+    {
+      title: 'accounts',
+      icon: <UserOutlined style={{ fontSize: '18px' }} />,
+      activeIcon: <UserOutlined style={{ fontSize: '18px', color: '#fff' }} />,
+      link: '/accounts'
+    },
+    {
+      title: 'profile',
+      icon: <ProfileOutlined style={{ fontSize: '18px' }} />,
+      activeIcon: <ProfileOutlined style={{ fontSize: '18px', color: '#fff' }} />,
+      link: '/profile'
+    },
+    {
+      title: 'charts',
+      icon: <PieChartOutlined style={{ fontSize: '18px' }} />,
+      activeIcon: <PieChartOutlined style={{ fontSize: '18px', color: '#fff' }} />,
+      link: '/charts'
+    }
+  ], [])
+  const navigate = useNavigate()
   const { pathname } = useLocation();
   const loading = useSelector((store) => store.loading.status);
 
@@ -40,6 +72,11 @@ function App() {
 
   return (
     <div className="App">
+       <BottomNavigation
+        items={bottomNavItems}
+        defaultSelected={0}
+        onItemClick={(item) => navigate(item.link)}
+      />
       <Routes>
         <Route path="/login" element={<Login />} />
 

@@ -1,14 +1,6 @@
 import { Menu, Button, ConfigProvider, Layout } from 'antd';
 import {
-  AppstoreOutlined,
-  UserSwitchOutlined,
-  ArrowUpOutlined,
-  PlusOutlined,
-  ReloadOutlined,
-  EuroCircleOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
   BarChartOutlined,
   
 } from '@ant-design/icons';

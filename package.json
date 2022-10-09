@@ -21,6 +21,7 @@
     "react-router": "^6.1.1",
     "react-router-dom": "^6.1.1",
     "react-scripts": "5.0.0",
+    "reactjs-bottom-navigation": "^1.0.4",
     "redux": "^4.1.2",
     "redux-logger": "^3.0.6",
     "sass": "^1.49.11",
