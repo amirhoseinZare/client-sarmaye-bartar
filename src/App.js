@@ -31,7 +31,7 @@ function App() {
         console.log(response)
         const result = response.result
         const { accounts=[], ...userData} = response.result
-        result.accounts.push(userData)
+        result.accounts.unshift(userData)
         dispatch(setAuth(response.result));
         setUserData(response.result);
       });

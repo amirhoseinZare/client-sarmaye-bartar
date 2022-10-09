@@ -43,7 +43,7 @@ const Dashboard = () => {
   const userData = useSelector((store) => store.user);
 
   const [user, setUser] = useState({});
-
+  console.log('user accounts ', user)
   useEffect(() => {
     if (userData.role === "admin") {
       let userId = localStorage.getItem(USER_ID_KEY);
@@ -70,7 +70,8 @@ const Dashboard = () => {
   useEffect(() => {
     setLoading(true);
     if (user._id) {
-      asyncFetch({userId:user._id, mtAccountId:user.mtAccountId});
+      const currentAccount = user.accounts[user.accounts.length-1]
+      asyncFetch({userId:currentAccount._id, mtAccountId:currentAccount.mtAccountId});
     }
   }, [user]);
 
