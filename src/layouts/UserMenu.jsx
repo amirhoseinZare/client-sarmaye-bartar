@@ -2,7 +2,8 @@ import { Menu, Button, ConfigProvider, Layout } from 'antd';
 import {
   UserOutlined,
   BarChartOutlined,
-  
+  ProfileOutlined,
+  PieChartOutlined
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import styled from "styled-components"
@@ -76,6 +77,14 @@ const UserLayout = (props)=> {
         route:"/accounts",
         key:"2"
       },
+      "/profile":{
+        route:"/profile",
+        key:"3"
+      },
+      "/charts":{
+        route:"/charts",
+        key:"4"
+      },
     }
     useEffect(()=>{
       if(state.currentRoute !== routes[location.pathname].key)
@@ -110,6 +119,12 @@ const UserLayout = (props)=> {
                 </Menu.Item>
                 <Menu.Item key="2" icon={<UserOutlined />}>
                   <Link to={"/accounts"}>accounts</Link>
+                </Menu.Item>
+                <Menu.Item key="3" icon={<ProfileOutlined />}>
+                  <Link to={"/profile"}>profile</Link>
+                </Menu.Item>
+                <Menu.Item key="4" icon={<PieChartOutlined />}>
+                  <Link to={"/charts"}>charts</Link>
                 </Menu.Item>
               </Menu>
             </StyledMenuRoot>
