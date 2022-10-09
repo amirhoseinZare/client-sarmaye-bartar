@@ -3,9 +3,9 @@ export const accountType = {
         value:"Alpari-mt5-demo",
         text:"Alpari-mt5-demo"
     },
-    "Alpari-pro-ECN-Demo":{
-        value:"Alpari-pro-ECN-Demo",
-        text:"Alpari-pro-ECN-Demo"
+    "Alpari-pro.ECN-Demo":{
+        value:"Alpari-pro.ECN-Demo",
+        text:"Alpari-pro.ECN-Demo"
     },
     "RoboForex-ECN":{
         value:"RoboForex-ECN",
@@ -56,6 +56,30 @@ export const accountType = {
     "doesNotExist":{
         value:"doesNotExist",
         text:"پلتفرم بین گزینه های موجود یافت نشد"
+    },
+    "FusionMarkets-Demo":{
+        value:"FusionMarkets-Demo",
+        text:"FusionMarkets-Demo"
+    },
+    "ICMarketsEU-Demo02":{
+        value:"ICMarketsEU-Demo02",
+        text:"ICMarketsEU-Demo02"
+    },
+    "ICMarketsEU-Demo01":{
+        value:"ICMarketsEU-Demo01",
+        text:"ICMarketsEU-Demo01"
+    },
+    "Eightcap-Demo":{
+        value:"Eightcap-Demo",
+        text:"Eightcap-Demo"
+    },
+    "RoboForex-DemoPro":{
+        value:"RoboForex-DemoPro",
+        text:"RoboForex-DemoPro"
+    },
+    "RoboForex-Pro":{
+        value:"RoboForex-Pro",
+        text:"RoboForex-Pro"
     },
     "none":{
         value:"none",

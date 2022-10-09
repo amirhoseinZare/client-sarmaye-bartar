@@ -174,15 +174,15 @@ const Dashboard = () => {
               <div className={classes.container3}>
                   <h2 className={classes.title} style={{textAlign:"left", display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
                       <div>
-                        {(!user.infinitive) && data.objectives["minimumTradeDaysObjective"]?.passed && data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance &&  <div>
+                        {(!user.infinitive) /*&& data.objectives["minimumTradeDaysObjective"]?.passed*/ && data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance &&  <div>
                           <Button onClick={()=>sendRequest("extend")} loading={buttons.extend} classes={classes.extend} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>extend 10 days</Button>
                         </div>}
                         {(!user.infinitive) &&
-                        data.objectives["minimumTradeDaysObjective"]?.passed &&  data.objectives["maxDailyLoss"]?.passed &&  
+                        /*data.objectives["minimumTradeDaysObjective"]?.passed &&*/  data.objectives["maxDailyLoss"]?.passed &&  
                         data.objectives["profitTarget"]?.passed && data.objectives["maxLoss"]?.passed &&  <div>
                           <Button onClick={()=>sendRequest("nextPhase")} loading={buttons.nextPhase} classes={classes.nextPhase} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>next phase</Button>
                         </div>}
-                        {(!user.infinitive) && data.objectives["minimumTradeDaysObjective"]?.passed && data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance && 
+                        {(!user.infinitive) && /*data.objectives["minimumTradeDaysObjective"]?.passed &&*/ data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance && 
                           <div>
                           <Button onClick={()=>sendRequest("reset")} loading={buttons.reset} classes={classes.reset} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>reset account</Button>
                         </div>}
