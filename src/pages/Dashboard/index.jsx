@@ -7,10 +7,8 @@ import classes from "./Dashboard.module.scss";
 
 // comps
 import Ranking from "../../comps/Ranking/Ranking";
-import CurrentResults from "./comps/CurrentResults.component";
 
 // api
-import { DashboardApi } from "../../api";
 import { UsersApi } from "../../api/Users.api";
 import { RequestApi } from "../../api/Request.api";
 
@@ -20,7 +18,6 @@ import { useSelector } from "react-redux";
 // icon
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { IoMdCloseCircle } from "react-icons/io";
 
 // variables
 import { USER_ID_KEY, STAT_KEY } from "../../core/variables.core";
@@ -64,12 +61,16 @@ const Dashboard = () => {
     chart:[],
     objectives:[]
   });
-  
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     if (user._id) {
+      if(userData.role === "admin"){
+        asyncFetch({userId:user._id, mtAccountId:user.mtAccountId});
+        return
+      }
       const currentAccount = user.accounts[user.accounts.length-1]
       asyncFetch({userId:currentAccount._id, mtAccountId:currentAccount.mtAccountId});
     }

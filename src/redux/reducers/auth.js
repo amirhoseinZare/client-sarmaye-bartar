@@ -22,7 +22,8 @@ const INITIAL_STATE = {
   isAuth:false,
   mtAccountId:"",
   accounts:[],
-  level:""
+  level:"",
+  metaUsername:""
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -50,7 +51,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         mtAccountId,
         accounts,
         level,
-        status
+        status,
+        metaUsername
       } = action.payload;
 
       return {
@@ -77,7 +79,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         mtAccountId,
         accounts: accounts || state.accounts,
         level,
-        status
+        status,
+        metaUsername
       };
     }
     default:

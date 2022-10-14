@@ -63,6 +63,10 @@ const Login = () => {
     setLoading(false);
 
     if (res.success) {
+      const result = res.result
+      const { accounts=[], ...userData} = result
+      result.accounts = accounts
+      result.accounts.unshift(userData)
       dispatch(setAuth(res.result));
       localStorage.setItem(TOKEN_LOCAL_KEY, res.token);
       success("ورود با موفقیت انجام شد.");

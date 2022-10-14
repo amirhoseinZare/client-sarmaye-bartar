@@ -77,14 +77,13 @@ const Accounts = ()=>{
              {user.isAuth && <Row gutter={16}>
                 {
                     user.accounts.map(account=>{
-
                         return (
                             <Col lg={22} md={22} sm={22} xs={22}>
-                                <Card title={account.user_login} bordered={false}>
+                                <Card title={account.metaUsername || account.user_login} bordered={false}>
                                     <p><b>First Balance:</b> {account.firstBalance}</p>
                                     <p><b>Account Type:</b> {account.accountType}</p>
                                     <p><b>Platform: </b>{account.platform}</p>
-                                    <p><b>Level:</b> {account.infinitive ? "Real": account.level}</p>
+                                    <p><b>:Level</b> {account.infinitive ? "Real": account.level}</p>
                                     {!account.infinitive &&<ul>
                                         <li><b>Max trade days:</b> {account.infinitive ? "-": account.maxTradeDays}</li>
                                         <li><b>Profit target percent:</b> {account.infinitive ? "-": account.percentDays}</li>

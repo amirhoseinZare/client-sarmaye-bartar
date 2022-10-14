@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons';
 import Profile from "./pages/Profile"
 import Charts from "./pages/Charts";
+import Home from "./pages/Home"
 
 function App() {
   const bottomNavItems = useMemo(()=>[
@@ -60,7 +61,7 @@ function App() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    if (userData !== user && (!["/404", "/login"].includes(pathname))) {
+    if (userData !== user && (!["/404", "/login", "/"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
         console.log(response)
         const result = response.result
@@ -74,12 +75,24 @@ function App() {
 
   return (
     <div className="App">
-       <BottomNavigation
-        items={bottomNavItems}
-        defaultSelected={0}
-        onItemClick={(item) => navigate(item.link)}
-      />
+      {
+        pathname==="/404" ? null :
+        <BottomNavigation
+          items={bottomNavItems}
+          defaultSelected={0}
+          onItemClick={(item) => navigate(item.link)}
+        />
+      }
+
       <Routes>
+
+        <Route
+          path="/"
+          element={
+              <Home />
+          }
+        />
+
         <Route path="/login" element={<Login />} />
 
         <Route
