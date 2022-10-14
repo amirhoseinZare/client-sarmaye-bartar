@@ -12,8 +12,15 @@ const Home = ()=>{
         background:'#0B0E13',
         height:'100vh',
     }}>
-        <Col xs={23} sm={23} md={20} lg={20} xl={20} style={{}}>
-            <Link to="/login" style={{color:"#fff", textDecoration:"underline", color: '#44B3FE'}}>ورود به پنل کاربری</Link>
+        <Col xs={23} sm={23} md={20} lg={20} xl={20} style={{display:'flex', justifyContent:'flex-end'}}>
+            <Link style={{
+                color: 'rgb(11, 14, 19)',
+                backgroundColor: 'rgb(68, 179, 254)',
+                padding: '4px 12px',
+                fontWeight: 'bold',
+                display: 'inline-flex',
+                alignItems: 'center',
+            }} to="/login">login dashboard</Link>
         </Col>
         <Col xs={23} sm={23} md={20} lg={20} xl={20} style={{
                 display:'flex',
