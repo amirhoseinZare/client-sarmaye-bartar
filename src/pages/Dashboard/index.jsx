@@ -110,8 +110,8 @@ const Dashboard = () => {
       }
       const currentAccount = user.accounts[user.accounts.length - 1];
       asyncFetch({
-        userId: currentAccount._id,
-        mtAccountId: currentAccount.mtAccountId,
+        userId: analyzeUser._id,
+        mtAccountId: analyzeUser.mtAccountId,
       });
     }
   }, [user]);

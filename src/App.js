@@ -2,7 +2,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard/index";
 import Users from "./pages/Users/index";
 import Requests from "./pages/Requests/index"
-
+import Home from "./pages/Home/index"
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Spinner } from "./comps/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,6 +86,14 @@ function App() {
         />
       }
       <Routes>
+
+      <Route
+          path="/"
+          element={
+            <Home/>
+          }
+        />
+
         <Route path="/login" element={<Login />} />
 
         <Route
