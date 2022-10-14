@@ -285,7 +285,6 @@ function Categories() {
   }, [filter]);
 
   const openEditModal = (data, step = 0) => {
-    console.log(data);
     dispatch(
       setModal({
         visible: true,

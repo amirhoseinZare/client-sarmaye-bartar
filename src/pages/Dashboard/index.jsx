@@ -76,6 +76,7 @@ const deadline =
 
 const Dashboard = () => {
   const userData = useSelector((store) => store.user);
+  const analyzeUser = useSelector((store) => store.analyze);
   const [user, setUser] = useState({});
   useEffect(() => {
     if (userData.role === 'admin') {
@@ -398,7 +399,7 @@ const Dashboard = () => {
               )}
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={8} lg={8}>
-              <DataBox classes={classes} user={user} />
+              <DataBox classes={classes} user={analyzeUser} />
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={14} lg={14}>
               <div className={classes.container3}>

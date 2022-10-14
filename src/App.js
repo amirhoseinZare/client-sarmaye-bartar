@@ -11,9 +11,9 @@ import PrivateRoute from "./comps/PrivateRoute";
 import { useEffect, useState, useMemo } from "react";
 import { AuthApi } from "./api";
 import { setAuth } from "./redux/actions/auth";
+import { setAnalyze } from "./redux/actions/analyze"
 import Accounts from "./pages/Accounts"
 import UserMenu from "./layouts/UserMenu"
-import openSocket from 'socket.io-client';
 import BottomNavigation from 'reactjs-bottom-navigation'
 import './assets/css/general.scss'
 import {
@@ -22,7 +22,6 @@ import {
   ProfileOutlined,
   PieChartOutlined
 } from '@ant-design/icons';
-import { setAlert } from "./redux/actions/alert"
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -63,10 +62,13 @@ function App() {
   useEffect(() => {
     if (userData !== user && (!["/404", "/login"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
-        console.log(response)
         const result = response.result
         const { accounts=[], ...userData} = response.result
-        result.accounts.unshift(userData)
+        result.accounts = accounts
+        console.log(result.accounts.find(item=>item._id.toString() === userData._id.toString()))
+        if(!result.accounts.find(item=>item._id.toString() === userData._id.toString()))
+          result.accounts.unshift(userData)
+        dispatch(setAnalyze(result.accounts && Array.isArray(result.accounts) && result.accounts.length>0 ? result.accounts[result.accounts.length-1]:userData ));
         dispatch(setAuth(response.result));
         setUserData(response.result);
       });

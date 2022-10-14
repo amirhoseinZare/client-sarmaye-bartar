@@ -83,9 +83,7 @@ const Filter = ({setFilter, filter, search})=>{
     const fields = useMemo(()=>({
         user_email:''
     }), [])
-    // console.log(input)
     const onFinish = (model)=>{
-        console.log(model, fields)
         let pageNumber = filter.pageNumber
         if(model.user_email)
             pageNumber = 1
