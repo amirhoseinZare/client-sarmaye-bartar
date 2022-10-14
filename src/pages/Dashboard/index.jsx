@@ -1,14 +1,16 @@
 // packages
 import React, { useState, useEffect, useMemo } from "react";
-import { Row, Col, message, Skeleton, Divider, Statistic,Button  } from "antd";
+import { Row, Col, message, Skeleton, Divider, Statistic, Button, Tooltip as AntdTooltip   } from "antd";
 
 // css
 import classes from "./Dashboard.module.scss";
 
 // comps
 import Ranking from "../../comps/Ranking/Ranking";
+import CurrentResults from "./comps/CurrentResults.component";
 
 // api
+import { DashboardApi } from "../../api";
 import { UsersApi } from "../../api/Users.api";
 import { RequestApi } from "../../api/Request.api";
 
@@ -18,12 +20,19 @@ import { useSelector } from "react-redux";
 // icon
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { IoMdCloseCircle } from "react-icons/io";
 
 // variables
 import { USER_ID_KEY, STAT_KEY } from "../../core/variables.core";
 import DataBox from "./comps/DataBox.component";
+
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+
+import { AiOutlineExclamationCircle } from "react-icons/ai"
 
 ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend );
 const { Countdown } = Statistic;
@@ -37,10 +46,9 @@ const tomorrowBrokerTime = todayBrokerEndTime.getTime() + 86400*1000
 const deadline = new Date().getTime() < todayBrokerEndTime ? todayBrokerEndTime : tomorrowBrokerTime
 
 const Dashboard = () => {
-  const userData = useSelector((store) => store.user);
 
+  const userData = useSelector((store) => store.user);
   const [user, setUser] = useState({});
-  console.log('user accounts ', user)
   useEffect(() => {
     if (userData.role === "admin") {
       let userId = localStorage.getItem(USER_ID_KEY);
@@ -97,46 +105,108 @@ const Dashboard = () => {
 
   };
 
-  const options = useMemo(()=>({
-    responsive: true,
-    plugins: {
-      // legend: {
-      //   pointStyle: 'dash',
-      // },
-      // title: {
-      //   display: true,
-      //   text: 'Performance & Balance',
-      // },
+  const setLabels = (data, time)=>{
+    if(data.chart) {
+      console.log({ "data.chart" : data.chart, "data.chart.slice(data.chart.length-24, data.chart.length)":data.chart.slice(data.chart.length-24, data.chart.length) })
+      let chart = data.chart ? time==="today" ? data.chart.slice(data.chart.length-24, data.chart.length) : data.chart : []
+      return chart.map(item=>{
+        const [date, time] = item.startBrokerTime.split(" ")
+        const [hour, minute, allSeconds] = time.split(":")
+        const [year, month, day] = date.split("-")
+        const seconds = allSeconds.split(".")[0]
+        const dotHour = hour==0 && time!=="today"  ? ` - ${month}/${day}` : ""
+        console.log({year, month, day, hour, minute, allSeconds}, `${hour}:${minute}` + dotHour)
+        return `${hour}:${minute}` + dotHour
+      })
+    }
+    return []
+  }
+
+  // console.log(setLabels(data))
+  const highOptions = useMemo(()=>({
+    chart: {
+        type: 'areaspline',
+        backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || 'rgb(11, 14, 19)',
+        width:1300
     },
-  }), [])
+    title: {
+        text: ''
+    },
+    subtitle: {
+        // text: '* Jane\'s banana consumption is unknown',
+        align: 'right',
+        verticalAlign: 'bottom'
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 30,
+        y: -10,
+        floating: true,
+        borderWidth: 1,
+        style:{
+          color:"#fff"
+        },
+        backgroundColor:'rgb(16, 20, 27)',
+        borderColor:"#fff",
+        itemStyle:{
+          "color": "#fff"
+        }
+    },
+    xAxis: {
+        categories: setLabels(data),
+        labels:{
+          style:{
+            color:"#fff"
+          }
+        },
 
-  const labels = useMemo(()=>data.chart ? data.chart.map(item=>item.startBrokerTime): [], [data.chart])
-  const dataSet = useMemo(()=>({
-    labels,
-    datasets: [
+    },
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels:{
+          style:{
+            color:"#fff"
+          }
+        },
+        
+    },
+    plotOptions: {
+        area: {
+            fillOpacity: 0.5
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    series: [
       {
-        label: 'Minimum equity',
-        data: data.chart ? data.chart.map(item=>item.minEquity) : [],
-        borderColor: 'rgb(59,72,89)',
-        backgroundColor: 'rgba(59,72,89, 0.1)',
-        pointStyle: 'dash',
-        tension: 0.4,
-        cubicInterpolationMode: 'monotone',
-
-      },
-      {
-        label: 'Balance',
-        data: data.chart ? data.chart.map(item=>item.minBalance) : [],
-        borderColor: 'rgb(50, 130, 184)',
-        backgroundColor: 'rgb(50, 130, 184, 0.1)',
-        pointStyle: 'dash',
-        tension: 0.4,
-        cubicInterpolationMode: 'monotone',
-
-      },
-    ],
-
-  }), [data.chart])
+          name: 'Minimum Equity',
+          data: data.chart ? data.chart.map(item=>{
+            // if(item.addedBySb)
+            //   return null
+            return item.minEquity
+            }) : [],
+          fillColor:"rgba(68, 179, 254, 0.5)",
+          color:"rgba(68, 179, 254, 1)",
+          opacity:"1"
+      }, 
+      // {
+      //     name: 'Minimum Balance',
+      //     data: data.chart ? data.chart.map(item=>{
+      //       // if(item.addedBySb)
+      //       //   return null
+      //       return item.minBalance
+      //       }) : [],
+      //     fillColor:"rgba(33,148,254, 0.5)",
+      //     color:"rgba(33,148,254, 1)",
+      //     opacity:"0.5"
+      // }
+    ]
+  }))
 
   const [buttons, setButtons] = useState({
     extend:false,
@@ -162,29 +232,32 @@ const Dashboard = () => {
     <>
       {user.isAuth ? (
         <div className={classes.root}>
-          
           {/* <UserMenu /> */}
           <Row className={classes.row}>
-            <Col className={classes.col} xs={23} sm={23} md={17} lg={17} >
+            <Col className={classes.col} xs={23} sm={23} md={23} lg={23} >
               {loading ? <Skeleton title={false} active paragraph={{ rows: 15 }} /> : 
-                <Line options={options} data={dataSet} /> }
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={highOptions}
+                />
+              }
             </Col>
-            <Col className={classes.col} xs={23} sm={23} md={6} lg={6}>
+            <Col className={classes.col} xs={23} sm={23} md={8} lg={8}>
               <DataBox classes={classes} user={user} />
             </Col>
-            <Col className={classes.col} xs={23} sm={23} md={11} lg={11}>
+            <Col className={classes.col} xs={23} sm={23} md={14} lg={14}>
               <div className={classes.container3}>
                   <h2 className={classes.title} style={{textAlign:"left", display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
                       <div>
-                        {(!user.infinitive) /*&& data.objectives["minimumTradeDaysObjective"]?.passed*/ && data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance &&  <div>
+                        {(!user.infinitive) && data.objectives["minimumTradeDaysObjective"]?.passed && data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance &&  <div>
                           <Button onClick={()=>sendRequest("extend")} loading={buttons.extend} classes={classes.extend} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>extend 10 days</Button>
                         </div>}
                         {(!user.infinitive) &&
-                        /*data.objectives["minimumTradeDaysObjective"]?.passed &&*/  data.objectives["maxDailyLoss"]?.passed &&  
+                        data.objectives["minimumTradeDaysObjective"]?.passed &&  data.objectives["maxDailyLoss"]?.passed &&  
                         data.objectives["profitTarget"]?.passed && data.objectives["maxLoss"]?.passed &&  <div>
                           <Button onClick={()=>sendRequest("nextPhase")} loading={buttons.nextPhase} classes={classes.nextPhase} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>next phase</Button>
                         </div>}
-                        {(!user.infinitive) && /*data.objectives["minimumTradeDaysObjective"]?.passed &&*/ data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance && 
+                        {(!user.infinitive) && data.objectives["minimumTradeDaysObjective"]?.passed && data.objectives["maxDailyLoss"]?.passed && data.objectives["maxLoss"]?.passed && new Date(user.endTradeDay).getTime() < new Date().getTime() && +data.objectives["profitTarget"]?.firstBalance <= +data.objectives["profitTarget"]?.balance && 
                           <div>
                           <Button onClick={()=>sendRequest("reset")} loading={buttons.reset} classes={classes.reset} style={{  backgroundColor: "#24303C", color:"#fff", borderRadius:"12px"}}>reset account</Button>
                         </div>}
@@ -192,7 +265,7 @@ const Dashboard = () => {
                       <p style={{margin:0}}>Your statistics</p>
                       
                   </h2>
-                
+
                 <Divider
                   style={{
                     borderColor: "rgb(177 177 177 / 40%)",
@@ -236,10 +309,16 @@ const Dashboard = () => {
                         <p>$ {+data.objectives["profitTarget"]?.balance}</p>
                       </div>
                       <div className={classes.text}>
-                        <p>
-                          Balance
-                          {/* ( {+data.objectives["maxDailyLoss"]?.limit}$) */}
-                        </p>
+                        
+                          <p>
+                            <AntdTooltip placement="bottomLeft" title={"Maximum Balance per hour"}>
+                              <span style={{cursor:"pointer"}}>
+                                Balance
+                                <AiOutlineExclamationCircle  fontSize={14}/>
+                              </span>
+                            </AntdTooltip>
+                            {/* ( {+data.objectives["maxDailyLoss"]?.limit}$) */}
+                          </p>
                       </div>
                     </div>
                     <div style={{ width: "97%", margin: "0 auto" }}>
@@ -261,7 +340,12 @@ const Dashboard = () => {
                       </div>
                       <div className={classes.text}>
                         <p style={{fontWeight:"bolder"}}>
-                          Minimum Equity
+                          <AntdTooltip placement="bottomLeft" title={"Minimum Equity per hour"}>
+                            <span style={{cursor:"pointer"}}>
+                              Minimum Equity
+                              <AiOutlineExclamationCircle  fontSize={14}/>
+                            </span>
+                          </AntdTooltip>
                         </p>
                       </div>
                     </div>
@@ -300,9 +384,9 @@ const Dashboard = () => {
 
             </Col>
            
-            <Col className={classes.col} xs={23} sm={23} md={11} lg={11}>
+            <Col className={classes.col} xs={23} sm={23} md={23} lg={23}>
               <div className={classes.container3}>
-                <div style={{display: "flex", justifyContent: "space-between", flexDirection: "row-reverse"}}><h2 className={classes.title} style={{textAlign:"left"}}>Objectives </h2> <Countdown value={deadline} /></div>
+                <div style={{display: "flex", justifyContent: "space-between", flexDirection: "row-reverse"}} className={classes.myStatis}><h2 className={classes.title} style={{textAlign:"left"}}>Objectives </h2> <Countdown valueStyle={{ color: 'rgba(245, 245, 245, 1)' }} value={deadline} /></div>
                 <Divider
                   style={{
                     borderColor: "rgb(177 177 177 / 40%)",
@@ -328,7 +412,7 @@ const Dashboard = () => {
                   <>
                     <div className={classes.body}>
                       <div className={classes.results}>
-                        {/* <p className={classes.status}>
+                        <p className={classes.status}>
                           {data.objectives["minimumTradeDaysObjective"]?.passed
                             ? "passed"
                             : "failed"}
@@ -339,15 +423,13 @@ const Dashboard = () => {
                               <IoMdCloseCircle className={classes.iconRed} />
                             )}
                           </span>
-                        </p> */}
-                        ...updating
+                        </p>
                       </div>
                       <div>
                         {/* <p className={classes.status}>
                           <span>...updating</span>
                         </p> */}
-                        {/* <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p> */}
-                        ...updating
+                        <p>{data.objectives["minimumTradeDaysObjective"]?.count}</p>
                       </div>
                       <div className={classes.text}>
                         <p>
@@ -507,3 +589,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+

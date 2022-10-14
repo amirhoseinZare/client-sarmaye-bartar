@@ -62,13 +62,13 @@ const Navbar = () => {
 				)}
 
 			</div>
-			<div className={classes.logo}>
+			{/* <div className={classes.logo}>
 				<img src={logo} alt='' />
-			</div>
-			<div className={classes.trader}>
+			</div> */}
+			{/* <div className={classes.trader}>
 				<h3>{user.user_email}</h3>
 				<BiUserCircle />
-			</div>
+			</div> */}
 		</div>
 	);
 };

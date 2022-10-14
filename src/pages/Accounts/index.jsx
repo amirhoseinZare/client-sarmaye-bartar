@@ -7,6 +7,14 @@ import { Link } from "react-router-dom"
 import { setAuth } from '../../redux/actions/auth'
 
 const StyledRoot = styled.div`
+    h2 {
+        color: rgba(245, 245, 245, 1);    
+    }
+    p {
+        direction:ltr;
+    }
+    background: rgb(11, 14, 19);
+
     b {
         font-weghit:bolder;    
     }
@@ -26,9 +34,29 @@ const StyledRoot = styled.div`
     ul, li {
         direction:ltr;
     }
+    .account-deactive {
+        .ant-card-head {
+            background-color: rgba(254, 68, 68, 1) !important;
+        }
+    }
+    .ant-card-body {
+    }
     .ant-card {
-        border-radius:20px;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        .ant-card-head {
+            display:flex;
+            direction: ltr;
+            background: rgba(68, 179, 254, 1);
+            height: 104px;
+            .ant-card-head-title {
+                font-size: 22px;
+            }
+        }
+        .ant-card-body {
+            background: rgba(16, 20, 27, 1);
+            color: rgba(245, 245, 245, 1);  
+            height:337.5px;  
+        }
+        
         .user-status {
             span {
                 display:inline-flex;
@@ -55,12 +83,19 @@ const StyledRoot = styled.div`
                 background: #24303C;
                 padding: 4px 8px;
                 color: #fff;
-                border-radius: 8px;    
             }
         }
     }
     .ant-row {
         justify-content:center;
+        padding-top:40px;
+    }
+    @media (max-width:1250px) {
+        .ant-row {
+            row-gap: 0px;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
     }
 `
 
@@ -72,28 +107,39 @@ const Accounts = ()=>{
         dispatch(setAuth({...newUser, accounts:user.accounts }))
     }
 
+    const getOddAccountColCell = (length, index) => length % 2 === 0 && (index==0 || index===length-1)  ? {lg:11, md:11, sm:22, xs:22} : {lg:22, md:22, sm:22, xs:22}
+
     return (
-        <StyledRoot>
+        <StyledRoot >
              {user.isAuth && <Row gutter={16}>
                 {
-                    user.accounts.map(account=>{
+                    user.accounts.map((account, index)=>{
+
                         return (
-                            <Col lg={22} md={22} sm={22} xs={22}>
-                                <Card title={account.metaUsername || account.user_login} bordered={false}>
-                                    <p><b>First Balance:</b> {account.firstBalance}</p>
+                            <Col {...getOddAccountColCell(user.accounts.length, index)}>
+                                <Card title={`First Balance: $${account.firstBalance.toLocaleString()}`} bordered={false} className={`account-${account.status}`}>
+                                    <h2>{account.display_name}</h2>
+                                    <p><b>Meta username:</b> {account.metaUsername || "-"}</p>
                                     <p><b>Account Type:</b> {account.accountType}</p>
                                     <p><b>Platform: </b>{account.platform}</p>
-                                    <p><b>:Level</b> {account.infinitive ? "Real": account.level}</p>
-                                    {!account.infinitive &&<ul>
+                                    <p><b>Level:</b> {account.infinitive ? "Real": account.level}</p>
+                                    {/* {!account.infinitive &&<ul>
                                         <li><b>Max trade days:</b> {account.infinitive ? "-": account.maxTradeDays}</li>
                                         <li><b>Profit target percent:</b> {account.infinitive ? "-": account.percentDays}</li>
-                                    </ul>}
+                                    </ul>} */}
                                     <p><b>Start:</b> {account.startTradeDay}</p>
                                     <p><b>End:</b> {account.endTradeDay}</p>
-                                    <p className={`user-status ${account.status ? 'active-status': 'deactive-status'}`}>
+                                    {/* <p className={`user-status ${account.status ? 'active-status': 'deactive-status'}`}>
                                         <span><b>{account.status}</b> <BsFillCircleFill/></span>
-                                    </p>
-                                    <div className='dashobard-link'><Link to="/dashboard" onClick={()=>changeCurrentAuth(account)}>See Analyze <LineChartOutlined /></Link></div>
+                                    </p> */}
+                                    {account.status=="active" ? 
+                                        (
+                                            <div className='dashobard-link'>
+                                                <Link to="/dashboard" onClick={()=>changeCurrentAuth(account)}>See Analyze <LineChartOutlined /></Link>
+                                            </div>
+                                        ) 
+                                        : null
+                                    }
                                 </Card>
                             </Col>
                         )

@@ -14,6 +14,8 @@ import { USER_ID_KEY } from "../../core/variables.core";
 import Filters from "./comps/filters";
 import MenuLayout from "../../layouts/Menu"
 import Edit from "./comps/Edit"
+import Details from "./comps/Details";
+import { BiDetail } from "react-icons/bi"
 
 const { confirm } = Modal;
 
@@ -103,7 +105,17 @@ function Requests() {
           />
         ),
       },
-    
+      {
+        title: "details",
+        key: "details",
+        render: (user) => (
+          <BiDetail
+            style={{ color: "#16a085" }}
+            className={classes["icons"]}
+            onClick={() => openDetailsModal(user)}
+          />
+        ),
+      },
     ],
     [state.rows]
   );
@@ -152,7 +164,7 @@ function Requests() {
     dispatch(
       setModal({
         visible: true,
-        title: "ویرایش",
+        title: "edit",
         width: 700,
         children: <Edit data={data} getUsersData={getUsersData}/>,
         closeCallback: () => {
@@ -162,6 +174,19 @@ function Requests() {
     );
   };
 
+  const openDetailsModal = (data, step = 0) => {
+    dispatch(
+      setModal({
+        visible: true,
+        title: "",
+        width: 700,
+        children: <Details data={data}/>,
+        closeCallback: () => {
+          getUsersData();
+        },
+      })
+    );
+  };
 
   return (
     <div className={classes.users}>

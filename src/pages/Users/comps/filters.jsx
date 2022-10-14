@@ -1,7 +1,6 @@
 import { Collapse, Row, Col, Form, Input, Button, Select } from 'antd';
 import styled from "styled-components"
 import { useState, useEffect, useMemo, useReducer } from "react"
-import { accountLevels, accountType as accountTypeEnum } from "../../../core/enums"
 
 const { Panel } = Collapse;
 const { Option } = Select
@@ -85,40 +84,17 @@ const FormStyled = styled(Form)`
 `
 
 const Filter = ({setFilter, filter, search})=>{
-    const accountTypes = useMemo(
-        () => Object.values(accountTypeEnum).map(({text, value})=>({text:text, value:value})),
-        []
-    );
+    const fields = useMemo(()=>({
+        user_email:''
+    }), [])
+    // console.log(input)
     const onFinish = (model)=>{
+        console.log(model, fields)
         let pageNumber = filter.pageNumber
-        const {
-            display_name,
-            user_email,
-            user_login,
-            platform,
-            level,
-            accountType,
-            metaUsername,
-            standardType,
-            hasFailedMaxLoss,
-            hasFailedDailyLoss
-        } = model
-        model.accountType = (!model.accountType) ? '' : accountTypeEnum[accountType].value
-        if(display_name || user_email || user_login || platform || level || accountType || metaUsername || standardType || typeof hasFailedMaxLoss === 'boolean' || typeof hasFailedDailyLoss === 'boolean')
+        if(model.user_email)
             pageNumber = 1
-        const sanitizedFilters = Object.fromEntries(Object.entries(filter).map(item=>{
-            if(typeof item[1] === "string")
-                return [item[0], item[1].trim()]
-            return item
-        }))
-        const sanitizedModel = Object.fromEntries(Object.entries(model).map(item=>{
-            if(typeof item[1] === "string")
-                return [item[0], item[1].trim()]
-            return item
-        }))
-        setFilter({...sanitizedFilters, ...sanitizedModel, pageNumber})
+        setFilter({...filter, ...model, pageNumber})
     }
-
     const onFinishFailed = ()=>{
 
     }
@@ -136,19 +112,7 @@ const Filter = ({setFilter, filter, search})=>{
                         autoComplete="off"
                         size="large"
                     >
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'نام'}
-                                name="display_name"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                                <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
+                        <Col className="form-input" span={24} sm={12} md={8}>
                             <Form.Item
                                 label={'ایمیل'}
                                 name="user_email"
@@ -156,117 +120,6 @@ const Filter = ({setFilter, filter, search})=>{
                                 // value={input.name}
                             >
                                 <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'نام کاربری'}
-                                name="user_login"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                                <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'پلتفرم'}
-                                name="platform"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                                <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'مرحله'}
-                                name="level"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                                <Select>
-                                    <Option value={1}>اول</Option>
-                                    <Option value={2}>دوم</Option>
-                                    <Option value={3}>real</Option>
-                                    <Option value={''}>هیچکدام</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'سرور'}
-                                name="accountType"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                                <Select>
-                                    {accountTypes.map((item) => {
-                                        if(item.value!=='none' && item.value!=='doesNotExist')
-                                            return <Option key={item.value} value={item.value}>{item.text}</Option>
-                                        if(item.value==='none')
-                                            return <Option key={item.value} value={''}>هیچکدام</Option>
-                                    })}
-                                </Select>
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'نام کاربری متا'}
-                                name="metaUsername"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                               <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'نوع اکانت'}
-                                name="standardType"
-                                rules={[]}
-                            >
-                                <Select>
-                                    <Option value={'standard'}>{'standard'}</Option>
-                                    <Option value={'ecn'}>{'ecn'}</Option>
-                                    <Option value={''}>{'هیچکدام'}</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'max loss'}
-                                name="hasFailedMaxLoss"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                                <Select>
-                                    <Option value={true}>failed</Option>
-                                    <Option value={false}>passed</Option>
-                                    <Option value={''}>هیچکدام</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-
-                        <Col className="form-input" span={24} sm={12} md={4}>
-                            <Form.Item
-                                label={'max daily loss'}
-                                name="hasFailedDailyLoss"
-                                rules={[]}
-                                // value={input.name}
-                            >
-                                <Select>
-                                    <Option value={true}>failed</Option>
-                                    <Option value={false}>passed</Option>
-                                    <Option value={''}>هیچکدام</Option>
-                                </Select>
                             </Form.Item>
                         </Col>
                 

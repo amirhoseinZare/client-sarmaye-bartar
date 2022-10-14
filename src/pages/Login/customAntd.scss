@@ -1,9 +1,11 @@
 @import "../../sass/CssVariables";
 
 .antdLoginCustom {
+    background-image:url('../../assets/login-background.jpeg') ;
+
   .inputsLogin .ant-form-item {
     display: flex !important;
-    align-items: flex-start !important;
+    align-items: flex-end !important;
     justify-content: space-evenly !important;
     flex-direction: column !important;
   }
@@ -13,12 +15,16 @@
     align-items: center !important;
     justify-content: space-evenly !important;
     flex-direction: column !important;
+    
   }
 
   .ant-form {
-    width: calc(100% - 30px);
-    max-width: 310px;
+    width: 100%;
     font-family: "Vazir" !important;
+  }
+  .ant-input.ant-input-status-error {
+    background: #10141B !important;
+    color: #C7C7C7;
   }
 
   .ant-input,
@@ -28,6 +34,9 @@
     font-size: 16px;
     background-color: transparent;
     outline: none !important;
+    &::placeholder {
+      color:  rgba(106, 106, 106, 1);
+    }
     &:focus {
       box-shadow: none !important;
     }
@@ -35,6 +44,9 @@
 
   .ant-input-affix-wrapper {
     border-radius: 50px;
+    background: #10141B !important;
+    color: #C7C7C7;
+
   }
 
   .ant-form-horizontal .ant-form-item-control {
@@ -44,20 +56,22 @@
   .ant-input,
   .ant-input-affix-wrapper {
     box-shadow: none !important;
-    background-color: transparent !important;
+    color: #C7C7C7 !important;
+    // background-color: transparent !important;
   }
 
   .ant-input {
-    background: transparent !important;
   }
 
   .ant-btn-custom {
     width: 100%;
     height: 45px;
-    border-radius: 50px;
-    border: 2px solid #3ba43b;
+    border: 2px solid rgba(68, 179, 254, 1);
     // border: 2px solid rgba(114, 131, 156, 0.7);
-    background-color: #3ba43b;
+    background: rgba(68, 179, 254, 1);
+    span {
+      color:black;
+    }
     // background-color: rgba(114, 131, 156, 0.8);
     font-size: 16px;
     font-weight: bold;
@@ -65,12 +79,41 @@
     margin: 28px auto 5px;
     transition: all 0.4s 0.2s linear;
     &:hover {
-      background-color: transparent;
+      // background-color: transparent;
       color: #3ba43b;
+    }
+  }
+
+  .ant-form-item-control-input {
+    svg {
+      color:#fff;
     }
   }
 }
 
 .antdLoginCustom .inputsLogin .ant-form-item{
   margin-bottom: 10px;
+}
+
+.ant-input-password {
+  direction: ltr;
+}
+
+.ant-input {
+  direction: ltr;
+}
+
+.ant-form-item-label {
+  label {
+    color: #C7C7C7 !important;
+    direction: ltr;
+  }
+}
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  display: none;
+}
+
+.ant-form-item-explain-error {
+  direction: ltr;
 }

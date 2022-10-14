@@ -130,10 +130,6 @@ function AccountData({ userState, setData, data }) {
       name: ["firstBalance"],
       value: "",
     },
-    {
-      name: ["standardType"],
-      value: "",
-    },
     // {
     //   name: ["maxTradeDays"],
     //   value: "",
@@ -394,9 +390,9 @@ function AccountData({ userState, setData, data }) {
         </Form.Item>
       </Col>
       
-      <Col className="form-account" span={24} sm={12} md={8}>
+      <Col className="form-account" span={24} sm={24} md={24}>
         <Form.Item
-          label="سرور"
+          label="نوع اکانت انتخابی"
           name="accountType"
           rules={[
             { required: true, message: "یکی از سرور ها را انتخاب نمایید." },
@@ -406,22 +402,6 @@ function AccountData({ userState, setData, data }) {
             {accountTypes.map((item) => (
               <Option key={item.value} value={item.value}>{item.text}</Option>
             ))}
-          </Select>
-        </Form.Item>
-      </Col>
-
-      <Col className="form-account" span={24} sm={12} md={8}>
-        <Form.Item
-          label="نوع اکانت"
-          name="standardType"
-          rules={[
-            { required: true, message: "یکی از سرور ها را انتخاب نمایید." },
-          ]}
-        >
-          <Select className="">
-            <Option value={''}>{'لطفا نوع اکانت را انتخاب کنید'}</Option>
-            <Option value={'standard'}>{'standard'}</Option>
-            <Option value={'ecn'}>{'ecn'}</Option>
           </Select>
         </Form.Item>
       </Col>

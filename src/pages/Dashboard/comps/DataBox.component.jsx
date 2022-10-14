@@ -18,10 +18,10 @@ const DataBox = ({ classes, user }) => {
         />
         <div className={classes.body}>
 
-          {user.metaUsername ? <>
+          {user.metaUsername || user.user_login ? <>
             <div className={classes.item}>
               <div>
-                {user.metaUsername}
+                {user.metaUsername || user.user_login}
               </div>
               <div>MetaTrader Username</div>
             </div>
@@ -103,9 +103,9 @@ const DataBox = ({ classes, user }) => {
           </div>
         </div>
       </div>
-      <div style={{width:"100%", display:"flex", justifyContent:"center"}}>
+      {/* <div style={{width:"100%", display:"flex", justifyContent:"center"}}>
         <img src={newLogo} className={classes.logo}/>
-      </div>
+      </div> */}
     </div>
   );
 };

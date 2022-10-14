@@ -11,7 +11,7 @@ import AddUsers from "./comps/add";
 import Navbar from "../../comps/Navbar/Navbar";
 import classes from "./style.module.scss";
 import "./customAntd.scss";
-import { ExclamationCircleOutlined, CheckCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { AiOutlineUserAdd, AiFillEye } from "react-icons/ai";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
@@ -23,9 +23,6 @@ import { displayAccountLevelsEnum } from "../../core/enums"
 import { setDefaultEmail } from "../../redux/actions/defaultEmail"
 import MenuLayout from "../../layouts/Menu"
 
-/*
-  <CheckCircleTwoTone />
-*/
 const { confirm } = Modal;
 
 const StyledRow = styled(Row)`
@@ -141,16 +138,10 @@ function Categories() {
         render: (level) => displayAccountLevelsEnum[level] || "unkonwn",
       },
       {
-        title: "سرور",
+        title: "نوع اکانت",
         key: "accountType",
         dataIndex: "accountType",
         render: (accountType) => accountType || "-",
-      },
-      {
-        title: "نام‌کاربری متا",
-        key: "metaUsername",
-        dataIndex: "metaUsername",
-        render: (metaUsername) => metaUsername || '-',
       },
       {
         title: "نوع کاربر",
@@ -164,29 +155,10 @@ function Categories() {
           ),
       },
       {
-        title: "نوع اکانت",
-        key: "standardType",
-        dataIndex: "standardType",
-        render: (standardType) => standardType || '-'
-      },
-      {
         title: "زمان ثبت نام",
         key: "user_registered",
         dataIndex: "user_registered",
         render: (user_registered) => user_registered || "-",
-      },
-      {
-        title: "maxloss obj",
-        key: "hasFailedMaxLoss",
-        dataIndex: "hasFailedMaxLoss",
-        render: (hasFailedMaxLoss) => hasFailedMaxLoss  ? <CloseCircleTwoTone twoToneColor="#eb2f96"/> : <CheckCircleTwoTone twoToneColor="#52c41a"/>,
-      },
-      
-      {
-        title: "maxDay obj",
-        key: "hasFailedDailyLoss",
-        dataIndex: "hasFailedDailyLoss",
-        render: (hasFailedDailyLoss) => hasFailedDailyLoss ? <CloseCircleTwoTone twoToneColor="#eb2f96"/> : <CheckCircleTwoTone twoToneColor="#52c41a"/>,
       },
     
       {
@@ -287,7 +259,13 @@ function Categories() {
 
   const getUsersData = async () => {
     setState((s) => ({ ...s, loading: true }));
-    let response = await UsersApi.all(filter);
+
+    let response = await UsersApi.all(
+      filter.pageSize,
+      filter.pageNumber,
+      filter.user_email
+    );
+
     setState((s) => ({ ...s, loading: false }));
 
     if (!response.success) {

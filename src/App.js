@@ -2,6 +2,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard/index";
 import Users from "./pages/Users/index";
 import Requests from "./pages/Requests/index"
+
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Spinner } from "./comps/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +13,7 @@ import { AuthApi } from "./api";
 import { setAuth } from "./redux/actions/auth";
 import Accounts from "./pages/Accounts"
 import UserMenu from "./layouts/UserMenu"
+import openSocket from 'socket.io-client';
 import BottomNavigation from 'reactjs-bottom-navigation'
 import './assets/css/general.scss'
 import {
@@ -20,12 +22,10 @@ import {
   ProfileOutlined,
   PieChartOutlined
 } from '@ant-design/icons';
-import Profile from "./pages/Profile"
-import Charts from "./pages/Charts";
-import Home from "./pages/Home"
+import { setAlert } from "./redux/actions/alert"
 
 function App() {
-  const bottomNavItems = useMemo(()=>[
+ const bottomNavItems = useMemo(()=>[
     {
       title: 'dashboard',
       icon: <BarChartOutlined style={{ fontSize: '18px' }} />,
@@ -61,7 +61,7 @@ function App() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    if (userData !== user && (!["/404", "/login", "/"].includes(pathname))) {
+    if (userData !== user && (!["/404", "/login"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
         console.log(response)
         const result = response.result
@@ -83,16 +83,7 @@ function App() {
           onItemClick={(item) => navigate(item.link)}
         />
       }
-
       <Routes>
-
-        <Route
-          path="/"
-          element={
-              <Home />
-          }
-        />
-
         <Route path="/login" element={<Login />} />
 
         <Route
@@ -133,28 +124,6 @@ function App() {
               </UserMenu>
             </PrivateRoute>
           }
-        />
-
-        <Route
-            path="/profile"
-            element={
-              <PrivateRoute roles={["user"]}>
-                <UserMenu>
-                  <Profile />
-                </UserMenu>
-              </PrivateRoute>
-            }
-        />
-
-        <Route
-            path="/charts"
-            element={
-              <PrivateRoute roles={["user"]}>
-                <UserMenu>
-                  <Charts />
-                </UserMenu>
-              </PrivateRoute>
-            }
         />
 
         <Route path="*" element={<NotFoundPage />} />

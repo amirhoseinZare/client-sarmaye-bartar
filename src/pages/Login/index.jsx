@@ -1,22 +1,10 @@
 import { useEffect, useState } from "react";
-
-// logo
 import logo from "../../assets/logo.svg";
-
-// antd
 import { Form, Input, Button, message } from "antd";
-
-// api
 import { AuthApi } from "../../api/index";
-
-// variables
 import { TOKEN_LOCAL_KEY } from "../../core/variables.core";
-
-// scss
 import classes from "./style.module.scss";
 import "./customAntd.scss";
-
-// redux
 import { setAuth } from "../../redux/actions/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
@@ -63,10 +51,6 @@ const Login = () => {
     setLoading(false);
 
     if (res.success) {
-      const result = res.result
-      const { accounts=[], ...userData} = result
-      result.accounts = accounts
-      result.accounts.unshift(userData)
       dispatch(setAuth(res.result));
       localStorage.setItem(TOKEN_LOCAL_KEY, res.token);
       success("ورود با موفقیت انجام شد.");
@@ -88,7 +72,10 @@ const Login = () => {
       <div className={classes.root}>
         <div className={classes["content-box"]}>
           <div className={classes["login-box"]}>
-            <h2 className={classes.title}>ورود به داشبورد</h2>
+            <div className={classes.titlesContainer}>
+              <p className={classes.start}>Start analyze</p>
+              <h2 className={classes.title}>Login dashboard</h2>
+            </div>
             <Form
               name="login"
               initialValues={{ remember: false }}
@@ -98,16 +85,17 @@ const Login = () => {
               <div className="inputsLogin">
                 <Form.Item
                   fieldKey="email"
-                  label="ایمیل"
+                  placeholder="email"
+                  label="email"
                   name="email"
                   rules={[
                     {
                       required: true,
-                      message: "لطفا ایمیل خود را وارد کنید!",
+                      message: "This field is required!",
                     },
                     {
                       pattern: emailRegex,
-                      message: "لطفا یک ایمیل صحیح وارد کنید!",
+                      message: "Please enter a valid email address!",
                     },
                   ]}
                 >
@@ -118,14 +106,15 @@ const Login = () => {
 
                 <Form.Item
                   fieldKey="password"
-                  label="رمز عبور"
+                  placeholder="password"
+                  label="password"
                   name="password"
                   rules={[
                     {
                       required: true,
-                      message: "لطفا رمز عبور خود را وارد کنید!",
+                      message: "This field is required!",
                     },
-                    { min: 8, message: "رمز عبور حداقل باید ۸ کاراکتر باشد!" },
+                    { min: 8, message: "Password must be at least 8 characters." },
                   ]}
                 >
                   <div className={classes.inputs}>
@@ -137,7 +126,7 @@ const Login = () => {
               <div className="actionsLogin">
                 <Form.Item>
                   <Button type="custom" htmlType="submit" loading={loading}>
-                    ورود
+                    Login
                   </Button>
                 </Form.Item>
               </div>
@@ -150,9 +139,7 @@ const Login = () => {
               ) : null}
             </div>
           </div>
-          <div className={classes["icon-box"]}>
-            <img src={logo} />
-          </div>
+          
         </div>
       </div>
     </div>
