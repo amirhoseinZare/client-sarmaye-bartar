@@ -169,7 +169,7 @@ const Dashboard = () => {
     }
     return [];
   };
-
+  console.log(data);
   // console.log(setLabels(data))
   const highOptions = useMemo(() => ({
     chart: {
@@ -259,7 +259,7 @@ const Dashboard = () => {
             [
               1,
               Highcharts.color(Highcharts.getOptions().colors[1])
-                .setOpacity(.9)
+                .setOpacity(0.9)
                 .get('rgba'),
             ],
           ],
@@ -292,6 +292,34 @@ const Dashboard = () => {
           ],
         },
       },
+      // {
+      //   name: 'Last Equity',
+      //   data: data.chart
+      //     ? data.chart.map((item) => {
+      //         // if(item.addedBySb)
+      //         //   return null
+      //         // return item.lastEquity;
+      //         // console.log(item);
+      //       })
+      //     : [],
+      //   fillColor: {
+      //     linearGradient: {
+      //       x1: 0,
+      //       y1: 0,
+      //       x2: 0,
+      //       y2: 1,
+      //     },
+      //     stops: [
+      //       [0, Highcharts.getOptions().colors[4]],
+      //       [
+      //         1,
+      //         Highcharts.color(Highcharts.getOptions().colors[4])
+      //           .setOpacity(0)
+      //           .get('rgba'),
+      //       ],
+      //     ],
+      //   },
+      // },
       {
         name: 'Maximum Balance',
         data: data.chart
@@ -336,16 +364,43 @@ const Dashboard = () => {
             y2: 1,
           },
           stops: [
-            [0, Highcharts.getOptions().colors[2]],
+            [0, Highcharts.getOptions().colors[5]],
             [
               1,
-              Highcharts.color(Highcharts.getOptions().colors[2])
+              Highcharts.color(Highcharts.getOptions().colors[5])
                 .setOpacity(0)
                 .get('rgba'),
             ],
           ],
         },
       },
+      // {
+      //   name: 'Lase Balance',
+      //   data: data.chart
+      //     ? data.chart.map((item) => {
+      //         // if(item.addedBySb)
+      //         //   return null
+      //         return item.lastBalance;
+      //       })
+      //     : [],
+      //   fillColor: {
+      //     linearGradient: {
+      //       x1: 0,
+      //       y1: 0,
+      //       x2: 0,
+      //       y2: 1,
+      //     },
+      //     stops: [
+      //       [0, Highcharts.getOptions().colors[5]],
+      //       [
+      //         1,
+      //         Highcharts.color(Highcharts.getOptions().colors[5])
+      //           .setOpacity(0)
+      //           .get('rgba'),
+      //       ],
+      //     ],
+      //   },
+      // },
     ],
     responsive: {
       rules: [
