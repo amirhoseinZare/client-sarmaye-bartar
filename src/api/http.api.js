@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable default-case */
+/* eslint-disable no-fallthrough */
 import axios from "axios";
 import store from "../redux/store";
 import { startLoading, endLoading } from "../redux/actions/loading.action";
