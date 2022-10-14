@@ -6,6 +6,7 @@ import modalReducer from "./reducers/modal";
 // import confirmModalReducer from "./reducers/confirmModal.reducer";
 import alertReducer from "./reducers/alert";
 import defaultEmailReducer from "./reducers/defaultEmail"
+import analyzeReducer from "./reducers/analyze"
 
 const rootReducer = combineReducers({
   // toast:toastReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   user: authReducer,
   alert:alertReducer,
-  defaultEmail:defaultEmailReducer
+  defaultEmail:defaultEmailReducer,
+  analyze:analyzeReducer
 });
 
 export default rootReducer;

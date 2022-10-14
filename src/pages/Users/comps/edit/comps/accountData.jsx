@@ -209,7 +209,6 @@ function AccountData({ userState, setData, data }) {
   }, [fields]);
 
   useEffect(() => {
-    console.log("here")
     const newFields = fields.map((field) => {
       const fieldName = field.name[0];
       return {

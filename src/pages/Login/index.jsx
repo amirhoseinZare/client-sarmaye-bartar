@@ -6,8 +6,10 @@ import { TOKEN_LOCAL_KEY } from "../../core/variables.core";
 import classes from "./style.module.scss";
 import "./customAntd.scss";
 import { setAuth } from "../../redux/actions/auth";
+import { setAnalyze } from "../../redux/actions/analyze";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,6 +54,10 @@ const Login = () => {
 
     if (res.success) {
       dispatch(setAuth(res.result));
+      const { result } = res;
+      const { accounts=[], ...userData } = result
+      dispatch(setAnalyze(result.accounts && Array.isArray(result.accounts) && result.accounts.length>0 ? result.accounts[result.accounts.length-1]:userData ));
+
       localStorage.setItem(TOKEN_LOCAL_KEY, res.token);
       success("ورود با موفقیت انجام شد.");
 

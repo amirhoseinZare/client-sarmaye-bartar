@@ -1,37 +1,18 @@
-// packages
 import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col, message, Skeleton, Divider, Statistic, Button, Tooltip as AntdTooltip   } from "antd";
-
-// css
 import classes from "./Dashboard.module.scss";
-
-// comps
 import Ranking from "../../comps/Ranking/Ranking";
-import CurrentResults from "./comps/CurrentResults.component";
-
-// api
-import { DashboardApi } from "../../api";
 import { UsersApi } from "../../api/Users.api";
 import { RequestApi } from "../../api/Request.api";
-
-// redux
 import { useSelector } from "react-redux";
-
-// icon
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { IoMdCloseCircle } from "react-icons/io";
-
-// variables
 import { USER_ID_KEY, STAT_KEY } from "../../core/variables.core";
 import DataBox from "./comps/DataBox.component";
-
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { Line } from 'react-chartjs-2';
-
 import { AiOutlineExclamationCircle } from "react-icons/ai"
 
 ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend );
@@ -48,6 +29,7 @@ const deadline = new Date().getTime() < todayBrokerEndTime ? todayBrokerEndTime 
 const Dashboard = () => {
 
   const userData = useSelector((store) => store.user);
+  const analyzeUser = useSelector((store) => store.analyze);
   const [user, setUser] = useState({});
   useEffect(() => {
     if (userData.role === "admin") {
@@ -80,7 +62,7 @@ const Dashboard = () => {
         return
       }
       const currentAccount = user.accounts[user.accounts.length-1]
-      asyncFetch({userId:currentAccount._id, mtAccountId:currentAccount.mtAccountId});
+      asyncFetch({userId:analyzeUser._id, mtAccountId:analyzeUser.mtAccountId});
     }
   }, [user]);
 
@@ -107,7 +89,6 @@ const Dashboard = () => {
 
   const setLabels = (data, time)=>{
     if(data.chart) {
-      console.log({ "data.chart" : data.chart, "data.chart.slice(data.chart.length-24, data.chart.length)":data.chart.slice(data.chart.length-24, data.chart.length) })
       let chart = data.chart ? time==="today" ? data.chart.slice(data.chart.length-24, data.chart.length) : data.chart : []
       return chart.map(item=>{
         const [date, time] = item.startBrokerTime.split(" ")
@@ -115,14 +96,12 @@ const Dashboard = () => {
         const [year, month, day] = date.split("-")
         const seconds = allSeconds.split(".")[0]
         const dotHour = hour==0 && time!=="today"  ? ` - ${month}/${day}` : ""
-        console.log({year, month, day, hour, minute, allSeconds}, `${hour}:${minute}` + dotHour)
         return `${hour}:${minute}` + dotHour
       })
     }
     return []
   }
 
-  // console.log(setLabels(data))
   const highOptions = useMemo(()=>({
     chart: {
         type: 'areaspline',
@@ -243,7 +222,7 @@ const Dashboard = () => {
               }
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={8} lg={8}>
-              <DataBox classes={classes} user={user} />
+              <DataBox classes={classes} user={analyzeUser} />
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={14} lg={14}>
               <div className={classes.container3}>

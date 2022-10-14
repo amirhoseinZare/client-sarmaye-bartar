@@ -5,6 +5,7 @@ import { BsFillCircleFill } from "react-icons/bs"
 import { LineChartOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 import { setAuth } from '../../redux/actions/auth'
+import { setAnalyze } from '../../redux/actions/analyze'
 
 const StyledRoot = styled.div`
     h2 {
@@ -104,7 +105,7 @@ const Accounts = ()=>{
     const dispatch = useDispatch()
 
     const changeCurrentAuth = (newUser)=>{
-        dispatch(setAuth({...newUser, accounts:user.accounts }))
+        dispatch(setAnalyze({...newUser}))
     }
 
     const getOddAccountColCell = (length, index) => length % 2 === 0 && (index==0 || index===length-1)  ? {lg:11, md:11, sm:22, xs:22} : {lg:22, md:22, sm:22, xs:22}

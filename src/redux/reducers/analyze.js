@@ -1,4 +1,4 @@
-import authTypes from "../types/auth";
+import analyzeTypes from "../types/analyze";
 
 const INITIAL_STATE = {
   accountType: "",
@@ -21,14 +21,13 @@ const INITIAL_STATE = {
   _id: "",
   isAuth:false,
   mtAccountId:"",
-  accounts:[],
   level:"",
   metaUsername:""
 };
 
-const authReducer = (state = INITIAL_STATE, action) => {
+const analyzeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case authTypes.SET_AUTH: {
+    case analyzeTypes.SET_ANALYZE: {
       const {
         accountType,
         balance,
@@ -49,7 +48,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
         user_nicename,
         _id,
         mtAccountId,
-        accounts,
         level,
         status,
         metaUsername
@@ -77,7 +75,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
         _id,
         isAuth:true,
         mtAccountId,
-        accounts: accounts || state.accounts,
         level,
         status,
         metaUsername
@@ -88,4 +85,4 @@ const authReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default authReducer;
+export default analyzeReducer;
