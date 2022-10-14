@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import classes from "../../pages/Users/style.module.scss";
 import { USER_ID_KEY } from "../../core/variables.core";
 
-// import icon and pic
 import { AiFillEye } from "react-icons/ai";
 import first from "../../assets/1.png";
 import twice from "../../assets/2.png";

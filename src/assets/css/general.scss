@@ -3,8 +3,37 @@
         display: none;
     }
     .bottom-nav {
+        border-top: none;
+        background-color: #10141B;
+        color: #44B3FE;
+        .bottom-nav-item--title {
+            // opacity: 0;
+            font-size: 10.3px;
+            transition: all .3s ease;
+            color: #fff !important;
+        }
+        svg {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease; 
+            color: #fff !important;
+        }
         .bottom-nav-item.active {
-            background-color: #24303C !important;
+            .bottom-nav-item--title {
+                // opacity: 1;
+                color: #44B3FE !important;
+                transition: all .3s ease;
+                font-size: 12px;
+            }
+            color: #44B3FE;
+            fill: #44B3FE;
+            background-color: #10141B !important;
+            svg {
+                color: #44B3FE !important;
+                width: 32px;
+                height: 32px;   
+                transition: all 0.3s ease; 
+            }
         }
     }
 }

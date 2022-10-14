@@ -9,18 +9,20 @@ const Home = ()=>{
         display:'flex',
         justifyContent: 'center',
         paddingTop: '71px',
-        background:'#3B4859',
+        background:'#0B0E13',
         height:'100vh',
     }}>
         <Col xs={23} sm={23} md={20} lg={20} xl={20} style={{}}>
-            <Link to="/login" style={{color:"#fff", textDecoration:"underline"}}>ورود به پنل کاربری</Link>
+            <Link to="/login" style={{color:"#fff", textDecoration:"underline", color: '#44B3FE'}}>ورود به پنل کاربری</Link>
         </Col>
         <Col xs={23} sm={23} md={20} lg={20} xl={20} style={{
                 display:'flex',
                 justifyContent: 'center',
                 marginBottom:'32px'
             }}>
-            <LogoSvg />
+                <div style={{width:'300px'}}>
+                    <LogoSvg style={{width:'100%'}}/>
+                </div>
         </Col>
         <Col xs={23} sm={23} md={20} lg={20} xl={20}>
             <Ranking />
