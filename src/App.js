@@ -22,6 +22,9 @@ import {
   ProfileOutlined,
   PieChartOutlined
 } from '@ant-design/icons';
+import Profile from "./pages/Profile"
+import Charts from "./pages/Charts"
+
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -87,10 +90,32 @@ function App() {
       }
       <Routes>
 
-      <Route
+        <Route
           path="/"
           element={
             <Home/>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute roles={["user"]}>
+              <UserMenu>
+                <Profile />
+              </UserMenu>
+            </PrivateRoute>
+          }
+        />
+
+      <Route
+          path="/charts"
+          element={
+            <PrivateRoute roles={["user"]}>
+              <UserMenu>
+                <Charts />
+              </UserMenu>
+            </PrivateRoute>
           }
         />
 
