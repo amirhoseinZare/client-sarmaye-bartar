@@ -1,3 +1,4 @@
+
 @media (min-width: 767px) and (max-width: 860px){
   .row{
     .col{
@@ -404,4 +405,17 @@
       }  
     }  
   }
+}
+.highcharts-xaxis-grid .highcharts-grid-line {
+  stroke-width: 2px;
+  stroke: #d8d8d8;
+}
+
+.highcharts-xaxis .highcharts-tick {
+  stroke-width: 2px;
+  stroke: #d8d8d8;
+}
+
+.highcharts-minor-grid-line {
+  stroke-dasharray: 2, 2;
 }
