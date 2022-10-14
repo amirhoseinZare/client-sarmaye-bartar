@@ -1,22 +1,8 @@
 import { Menu, Button, ConfigProvider, Layout } from 'antd';
-import {
-  AppstoreOutlined,
-  UserSwitchOutlined,
-  ArrowUpOutlined,
-  PlusOutlined,
-  ReloadOutlined,
-  EuroCircleOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  
-} from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import styled from "styled-components"
 import { Link, useLocation } from "react-router-dom"
-import Navbar from "../comps/Navbar/Navbar";
-import { Category, User as UserIcon, Key as KeyIcon } from "iconsax-react"
+import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon } from "iconsax-react"
 
 const StyledContainer = styled.div`
   .main-page {
@@ -106,9 +92,21 @@ const UserLayout = (props)=> {
         route:"/dashboard",
         key:"1"
       },
+      "/profile":{
+        route:"/profile",
+        key:"2"
+      },
       "/accounts":{
         route:"/accounts",
-        key:"2"
+        key:"3"
+      },
+      "/charts":{
+        route:"/charts",
+        key:"4"
+      },
+      "/":{
+        route:"/",
+        key:"5"
       },
     }
     useEffect(()=>{
@@ -140,11 +138,23 @@ const UserLayout = (props)=> {
                 inlineCollapsed={state.collapsed}
               >
                 <Menu.Item key="1" icon={<Category />}>
-                  <Link to={"/dashboard"}>dashboard</Link>
+                  <Link to={"/dashboard"}>Dashboard</Link>
                   <div className='right-fixed-rectangle'></div>
                 </Menu.Item>
-                <Menu.Item key="2" icon={<KeyIcon />}>
-                  <Link to={"/accounts"}>accounts</Link>
+                <Menu.Item key="2" icon={<UserIcon />}>
+                  <Link to={"/profile"}>Profile</Link>
+                  <div className='right-fixed-rectangle'></div>
+                </Menu.Item>
+                <Menu.Item key="3" icon={<KeyIcon />}>
+                  <Link to={"/accounts"}>Accounts</Link>
+                  <div className='right-fixed-rectangle'></div>
+                </Menu.Item>
+                <Menu.Item key="4" icon={<ChartIcon />}>
+                  <Link to={"/charts"}>Charts</Link>
+                  <div className='right-fixed-rectangle'></div>
+                </Menu.Item>
+                <Menu.Item key="5" icon={<CupIcon />}>
+                  <Link to={"/"}>Top</Link>
                   <div className='right-fixed-rectangle'></div>
                 </Menu.Item>
               </Menu>
