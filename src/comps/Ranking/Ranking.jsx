@@ -7,12 +7,14 @@ import { useSelector } from "react-redux";
 import classes from "../../pages/Users/style.module.scss";
 import { USER_ID_KEY } from "../../core/variables.core";
 
-// import icon and pic
 import { AiFillEye } from "react-icons/ai";
 import first from "../../assets/1.png";
 import firts2 from '../../assets/medal 1.svg'
 import twice from "../../assets/2.png";
 import third from "../../assets/3.png";
+import { ReactComponent as FirstGradeSvg } from "../../assets/svg/first-grade.svg"
+import { ReactComponent as SecondGradeSvg } from "../../assets/svg/second-grade.svg"
+import { ReactComponent as ThirdGradeSvg } from "../../assets/svg/third-grade.svg"
 
 const { TabPane } = Tabs;
 
@@ -116,14 +118,13 @@ const Ranking = () => {
           if (rank <= 3) {
             switch (rank) {
               case 1:
-                return <img className={classes.imageTable} src={firts2} />;
-                break;
+                return <FirstGradeSvg />;
               case 2:
-                return <img className={classes.imageTable} src={twice} />;
-                break;
+                return <SecondGradeSvg />;
               case 3:
-                return <img className={classes.imageTable} src={third} />;
-                break;
+                return <ThirdGradeSvg />;
+              default:
+                return '';
             }
           } else {
             return rank || "-";

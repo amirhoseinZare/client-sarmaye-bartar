@@ -22,45 +22,54 @@ import {
   ProfileOutlined,
   PieChartOutlined
 } from '@ant-design/icons';
+import Profile from "./pages/Profile"
+import Charts from "./pages/Charts"
+import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon } from "iconsax-react"
 
 function App() {
  const bottomNavItems = useMemo(()=>[
     {
       title: 'dashboard',
-      icon: <BarChartOutlined style={{ fontSize: '18px' }} />,
-      activeIcon: <BarChartOutlined style={{ fontSize: '18px', color: '#fff' }} />,
+      icon: <Category style={{ fontSize: '18px' }} />,
+      activeIcon: <Category style={{ fontSize: '18px', color: '#fff' }} />,
       link: '/dashboard'
     },
     {
-      title: 'accounts',
-      icon: <UserOutlined style={{ fontSize: '18px' }} />,
-      activeIcon: <UserOutlined style={{ fontSize: '18px', color: '#fff' }} />,
-      link: '/accounts'
-    },
-    {
       title: 'profile',
-      icon: <ProfileOutlined style={{ fontSize: '18px' }} />,
-      activeIcon: <ProfileOutlined style={{ fontSize: '18px', color: '#fff' }} />,
+      icon: <UserIcon style={{ fontSize: '18px' }} />,
+      activeIcon: <UserIcon style={{ fontSize: '18px', color: '#fff' }} />,
       link: '/profile'
     },
     {
+      title: 'accounts',
+      icon: <KeyIcon style={{ fontSize: '18px' }} />,
+      activeIcon: <KeyIcon style={{ fontSize: '18px', color: '#fff' }} />,
+      link: '/accounts'
+    },
+    {
       title: 'charts',
-      icon: <PieChartOutlined style={{ fontSize: '18px' }} />,
-      activeIcon: <PieChartOutlined style={{ fontSize: '18px', color: '#fff' }} />,
+      icon: <ChartIcon style={{ fontSize: '18px' }} />,
+      activeIcon: <ChartIcon style={{ fontSize: '18px', color: '#fff' }} />,
       link: '/charts'
+    },
+    {
+      title: 'Top',
+      icon: <CupIcon style={{ fontSize: '18px' }} />,
+      activeIcon: <CupIcon style={{ fontSize: '18px', color: '#fff' }} />,
+      link: '/'
     }
   ], [])
   const navigate = useNavigate()
   const { pathname } = useLocation();
   const loading = useSelector((store) => store.loading.status);
 
-  const user = useSelector((store) => store.nuser);
+  const user = useSelector((store) => store.user);
   const userState = useSelector((state)=> state.user)
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(null);
-
+  console.log(user, userData)
   useEffect(() => {
-    if (userData !== user && (!["/404", "/login"].includes(pathname))) {
+    if ((!["/404", "/login", "/"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
         const result = response.result
         const { accounts=[], ...userData} = response.result
@@ -78,7 +87,7 @@ function App() {
   return (
     <div className="App">
       {
-        pathname==="/404" ? null :
+        pathname==="/404" || (!user.isAuth) ? null :
         <BottomNavigation
           items={bottomNavItems}
           defaultSelected={0}
@@ -87,10 +96,32 @@ function App() {
       }
       <Routes>
 
-      <Route
+        <Route
           path="/"
           element={
             <Home/>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute roles={["user"]}>
+              <UserMenu>
+                <Profile />
+              </UserMenu>
+            </PrivateRoute>
+          }
+        />
+
+      <Route
+          path="/charts"
+          element={
+            <PrivateRoute roles={["user"]}>
+              <UserMenu>
+                <Charts />
+              </UserMenu>
+            </PrivateRoute>
           }
         />
 

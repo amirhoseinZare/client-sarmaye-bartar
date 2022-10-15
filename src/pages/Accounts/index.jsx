@@ -117,7 +117,7 @@ const Accounts = ()=>{
                     user.accounts.map((account, index)=>{
 
                         return (
-                            <Col {...getOddAccountColCell(user.accounts.length, index)}>
+                            <Col {...{lg:22, md:22, sm:22, xs:22}}>
                                 <Card title={`First Balance: $${account.firstBalance.toLocaleString()}`} bordered={false} className={`account-${account.status}`}>
                                     <h2>{account.display_name}</h2>
                                     <p><b>Meta username:</b> {account.metaUsername || "-"}</p>
