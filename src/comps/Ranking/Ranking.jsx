@@ -137,15 +137,13 @@ const Ranking = () => {
 
   const columnsUser = useMemo(
     () => [
-     
-    
       // {
       //   title: "ایمیل",
       //   key: "user_email",
       //   dataIndex: "user_email",
       //   render: (email) => email || "-",
       // },
-    
+
       // {
       //   title: 'First Balance',
       //   key: 'firstBalance',
@@ -267,7 +265,12 @@ const Ranking = () => {
           return <TabPane tab={tabEnum[tebItem]} key={tebItem} />;
         })}
       </Tabs> */}
-      <Radio.Group size='large' value={tab} onChange={onChange} style={{ marginBottom: 16 }}>
+      <Radio.Group
+        size="large"
+        value={tab}
+        onChange={onChange}
+        style={{ marginBottom: 16 }}
+      >
         {Object.keys(tabEnum).map((tebItem) => {
           return (
             <Radio.Button
@@ -277,12 +280,13 @@ const Ranking = () => {
                 border: 'none',
                 borderRadius: 0,
                 paddingTop: 3,
-                fontSize:'14px',
+                fontSize: '14px',
                 backgroundColor:
-                  activeBtn === tabEnum[tebItem]
+                  activeBtn === tebItem
                     ? 'rgba(68, 179, 254, 0.06)'
                     : '#10141B',
-                color: activeBtn === tabEnum[tebItem] ?'#44B3FE' : '#F5F5F5',
+                color: activeBtn === tebItem ? '#44B3FE' : '#F5F5F5',
+          
               }}
             >
               {tabEnum[tebItem]}
