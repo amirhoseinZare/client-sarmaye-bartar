@@ -1,15 +1,11 @@
-import { Table, ConfigProvider, Typography } from "antd";
-import styled from "styled-components";
+import { Table, ConfigProvider } from 'antd';
+import styled from 'styled-components';
 
 const StyledTable = styled(Table)`
   color: rgba(99, 106, 120, 1);
-  border-radius: 12px !important;
-  border-radius: 10px 8px 8px 10px;
   overflow: hidden;
-  margin-bottom:48px;
-  .table {
-    border-radius: 10px 8px 8px 10px;
-  }
+  margin-bottom: 48px;
+
   // @media (max-width: 576px) {
   white-space: nowrap;
   .ant-table-rtl {
@@ -17,10 +13,10 @@ const StyledTable = styled(Table)`
   }
   // }
   .ant-table-row.ant-table-row-level-0:nth-child(even) .ant-table-cell {
-    background-color: #f7f8ff !important;
+    background-color: #10141b !important;
   }
   .ant-table-row.ant-table-row-level-0:nth-child(odd) .ant-table-cell {
-    background-color: #ffffff !important;
+    background-color: #10141b !important;
   }
   thead tr {
     border: none !important;
@@ -34,26 +30,27 @@ const StyledTable = styled(Table)`
     display: none !important;
   }
   thead tr th {
-    background-color: #fff;
-    color: rgba(32, 54, 95, 1);
+    background-color: #10141b;
+    color: #F5F5F5;
     font-size: 12px;
     text-align: center !important;
+    border-bottom: rgba(245, 245, 245, 0.47) solid 0.5px;
   }
   tbody tr td {
     height: 47.63px;
     padding: 0;
     text-align: center;
-    color: #636a78;
+    color: #f5f5f5;
     font-size: 11px;
+    border-bottom: rgba(245, 245, 245, 0.47) solid 0.5px;
   }
   table {
     overflow: hidden;
     table-layout: auto;
     box-shadow: 0 0 20px 0px rgb(191 191 191 / 40%);
-    border-radius: 12px;
   }
   ${
-    "" /* .ant-spin-nested-loading {
+    '' /* .ant-spin-nested-loading {
     display: flex !important;
     width: 100% !important;
   } */
@@ -61,12 +58,19 @@ const StyledTable = styled(Table)`
   li.ant-pagination-item,
   li.ant-pagination-prev button,
   li.ant-pagination-next button {
-    border-radius: 50%;
+    // border-radius: 50%;
   }
 `;
 
-const CustomTable = ({ columns, rows, pagination, disablePagination=false, ...otherProps }) => {
-  const { position = ["bottomCenter"] } = pagination;
+const CustomTable = ({
+  columns,
+  rows,
+  pagination,
+  disablePagination = false,
+  color,
+  ...otherProps
+}) => {
+  const { position = ['bottomCenter'] } = pagination;
   return (
     <ConfigProvider direction="rtl" disablePagination={disablePagination}>
       <StyledTable
@@ -74,11 +78,10 @@ const CustomTable = ({ columns, rows, pagination, disablePagination=false, ...ot
         dataSource={rows}
         pagination={disablePagination ? false : { ...pagination, position }}
         {...otherProps}
+        color={color}
         xScroll="scroll"
       />
     </ConfigProvider>
-    
   );
 };
-
 export default CustomTable;
