@@ -10,6 +10,7 @@ import { USER_ID_KEY } from "../../core/variables.core";
 // import icon and pic
 import { AiFillEye } from "react-icons/ai";
 import first from "../../assets/1.png";
+import firts2 from '../../assets/medal 1.svg'
 import twice from "../../assets/2.png";
 import third from "../../assets/3.png";
 
@@ -57,14 +58,65 @@ const Ranking = () => {
   const columnsAdmin = useMemo(
     () => [
       {
-        title: "",
+        title: "See user analyze",
+        key: "loginToUserPanel",
+        render: (userAdd) => (
+          <AiFillEye
+            style={{ color: "#16a085" }}
+            className={classes["icons"]}
+            onClick={() => {
+              setUserId(userAdd._id);
+              navigate("/dashboard");
+            }}
+          />
+        ),
+      },
+      
+      // {
+      //   title: "ایمیل",
+      //   key: "user_email",
+      //   dataIndex: "user_email",
+      //   render: (email) => email || "-",
+      // },
+      {
+        title: "Equity",
+        key: "equity",
+        dataIndex: "equity",
+        render: (equity) => equity || "-",
+      },
+      // {
+      //   title: "First Balance",
+      //   key: "firstBalance",
+      //   dataIndex: "firstBalance",
+      //   render: (firstBalance) => firstBalance || "-",
+      // },
+      {
+        title: "Balance",
+        key: "balance",
+        dataIndex: "balance",
+        render: (balance) => balance || "-",
+      },
+      // {
+      //   title: "Profit percent",
+      //   key: "profit",
+      //   dataIndex: "",
+      //   render: ({firstBalance, balance}) => `%${(Math.round(((balance - firstBalance) / (firstBalance) * 100) * 100) / 100).toFixed(2)}`
+      // },
+      {
+        title: "Name",
+        key: "display_name",
+        dataIndex: "display_name",
+        render: (name) => name || "-",
+      },
+      {
+        title: "Rank",
         key: "rank",
         dataIndex: "rank",
         render: (rank) => {
           if (rank <= 3) {
             switch (rank) {
               case 1:
-                return <img className={classes.imageTable} src={first} />;
+                return <img className={classes.imageTable} src={firts2} />;
                 break;
               case 2:
                 return <img className={classes.imageTable} src={twice} />;
@@ -78,56 +130,6 @@ const Ranking = () => {
           }
         },
       },
-      {
-        title: "User",
-        key: "display_name",
-        dataIndex: "display_name",
-        render: (name) => name || "-",
-      },
-      // {
-      //   title: "ایمیل",
-      //   key: "user_email",
-      //   dataIndex: "user_email",
-      //   render: (email) => email || "-",
-      // },
-      {
-        title: "Equity",
-        key: "equity",
-        dataIndex: "equity",
-        render: (equity) => equity || "-",
-      },
-      {
-        title: "First Balance",
-        key: "firstBalance",
-        dataIndex: "firstBalance",
-        render: (firstBalance) => firstBalance || "-",
-      },
-      {
-        title: "Balance",
-        key: "balance",
-        dataIndex: "balance",
-        render: (balance) => balance || "-",
-      },
-      {
-        title: "Profit percent",
-        key: "profit",
-        dataIndex: "",
-        render: ({firstBalance, balance}) => `%${(Math.round(((balance - firstBalance) / (firstBalance) * 100) * 100) / 100).toFixed(2)}`
-      },
-      {
-        title: "ورود به پنل کاربر",
-        key: "loginToUserPanel",
-        render: (userAdd) => (
-          <AiFillEye
-            style={{ color: "#16a085" }}
-            className={classes["icons"]}
-            onClick={() => {
-              setUserId(userAdd._id);
-              navigate("/dashboard");
-            }}
-          />
-        ),
-      },
     ],
     [state.rows]
   );
@@ -135,14 +137,14 @@ const Ranking = () => {
   const columnsUser = useMemo(
     () => [
       {
-        title: "",
+        title: "Rank",
         key: "rank",
         dataIndex: "rank",
         render: (rank) => {
           if (rank <= 3) {
             switch (rank) {
               case 1:
-                return <img className={classes.imageTable} src={first} />;
+                return <img className={classes.imageTable} src={firts2} />;
                 break;
               case 2:
                 return <img className={classes.imageTable} src={twice} />;

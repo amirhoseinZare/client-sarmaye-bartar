@@ -1,26 +1,25 @@
-
-@media (min-width: 767px) and (max-width: 860px){
-  .row{
-    .col{
-      .container3{
+@media (min-width: 767px) and (max-width: 860px) {
+  .row {
+    .col {
+      .container3 {
         display: flex;
-        
-        h3{
+
+        h3 {
           font-size: 14px;
         }
-        p{
+        p {
           font-size: 12px;
         }
-        .body{
+        .body {
           .text {
             width: 130px !important;
             text-align: left;
           }
         }
-        .title{
+        .title {
           font-size: 20px;
           text-align: left;
-          font-family: "Vazir" !important;
+          font-family: 'Vazir' !important;
           padding: 0 10px;
         }
         .status {
@@ -48,16 +47,16 @@
           }
         }
       }
-      .container2{
+      .container2 {
         display: flex;
         h2 {
-          font-family: "Vazir" !important;
+          font-family: 'Vazir' !important;
           font-size: 17px;
           margin: 10px 0px 0 20px !important;
           text-align: left;
         }
-        .item{
-          div{
+        .item {
+          div {
             font-size: 12px;
           }
         }
@@ -65,76 +64,19 @@
     }
   }
 }
-@media (min-width:861px){
-  .row{
-    .col{
-      .container3{
-        .body{
-          .text {
-            width: 170px !important;
-            text-align: left;
-          }
-        }
-        .title {
-          font-family: "Vazir" !important;
-          padding: 0 10px;
-          font-size: 26px;
-          text-align: left;
-        }
-        .status {
-          display: inline-flex;
-          color: #666;
-          font-size: 14px;
-          text-align: center;
-          span {
-            display: inline-flex;
-            margin-right: 5px;
-            //  margin-top: 3px;
-            .icon {
-              // padding-top: 10px;
-              color: green;
-              font-size: 13px;
-              margin: auto;
-            }
-            .iconRed {
-              // padding-top: 10px;
-              color: red;
-              font-size: 16px;
-              margin: auto;
-              margin-bottom: 4px;
-            }
-          }
-        }
-      }
-      .container2{
-        h2 {
-          font-family: "Vazir" !important;
-          font-size: 20px;
-          margin: 10px 0px 0 20px !important;
-          text-align: left;
-        }
-        .item{
-          div{
-            font-size: 14px;
-          }
-        }
-      }
-    }
-  }
 
-}
-@media (min-width:420px) and (max-width: 766px){
-  .row{
-    .col{
-      .container3{
-        .body{
+@media (min-width: 861px) {
+  .row {
+    .col {
+      .container3 {
+        .body {
           .text {
             width: 170px !important;
             text-align: left;
           }
         }
         .title {
-          font-family: "Vazir" !important;
+          font-family: 'Vazir' !important;
           padding: 0 10px;
           font-size: 26px;
           text-align: left;
@@ -164,15 +106,15 @@
           }
         }
       }
-      .container2{
+      .container2 {
         h2 {
-          font-family: "Vazir" !important;
+          font-family: 'Vazir' !important;
           font-size: 20px;
           margin: 10px 0px 0 20px !important;
           text-align: left;
         }
-        .item{
-          div{
+        .item {
+          div {
             font-size: 14px;
           }
         }
@@ -180,26 +122,83 @@
     }
   }
 }
-@media (max-width: 419px){
-  .row{
-    .col{
-      .container3{
-        .body{
+@media (min-width: 420px) and (max-width: 766px) {
+  .row {
+    .col {
+      .container3 {
+        .body {
+          .text {
+            width: 170px !important;
+            text-align: left;
+          }
+        }
+        .title {
+          font-family: 'Vazir' !important;
+          padding: 0 10px;
+          font-size: 26px;
+          text-align: left;
+        }
+        .status {
+          display: inline-flex;
+          color: #666;
+          font-size: 14px;
+          text-align: center;
+          span {
+            display: inline-flex;
+            margin-right: 5px;
+            //  margin-top: 3px;
+            .icon {
+              // padding-top: 10px;
+              color: green;
+              font-size: 13px;
+              margin: auto;
+            }
+            .iconRed {
+              // padding-top: 10px;
+              color: red;
+              font-size: 16px;
+              margin: auto;
+              margin-bottom: 4px;
+            }
+          }
+        }
+      }
+      .container2 {
+        h2 {
+          font-family: 'Vazir' !important;
+          font-size: 20px;
+          margin: 10px 0px 0 20px !important;
+          text-align: left;
+        }
+        .item {
+          div {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 419px) {
+  .row {
+    .col {
+      .container3 {
+        .body {
           .text {
             width: 130px !important;
             text-align: left;
           }
         }
-        h3{
+        h3 {
           font-size: 12px;
         }
-        p{
+        p {
           font-size: 10px;
         }
-        .title{
+        .title {
           font-size: 20px;
           text-align: left;
-          font-family: "Vazir" !important;
+          font-family: 'Vazir' !important;
           padding: 0 10px;
         }
         .status {
@@ -227,15 +226,15 @@
           }
         }
       }
-      .container2{
+      .container2 {
         h2 {
-          font-family: "Vazir" !important;
+          font-family: 'Vazir' !important;
           font-size: 17px;
           margin: 10px 0px 0 20px !important;
           text-align: left;
         }
-        .item{
-          div{
+        .item {
+          div {
             font-size: 12px;
           }
         }
@@ -251,13 +250,19 @@
 .root {
   background-color: rgb(11, 14, 19);
   // background-color: white;
-
+  .chartContainer {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .chartContainer::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
   .row {
     display: flex;
     justify-content: space-evenly;
     margin: 100px auto;
     max-width: 1400px;
-	
+
     .titleBox {
       margin: 50px auto 20px;
       text-align: center;
@@ -276,24 +281,24 @@
       .container3 {
         width: 100%;
         height: 374px;
-        background-color: #10141B;
-        color:rgba(245, 245, 245, 1) !important;
+        background-color: #10141b;
+        color: rgba(245, 245, 245, 1) !important;
         padding: 10px;
         display: flex;
         flex-direction: column;
         margin-top: 30px;
 
         h2 {
-          background-color: #10141B;
-          color:rgba(245, 245, 245, 1);
+          background-color: #10141b;
+          color: rgba(245, 245, 245, 1);
         }
         .header {
           div {
             h3 {
-              color:rgba(245, 245, 245, 1);
+              color: rgba(245, 245, 245, 1);
             }
           }
-          color:rgba(245, 245, 245, 1);
+          color: rgba(245, 245, 245, 1);
           padding: 0 10px;
           display: flex;
           justify-content: space-between;
@@ -306,7 +311,7 @@
           }
         }
         .body {
-          color:rgba(245, 245, 245, 1);
+          color: rgba(245, 245, 245, 1);
 
           padding: 0 10px;
           display: flex;
@@ -315,9 +320,9 @@
           font-size: 14px;
           margin-top: 20px;
           p {
-            color:rgba(245, 245, 245, 1);
+            color: rgba(245, 245, 245, 1);
           }
-   
+
           .results {
             display: inline-flex;
             gap: 120px;
@@ -325,49 +330,47 @@
             align-items: center;
           }
         }
-
       }
       .container {
         width: 100%;
         height: auto;
-        background-color: #10141B;
+        background-color: #10141b;
         padding: 10px;
         margin-top: 62px;
-        color:rgba(245, 245, 245, 1);
+        color: rgba(245, 245, 245, 1);
         h2 {
-          color:rgba(245, 245, 245, 1);
-          font-family: "Vazir" !important;
+          color: rgba(245, 245, 245, 1);
+          font-family: 'Vazir' !important;
           font-size: 26px;
           padding: 0 10px;
           text-align: left;
-
         }
       }
       .container2 {
         width: 100%;
         height: auto;
-        background-color: #10141B;
+        background-color: #10141b;
         padding-bottom: 15px;
         // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         margin-top: 30px;
-        color:rgba(245, 245, 245, 1);
+        color: rgba(245, 245, 245, 1);
         h2 {
-          color:rgba(245, 245, 245, 1);
+          color: rgba(245, 245, 245, 1);
         }
         .body {
           width: 85%;
           display: flex;
           flex-direction: column;
           margin: 0 auto;
-          color:rgba(245, 245, 245, 1);
+          color: rgba(245, 245, 245, 1);
 
           .item {
-            color:rgba(245, 245, 245, 1);
+            color: rgba(245, 245, 245, 1);
 
             display: flex;
             justify-content: space-between;
             width: 100%;
-            font-family: "Vazir" !important;
+            font-family: 'Vazir' !important;
           }
         }
       }
@@ -378,32 +381,28 @@
     width: 180px;
     margin-top: 8px;
   }
-
-
-
 }
 
 .extend {
 }
 
 .nextPhase {
-  background-color: #24303C;
+  background-color: #24303c;
 }
 
 .reset {
-  background-color: #24303C;
-
+  background-color: #24303c;
 }
 
 .myStatis {
   .ant-statistic {
-    color:rgba(245, 245, 245, 1) !important;
+    color: rgba(245, 245, 245, 1) !important;
     .ant-statistic-content {
-      color:rgba(245, 245, 245, 1) !important;
+      color: rgba(245, 245, 245, 1) !important;
       .ant-statistic-content-value {
-        color:rgba(245, 245, 245, 1) !important;
-      }  
-    }  
+        color: rgba(245, 245, 245, 1) !important;
+      }
+    }
   }
 }
 .highcharts-xaxis-grid .highcharts-grid-line {

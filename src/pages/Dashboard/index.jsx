@@ -292,34 +292,32 @@ const Dashboard = () => {
           ],
         },
       },
-      // {
-      //   name: 'Last Equity',
-      //   data: data.chart
-      //     ? data.chart.map((item) => {
-      //         // if(item.addedBySb)
-      //         //   return null
-      //         // return item.lastEquity;
-      //         // console.log(item);
-      //       })
-      //     : [],
-      //   fillColor: {
-      //     linearGradient: {
-      //       x1: 0,
-      //       y1: 0,
-      //       x2: 0,
-      //       y2: 1,
-      //     },
-      //     stops: [
-      //       [0, Highcharts.getOptions().colors[4]],
-      //       [
-      //         1,
-      //         Highcharts.color(Highcharts.getOptions().colors[4])
-      //           .setOpacity(0)
-      //           .get('rgba'),
-      //       ],
-      //     ],
-      //   },
-      // },
+      {
+        name: 'Last Equity',
+        data: data.chart
+          ? data.chart.map((item) => {
+              if (item.lastEquity) return item.lastEquity;
+              return null;
+            })
+          : [],
+        fillColor: {
+          linearGradient: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 1,
+          },
+          stops: [
+            [0, Highcharts.getOptions().colors[4]],
+            [
+              1,
+              Highcharts.color(Highcharts.getOptions().colors[4])
+                .setOpacity(0)
+                .get('rgba'),
+            ],
+          ],
+        },
+      },
       {
         name: 'Maximum Balance',
         data: data.chart
@@ -374,33 +372,32 @@ const Dashboard = () => {
           ],
         },
       },
-      // {
-      //   name: 'Lase Balance',
-      //   data: data.chart
-      //     ? data.chart.map((item) => {
-      //         // if(item.addedBySb)
-      //         //   return null
-      //         return item.lastBalance;
-      //       })
-      //     : [],
-      //   fillColor: {
-      //     linearGradient: {
-      //       x1: 0,
-      //       y1: 0,
-      //       x2: 0,
-      //       y2: 1,
-      //     },
-      //     stops: [
-      //       [0, Highcharts.getOptions().colors[5]],
-      //       [
-      //         1,
-      //         Highcharts.color(Highcharts.getOptions().colors[5])
-      //           .setOpacity(0)
-      //           .get('rgba'),
-      //       ],
-      //     ],
-      //   },
-      // },
+      {
+        name: 'Lase Balance',
+        data: data.chart
+          ? data.chart.map((item) => {
+              if (item.lastBalance) return item.lastBalance;
+              return null;
+            })
+          : [],
+        fillColor: {
+          linearGradient: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 1,
+          },
+          stops: [
+            [0, Highcharts.getOptions().colors[5]],
+            [
+              1,
+              Highcharts.color(Highcharts.getOptions().colors[5])
+                .setOpacity(0)
+                .get('rgba'),
+            ],
+          ],
+        },
+      },
     ],
     responsive: {
       rules: [
@@ -443,14 +440,31 @@ const Dashboard = () => {
         <div className={classes.root}>
           {/* <UserMenu /> */}
           <Row className={classes.row}>
-            <Col className={classes.col} xs={23} sm={23} md={23} lg={23}>
+            <Col
+              style={{
+                overflowX: 'auto',
+                '-ms-overflow-style': 'none' /* Internet Explorer 10+ */,
+                'scrollbar-width': 'none',
+                '& ::-webkit-scrollbar':{
+                  display: 'none'
+                }
+              }}
+              className={classes.col}
+              xs={23}
+              sm={23}
+              md={22}
+              lg={22}
+            >
               {loading ? (
                 <Skeleton title={false} active paragraph={{ rows: 15 }} />
               ) : (
+                // <Col>
                 <HighchartsReact
+                  // style={{overflow: 'auto'}}
                   highcharts={Highcharts}
                   options={highOptions}
                 />
+                // </Col>
               )}
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={8} lg={8}>

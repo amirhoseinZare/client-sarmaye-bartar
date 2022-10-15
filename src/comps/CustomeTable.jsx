@@ -1,4 +1,4 @@
-import { Table, ConfigProvider } from "antd";
+import { Table, ConfigProvider, Typography } from "antd";
 import styled from "styled-components";
 
 const StyledTable = styled(Table)`
