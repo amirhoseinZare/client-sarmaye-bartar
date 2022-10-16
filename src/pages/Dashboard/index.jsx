@@ -16,10 +16,8 @@ import classes from './Dashboard.module.scss';
 
 // comps
 import Ranking from '../../comps/Ranking/Ranking';
-import CurrentResults from './comps/CurrentResults.component';
 
 // api
-import { DashboardApi } from '../../api';
 import { UsersApi } from '../../api/Users.api';
 import { RequestApi } from '../../api/Request.api';
 
@@ -48,7 +46,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
 
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
@@ -407,7 +404,6 @@ const Dashboard = () => {
           },
           chartOptions: {
             legend: { enabled: false },
-            // yAxis:{title:{text:""}}
           },
         },
       ],
@@ -445,9 +441,9 @@ const Dashboard = () => {
                 overflowX: 'auto',
                 '-ms-overflow-style': 'none' /* Internet Explorer 10+ */,
                 'scrollbar-width': 'none',
-                '& ::-webkit-scrollbar':{
-                  display: 'none'
-                }
+                '& ::-webkit-scrollbar': {
+                  display: 'none',
+                },
               }}
               className={classes.col}
               xs={23}
