@@ -9,7 +9,10 @@ const StyledTable = styled(Table)`
   // @media (max-width: 576px) {
   white-space: nowrap;
   .ant-table-rtl {
-    overflow-x: scroll;
+    overflow-x: ${props=>{
+      console.log(props)
+      return props.xScroll
+    }};
   }
   // }
   .ant-table-row.ant-table-row-level-0:nth-child(even) .ant-table-cell {
@@ -68,18 +71,19 @@ const CustomTable = ({
   pagination,
   disablePagination = false,
   color,
+  xScroll,
   ...otherProps
 }) => {
   const { position = ['bottomCenter'] } = pagination;
   return (
     <ConfigProvider direction="rtl" disablePagination={disablePagination}>
       <StyledTable
+        xScroll={xScroll || 'scroll'}
         columns={columns}
         dataSource={rows}
         pagination={disablePagination ? false : { ...pagination, position }}
         {...otherProps}
         color={color}
-        xScroll="scroll"
       />
     </ConfigProvider>
   );

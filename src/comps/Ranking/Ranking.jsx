@@ -118,13 +118,14 @@ const Ranking = () => {
           if (rank <= 3) {
             switch (rank) {
               case 1:
-                return <FirstGradeSvg />;
+                return <img className={classes.imageTable} src={first} />;
+                break;
               case 2:
-                return <SecondGradeSvg />;
+                return <img className={classes.imageTable} src={twice} />;
+                break;
               case 3:
-                return <ThirdGradeSvg />;
-              default:
-                return '';
+                return <img className={classes.imageTable} src={third} />;
+                break;
             }
           } else {
             return rank || '-';
@@ -200,7 +201,7 @@ const Ranking = () => {
           if (rank <= 3) {
             switch (rank) {
               case 1:
-                return <img className={classes.imageTable} src={firts2} />;
+                return <img className={classes.imageTable} src={first} />;
                 break;
               case 2:
                 return <img className={classes.imageTable} src={twice} />;
@@ -306,6 +307,7 @@ const Ranking = () => {
         disablePagination={true}
         onChange={handleTableChange}
         loading={state.loading}
+        xScroll={'hidden'}
       />
     </>
   );

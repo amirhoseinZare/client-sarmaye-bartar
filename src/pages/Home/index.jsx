@@ -8,6 +8,7 @@ const Home = ()=>{
     return <Row style={{
         display:'flex',
         justifyContent: 'center',
+        alignItems:'center',
         paddingTop: '71px',
         background:'#0B0E13',
         height:'100vh',
@@ -16,7 +17,7 @@ const Home = ()=>{
             <Link style={{
                 color: 'rgb(11, 14, 19)',
                 backgroundColor: 'rgb(68, 179, 254)',
-                padding: '4px 12px',
+                padding: '8px 8px',
                 fontWeight: 'bold',
                 display: 'inline-flex',
                 alignItems: 'center',
