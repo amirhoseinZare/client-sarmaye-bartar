@@ -173,7 +173,7 @@ const Dashboard = () => {
       type: 'areaspline',
       backgroundColor:
         Highcharts.defaultOptions.legend.backgroundColor || 'rgb(11, 14, 19)',
-      width: 1000,
+      width: 1300,
     },
     title: {
       text: '',
@@ -187,7 +187,8 @@ const Dashboard = () => {
       layout: 'vertical',
       align: 'left',
       verticalAlign: 'top',
-      x: 30,
+      height:20,
+      x: 1000,
       y: -10,
       floating: true,
       borderWidth: 1,
@@ -234,87 +235,7 @@ const Dashboard = () => {
       enabled: false,
     },
     series: [
-      {
-        name: 'Minimum Equity',
-        data: data.chart
-          ? data.chart.map((item) => {
-              return item.minEquity;
-            })
-          : [],
-        fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
-          stops: [
-            [
-              0,
-              'linear-gradient(178.62deg, #44B3FE -1495.74%, rgba(68, 179, 254, 0) 102.34%)',
-            ],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[1])
-                .setOpacity(0.9)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
-      {
-        name: 'Maximum Equity',
-        data: data.chart
-          ? data.chart.map((item) => {
-              // if(item.addedBySb)
-              //   return null
-              return item.maxEquity;
-            })
-          : [],
-        fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
-          stops: [
-            [0, Highcharts.getOptions().colors[2]],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[2])
-                .setOpacity(0)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
-      {
-        name: 'Last Equity',
-        data: data.chart
-          ? data.chart.map((item) => {
-              if (item.lastEquity) return item.lastEquity;
-              return null;
-            })
-          : [],
-        fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
-          stops: [
-            [0, Highcharts.getOptions().colors[4]],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[4])
-                .setOpacity(0)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
+     
       {
         name: 'Maximum Balance',
         data: data.chart
@@ -370,7 +291,7 @@ const Dashboard = () => {
         },
       },
       {
-        name: 'Lase Balance',
+        name: 'Last Balance',
         data: data.chart
           ? data.chart.map((item) => {
               if (item.lastBalance) return item.lastBalance;
@@ -390,6 +311,60 @@ const Dashboard = () => {
               1,
               Highcharts.color(Highcharts.getOptions().colors[5])
                 .setOpacity(0)
+                .get('rgba'),
+            ],
+          ],
+        },
+      },
+      {
+        name: 'Last Equity',
+        data: data.chart
+          ? data.chart.map((item) => {
+              if (item.lastEquity) return item.lastEquity;
+              return null;
+            })
+          : [],
+        fillColor: {
+          linearGradient: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 1,
+          },
+          stops: [
+            [0, Highcharts.getOptions().colors[4]],
+            [
+              1,
+              Highcharts.color(Highcharts.getOptions().colors[4])
+                .setOpacity(0)
+                .get('rgba'),
+            ],
+          ],
+        },
+      },
+      {
+        name: 'Minimum Equity',
+        data: data.chart
+          ? data.chart.map((item) => {
+              return item.minEquity;
+            })
+          : [],
+        fillColor: {
+          linearGradient: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 1,
+          },
+          stops: [
+            [
+              0,
+              'linear-gradient(178.62deg, #44B3FE -1495.74%, rgba(68, 179, 254, 0) 102.34%)',
+            ],
+            [
+              1,
+              Highcharts.color(Highcharts.getOptions().colors[1])
+                .setOpacity(0.9)
                 .get('rgba'),
             ],
           ],
