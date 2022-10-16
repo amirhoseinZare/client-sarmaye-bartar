@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
   margin-top: 8rem;
   width: 485px;
   justify-content: center;
-  margin: 10rem auto;
+  margin: 6rem auto;
 `;
 const Box = styled.div`
   background: #10141b;
