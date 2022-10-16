@@ -1,10 +1,9 @@
-import { Typography, Image, Row, Col, Grid, Input } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Typography, Image, Row } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/actions/auth';
 import styled from 'styled-components';
 import image from '../../assets/bitcoin2.png';
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const StyledDiv = styled.div`
   display: flex;
@@ -30,7 +29,6 @@ const ColumnBox = styled.div`
 `;
 const Profile = () => {
   const user = useSelector((store) => store.user);
-  console.log(user);
   const dispatch = useDispatch();
   const changeCurrentAuth = (newUser) => {
     dispatch(setAuth({ ...newUser, accounts: user.accounts }));
