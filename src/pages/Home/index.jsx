@@ -1,6 +1,6 @@
 import Ranking from "../../comps/Ranking/Ranking";
 import { Row, Col } from "antd"
-import newLogo from "../../assets/new-logo.jfif"
+import newLogo from "../../assets/sgb-logo.png"
 import { ReactComponent as LogoSvg  } from "../../assets/logo.svg"
 import { Link } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const Home = ()=>{
                 marginBottom:'32px'
             }}>
                 <div style={{width:'300px'}}>
-                    <LogoSvg style={{width:'100%'}}/>
+                    <img alt='logo' src={newLogo} width={300} height={'auto'}/>
                 </div>
         </Col>
         <Col xs={23} sm={23} md={20} lg={20} xl={20}>

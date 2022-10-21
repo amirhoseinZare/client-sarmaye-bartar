@@ -220,6 +220,22 @@ const Dashboard = () => {
       },
       gridLineColor: 'gray',
       gridLineDashStyle: 'shortdash',
+      min:Math.min(...[
+        ...data.chart.map((item) => {
+          return item.minEquity;
+        }), 
+        ...data.chart.map((item) => {
+          return item.minBalance;
+        })
+      ]),
+      max:Math.max(...[
+        ...data.chart.map((item) => {
+          return item.minEquity;
+        }), 
+        ...data.chart.map((item) => {
+          return item.minBalance;
+        })
+      ]) + 15000
     },
     plotOptions: {
       area: {
@@ -237,6 +253,7 @@ const Dashboard = () => {
     series: [
      
       {
+
         name: 'Maximum Balance',
         data: data.chart
           ? data.chart.map((item) => {
@@ -264,6 +281,7 @@ const Dashboard = () => {
         },
       },
       {
+        visible: false,
         name: 'Minimum Balance',
         data: data.chart
           ? data.chart.map((item) => {
@@ -291,6 +309,7 @@ const Dashboard = () => {
         },
       },
       {
+        visible: false,
         name: 'Last Balance',
         data: data.chart
           ? data.chart.map((item) => {
@@ -317,6 +336,7 @@ const Dashboard = () => {
         },
       },
       {
+        visible: false,
         name: 'Last Equity',
         data: data.chart
           ? data.chart.map((item) => {
@@ -868,16 +888,6 @@ const Dashboard = () => {
             </Col>
           </Row>
           <Row className={classes.row}>
-            <Col
-              xs={23}
-              sm={23}
-              md={20}
-              lg={20}
-              xl={20}
-              className={classes.titleBox}
-            >
-              <h2 style={{ marginTop: '100px' }}>Leaderboard</h2>
-            </Col>
             <Col xs={23} sm={23} md={20} lg={20} xl={20}>
               <Ranking />
             </Col>

@@ -152,20 +152,6 @@ const Ranking = () => {
       //   render: (firstBalance) => firstBalance || '-',
       // },
       {
-        title: 'See user analyze',
-        key: 'loginToUserPanel',
-        render: (userAdd) => (
-          <AiOutlineEye
-            style={{ color: '#44B3FE' }}
-            className={classes['icons']}
-            onClick={() => {
-              setUserId(userAdd._id);
-              navigate('/dashboard');
-            }}
-          />
-        ),
-      },
-      {
         title: 'Balance',
         key: 'balance',
         dataIndex: 'balance',

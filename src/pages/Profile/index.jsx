@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/actions/auth';
 import styled from 'styled-components';
 import image from '../../assets/bitcoin2.png';
+import newLogo from "../../assets/sgb-logo.png"
+
 const { Text } = Typography;
 
 const StyledDiv = styled.div`
@@ -45,7 +47,7 @@ const Profile = () => {
           </Text>
         </ColumnBox>
 
-        <Image preview={false} width={100} height={100} src={image} />
+        <Image preview={false} width={100} height={'auto'} src={newLogo} />
       </Row>
       <Box>
         <ColumnBox>

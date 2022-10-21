@@ -80,7 +80,7 @@ const Login = () => {
           <div className={classes["login-box"]}>
             <div className={classes.titlesContainer}>
               <p className={classes.start}>Start analyze</p>
-              <h2 className={classes.title}>Login dashboard</h2>
+              <h2 className={classes.title}>Login EXTREME</h2>
             </div>
             <Form
               name="login"
