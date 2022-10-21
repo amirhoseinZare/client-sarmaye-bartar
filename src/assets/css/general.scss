@@ -60,3 +60,16 @@
     display: flex;
     align-items: center;
 }
+
+.ant-radio-input:focus + .ant-radio-inner {
+    box-shadow: none;
+}
+
+div[data-highcharts-chart] {
+    overflow: scroll;
+}
+
+.highcharts-container  {
+    // overflow: scroll !important;
+    padding: 11px 19px;
+}

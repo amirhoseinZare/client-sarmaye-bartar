@@ -9,6 +9,7 @@ import {
   Statistic,
   Button,
   Tooltip as AntdTooltip,
+  Radio 
 } from 'antd';
 
 // css
@@ -90,7 +91,6 @@ const Dashboard = () => {
       setUser(userData);
     }
   }, [userData]);
-
   const [data, setData] = useState({
     chart: [],
     objectives: [],
@@ -138,36 +138,76 @@ const Dashboard = () => {
     });
   };
 
-  const setLabels = (data, time) => {
+  const filterChart = (data, time) =>{
     if (data.chart) {
-      console.log({
-        'data.chart': data.chart,
-        'data.chart.slice(data.chart.length-24, data.chart.length)':
-          data.chart.slice(data.chart.length - 24, data.chart.length),
-      });
-      let chart = data.chart
-        ? time === 'today'
-          ? data.chart.slice(data.chart.length - 24, data.chart.length)
-          : data.chart
-        : [];
-      return chart.map((item) => {
-        const [date, time] = item.startBrokerTime.split(' ');
-        const [hour, minute, allSeconds] = time.split(':');
-        const [year, month, day] = date.split('-');
-        const seconds = allSeconds.split('.')[0];
-        const dotHour =
-          hour == 0 && time !== 'today' ? ` - ${month}/${day}` : '';
-        console.log(
-          { year, month, day, hour, minute, allSeconds },
-          `${hour}:${minute}` + dotHour
-        );
-        return `${hour}:${minute}` + dotHour;
-      });
+      let { chart } = {...data}
+      const today = new Date().getDate();
+      if(time==='today'){
+        chart = chart.filter((item) =>{
+          const [date, time ] = item.startBrokerTime.split(" ")
+          const [year, month, day] = date.split("-")
+          return (+day) === (+today)
+        })
+      }
+      else if(time==='last-24'){
+        chart = chart.slice(chart.length-24,chart.length)
+      }
+      else if(time==='last-48'){
+        chart = chart.slice(chart.length-48,chart.length)
+      }
+      else if(time==='last-week'){
+        chart = chart.slice(chart.length-168,chart.length)
+      }
+      return chart
+    }
+    return []
+  }
+
+  const setLabels = (data, timeFilter) => {
+    if (data.chart) {
+      let { chart } = {...data}
+      const today = new Date().getDate();
+      if(timeFilter==='today'){
+        
+        chart = chart.filter((item) =>{
+          const [date, time ] = item.startBrokerTime.split(" ")
+          const [year, month, day] = date.split("-")
+          return (+day) === (+today)
+        })
+      }
+      else if(timeFilter==='last-24'){
+        chart = chart.slice(chart.length-24,chart.length)
+      }
+      else if(timeFilter==='last-48'){
+        chart = chart.slice(chart.length-48,chart.length)
+      }
+      else if(timeFilter==='last-week'){
+        chart = chart.slice(chart.length-168,chart.length)
+      }
+      return chart.map(item=>{
+        const [date, time ] = item.startBrokerTime.split(" ")
+        const [hour, minutes, seconds] = time.split(":")
+        const [year, month, day] = date.split("-")
+        const pointTime = `${hour}:${minutes}`
+        return (+hour) === 0 || ((timeFilter==='last-week' || timeFilter==='all'))? `${month}/${day} ${pointTime}` : `${pointTime}`
+      })
     }
     return [];
   };
-  console.log(data);
-  // console.log(setLabels(data))
+
+  const [value, setValue] = useState('today');
+
+  const onChange = ({ target: { value } }) => {
+    setValue(value);
+  };
+  const optionsWithDisabled = useMemo(()=>[
+    { label: 'Today', value: 'today' },
+    { label: 'Last 24 hours', value: 'last-24' },
+    { label: 'Last 48 hours', value: 'last-48' },
+    { label: 'Last week', value: 'last-week' },
+    { label: 'All', value: 'all' },
+  ], [])
+
   const highOptions = useMemo(() => ({
     chart: {
       type: 'areaspline',
@@ -200,12 +240,15 @@ const Dashboard = () => {
       itemStyle: {
         color: '#fff',
       },
+      outside:true,
+      // floating:true
     },
     xAxis: {
-      categories: setLabels(data),
+      categories: setLabels(data, value),
       labels: {
         style: {
           color: '#fff',
+          fontSize: value==='last-week' || value==='all' ? '8px' : '12px'
         },
       },
     },
@@ -221,21 +264,21 @@ const Dashboard = () => {
       gridLineColor: 'gray',
       gridLineDashStyle: 'shortdash',
       min:Math.min(...[
-        ...data.chart.map((item) => {
+        ...filterChart(data, value).map((item) => {
           return item.minEquity;
         }), 
-        ...data.chart.map((item) => {
+        ...filterChart(data, value).map((item) => {
           return item.minBalance;
         })
       ]),
       max:Math.max(...[
-        ...data.chart.map((item) => {
+        ...filterChart(data, value).map((item) => {
           return item.minEquity;
         }), 
-        ...data.chart.map((item) => {
+        ...filterChart(data, value).map((item) => {
           return item.minBalance;
         })
-      ]) + 15000
+      ]) + 1000
     },
     plotOptions: {
       area: {
@@ -252,51 +295,19 @@ const Dashboard = () => {
     },
     series: [
      
-      {
-
-        name: 'Maximum Balance',
-        data: data.chart
-          ? data.chart.map((item) => {
-              // if(item.addedBySb)
-              //   return null
-              return item.maxBalance;
-            })
-          : [],
-        fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
-          stops: [
-            [0, Highcharts.getOptions().colors[3]],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[3])
-                .setOpacity(0)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
+      
       {
         visible: false,
         name: 'Minimum Balance',
         data: data.chart
-          ? data.chart.map((item) => {
+          ? filterChart(data, value).map((item) => {
               // if(item.addedBySb)
               //   return null
               return item.minBalance;
             })
           : [],
         fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
+         
           stops: [
             [0, Highcharts.getOptions().colors[5]],
             [
@@ -312,18 +323,13 @@ const Dashboard = () => {
         visible: false,
         name: 'Last Balance',
         data: data.chart
-          ? data.chart.map((item) => {
+          ? filterChart(data, value).map((item) => {
               if (item.lastBalance) return item.lastBalance;
               return null;
             })
           : [],
         fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
+         
           stops: [
             [0, Highcharts.getOptions().colors[5]],
             [
@@ -339,18 +345,12 @@ const Dashboard = () => {
         visible: false,
         name: 'Last Equity',
         data: data.chart
-          ? data.chart.map((item) => {
+          ? filterChart(data, value).map((item) => {
               if (item.lastEquity) return item.lastEquity;
               return null;
             })
           : [],
         fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
           stops: [
             [0, Highcharts.getOptions().colors[4]],
             [
@@ -363,19 +363,37 @@ const Dashboard = () => {
         },
       },
       {
+
+        name: 'Maximum Balance',
+        data: data.chart
+          ? filterChart(data, value).map((item) => {
+              // if(item.addedBySb)
+              //   return null
+              return item.maxBalance;
+            })
+          : [],
+        fillColor: {
+         
+          stops: [
+            [0, Highcharts.getOptions().colors[3]],
+            [
+              1,
+              Highcharts.color(Highcharts.getOptions().colors[3])
+                .setOpacity(0)
+                .get('rgba'),
+            ],
+          ],
+        },
+      },
+      {
         name: 'Minimum Equity',
         data: data.chart
-          ? data.chart.map((item) => {
+          ? filterChart(data, value).map((item) => {
               return item.minEquity;
             })
           : [],
         fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
+        
           stops: [
             [
               0,
@@ -403,6 +421,9 @@ const Dashboard = () => {
         },
       ],
     },
+    tooltip:{
+      outside:true
+    }
   }));
 
   const [buttons, setButtons] = useState({
@@ -449,13 +470,21 @@ const Dashboard = () => {
               {loading ? (
                 <Skeleton title={false} active paragraph={{ rows: 15 }} />
               ) : (
-                // <Col>
-                <HighchartsReact
-                  // style={{overflow: 'auto'}}
-                  highcharts={Highcharts}
-                  options={highOptions}
-                />
-                // </Col>
+                <Col className={classes.radioContainer}>
+                  <Radio.Group
+                      options={optionsWithDisabled}
+                      onChange={onChange}
+                      value={value}
+                      optionType="button"
+                      buttonStyle="solid"
+                      className={classes.antRadio}
+                  />
+                  <HighchartsReact
+                    style={{overflow: 'scroll'}}
+                    highcharts={Highcharts}
+                    options={highOptions}
+                  />
+                </Col>
               )}
             </Col>
             <Col className={classes.col} xs={23} sm={23} md={8} lg={8}>

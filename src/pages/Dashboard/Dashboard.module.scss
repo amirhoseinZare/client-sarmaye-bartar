@@ -418,3 +418,20 @@
 .highcharts-minor-grid-line {
   stroke-dasharray: 2, 2;
 }
+
+.radioContainer {
+  .antRadio {
+    margin:4px 16px 16px 0;
+    label {
+      background: #10141B;
+      color: rgba(68, 179, 254, 1);
+      border: none;
+    }
+    label.ant-radio-button-wrapper-checked {
+      background: rgba(68, 179, 254, 0.06);
+    }
+    + div {
+      // overflow: scroll;
+    }
+  }
+}
