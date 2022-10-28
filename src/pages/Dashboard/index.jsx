@@ -424,7 +424,7 @@ const Dashboard = () => {
     tooltip:{
       outside:true
     }
-  }));
+  }), [data.chart]);
 
   const [buttons, setButtons] = useState({
     extend: false,

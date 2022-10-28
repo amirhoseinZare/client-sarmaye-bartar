@@ -84,7 +84,7 @@ const FormStyled = styled(Form)`
     }
 `
 
-const Filter = ({setFilter, filter, search})=>{
+const Filter = ({setFilter, filter, search, setPageSearchParams})=>{
     const accountTypes = useMemo(
         () => Object.values(accountTypeEnum).map(({text, value})=>({text:text, value:value})),
         []
@@ -117,6 +117,7 @@ const Filter = ({setFilter, filter, search})=>{
             return item
         }))
         setFilter({...sanitizedFilters, ...sanitizedModel, pageNumber})
+        setPageSearchParams({...sanitizedFilters, ...sanitizedModel, pageNumber})
     }
 
     const onFinishFailed = ()=>{

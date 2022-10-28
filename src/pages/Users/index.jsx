@@ -22,6 +22,7 @@ import { IoIosAddCircleOutline } from "react-icons/io"
 import { displayAccountLevelsEnum } from "../../core/enums"
 import { setDefaultEmail } from "../../redux/actions/defaultEmail"
 import MenuLayout from "../../layouts/Menu"
+import { useSearchParams } from "react-router-dom";
 
 /*
   <CheckCircleTwoTone />
@@ -50,6 +51,7 @@ let copyText = (text) => {
 };
 
 function Categories() {
+  let [searchParams, setSearchParams] = useSearchParams();
   let user = useSelector((state) => state.user);
   let navigate = useNavigate();
   const addUserDrawdownTracker = async (mtAccountId)=>{
@@ -279,6 +281,7 @@ function Categories() {
       pageNumber: current,
       pageSize,
     }));
+    setPageSearchParams(filter)
   };
 
   const setUserId = (id) => {
@@ -302,12 +305,21 @@ function Categories() {
     }
   };
 
+  const setPageSearchParams = (filter)=>{
+    const sanitizedFilters = Object.keys(filter).reduce((acc, cv) => {
+      if(filter[cv])
+        return { ...acc, [cv]:filter[cv] }
+      return { ...acc }
+    }, {}) 
+    setSearchParams(sanitizedFilters);
+  }
+
   useEffect(() => {
     getUsersData();
+    
   }, [filter]);
 
   const openEditModal = (data, step = 0) => {
-    console.log(data);
     dispatch(
       setModal({
         visible: true,
@@ -393,7 +405,7 @@ function Categories() {
           <h2>Users</h2>
         </Col>
         <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-          <Filters setFilter={setFilter} filter={filter} />
+          <Filters setFilter={setFilter} setPageSearchParams={setPageSearchParams} filter={filter} />
           <CustomeTable
             columns={columns}
             rows={state.rows}
