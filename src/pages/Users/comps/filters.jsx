@@ -117,7 +117,7 @@ const Filter = ({setFilter, filter, search, setPageSearchParams})=>{
             return item
         }))
         setFilter({...sanitizedFilters, ...sanitizedModel, pageNumber})
-        setPageSearchParams({...sanitizedFilters, ...sanitizedModel, pageNumber})
+        // setPageSearchParams({...sanitizedFilters, ...sanitizedModel, pageNumber})
     }
 
     const onFinishFailed = ()=>{

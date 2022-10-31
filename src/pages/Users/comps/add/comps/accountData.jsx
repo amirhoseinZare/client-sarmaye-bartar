@@ -336,6 +336,21 @@ function AccountData({ userState, setData }) {
         </Form.Item>
       </Col>
 
+      <Col className="form-input" span={24} sm={12} md={8}>
+        <Form.Item
+          label="Investor password"
+          name="investorPassword"
+          rules={[
+            {
+              required: true,
+              message: "لطفا Investor password را وارد نمایید.",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+
       <Col className="form-account" span={24} sm={12} md={8}>
         <Form.Item
           label="نوع اکانت"

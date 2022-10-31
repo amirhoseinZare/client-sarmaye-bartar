@@ -24,13 +24,14 @@
     "react-router": "^6.1.1",
     "react-router-dom": "^6.1.1",
     "react-scripts": "5.0.0",
+    "react-tradingview-components": "^2.0.1",
+    "reactjs-bottom-navigation": "^1.0.4",
     "redux": "^4.1.2",
     "redux-logger": "^3.0.6",
     "sass": "^1.49.11",
     "socket.io-client": "^2.1.1",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.2",
-    "reactjs-bottom-navigation": "^1.0.4"
+    "web-vitals": "^2.1.2"
   },
   "scripts": {
     "start": "set port=3001 && react-scripts start",

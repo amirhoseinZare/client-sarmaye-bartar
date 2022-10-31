@@ -281,7 +281,8 @@ function Categories() {
       pageNumber: current,
       pageSize,
     }));
-    setPageSearchParams(filter)
+    setPageSearchParams({...filter, pageNumber: current,
+      pageSize,})
   };
 
   const setUserId = (id) => {
@@ -388,6 +389,17 @@ function Categories() {
       onCancel() {},
     });
   };
+
+  useEffect(()=>{
+    try {
+      const urlFilters = JSON.parse('{"' + decodeURI(window.location.search.replace("?", "").replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}')
+      const { pageNumber, pageSize, ...others } = urlFilters
+      setFilter(s=>({...s, pageNumber:+pageNumber, pageSize:+pageSize,  ...others}))  
+    }
+    catch(err){
+      console.log(err)
+    }
+  }, [])
 
   return (
     <div className={classes.users}>
