@@ -73,3 +73,22 @@ div[data-highcharts-chart] {
     // overflow: scroll !important;
     padding: 11px 19px;
 }
+
+#header-toolbar-chart-styles {
+    display: none;
+}
+
+#charts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    article {
+        width: 80%;
+        margin: 64px auto;
+        &.radio-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
