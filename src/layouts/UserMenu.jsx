@@ -2,7 +2,7 @@ import { Menu, Button, ConfigProvider, Layout } from 'antd';
 import { useEffect, useState } from 'react';
 import styled from "styled-components"
 import { Link, useLocation } from "react-router-dom"
-import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon } from "iconsax-react"
+import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon, Notification as NotifictaionIcon } from "iconsax-react"
 
 const StyledContainer = styled.div`
   .main-page {
@@ -126,6 +126,7 @@ const UserLayout = (props)=> {
 
     return (
       <div>
+        <NotifictaionIcon color="#44b3fe" />
         {/* <Navbar /> */}
         <ConfigProvider direction='ltr'>
             <StyledMenuRoot>
