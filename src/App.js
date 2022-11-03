@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard/index";
 import Users from "./pages/Users/index";
@@ -16,12 +17,6 @@ import Accounts from "./pages/Accounts"
 import UserMenu from "./layouts/UserMenu"
 import BottomNavigation from 'reactjs-bottom-navigation'
 import './assets/css/general.scss'
-import {
-  UserOutlined,
-  BarChartOutlined,
-  ProfileOutlined,
-  PieChartOutlined
-} from '@ant-design/icons';
 import Profile from "./pages/Profile"
 import Charts from "./pages/Charts"
 import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon } from "iconsax-react"
@@ -64,7 +59,7 @@ function App() {
   const loading = useSelector((store) => store.loading.status);
 
   const user = useSelector((store) => store.user);
-  const userState = useSelector((state)=> state.user)
+  // const userState = useSelector((state)=> state.user)
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(null);
   console.log(user, userData)
