@@ -424,7 +424,7 @@ const Dashboard = () => {
     tooltip:{
       outside:true
     }
-  }), [data.chart]);
+  }), [data.chart, value]);
 
   const [buttons, setButtons] = useState({
     extend: false,
@@ -454,12 +454,7 @@ const Dashboard = () => {
           <Row className={classes.row}>
             <Col
               style={{
-                overflowX: 'auto',
-                '-ms-overflow-style': 'none' /* Internet Explorer 10+ */,
-                'scrollbar-width': 'none',
-                '& ::-webkit-scrollbar': {
-                  display: 'none',
-                },
+                overflowX: 'auto'
               }}
               className={classes.col}
               xs={23}
