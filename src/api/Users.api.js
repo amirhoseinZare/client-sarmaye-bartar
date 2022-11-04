@@ -1,6 +1,6 @@
-import http from "./http.api";
+import http from './http.api';
 
-const UsersApi = new http("/user");
+const UsersApi = new http('/user');
 
 UsersApi.gets = null;
 UsersApi.get = null;
@@ -9,7 +9,7 @@ UsersApi.patch = null;
 UsersApi.delete = null;
 
 UsersApi.all = function (config) {
-  return this.instance.get(`${this.baseApisUrl}`, {params:config});
+  return this.instance.get(`${this.baseApisUrl}`, { params: config });
 };
 UsersApi.delUser = function (id) {
   return this.instance.delete(`${this.baseApisUrl}/${id}`);
@@ -28,13 +28,15 @@ UsersApi.getUser = function (id, body) {
 };
 
 UsersApi.getChart = function (userId) {
-  return this.instance.get(`${this.baseApisUrl}/chart/equity/${userId}`)
-}
+  return this.instance.get(`${this.baseApisUrl}/chart/equity/${userId}`);
+};
+
+
 
 UsersApi.sendDrawdownTracker = function (mtAccountId) {
   return this.instance.post(`${this.baseApisUrl}/tracker/send`, {
-    mtAccountId
-  })
-}
+    mtAccountId,
+  });
+};
 
 export { UsersApi };

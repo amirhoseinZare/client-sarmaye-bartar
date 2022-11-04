@@ -39,9 +39,9 @@ const Ticket = () => {
       <StyledDiv>
         <TiketList />
       </StyledDiv>
-      <StyledDiv>
+      {/* <StyledDiv>
         <NewTicket />
-      </StyledDiv>
+      </StyledDiv> */}
     </Box>
   );
 };

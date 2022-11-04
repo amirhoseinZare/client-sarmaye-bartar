@@ -115,6 +115,10 @@ const UserLayout = (props) => {
       route: '/notification',
       key: '6',
     },
+    '/ticket-detail': {
+      route: '/ticket-detail',
+      key: '7',
+    },
   };
   useEffect(() => {
     if (state.currentRoute !== routes[location.pathname].key)
