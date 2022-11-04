@@ -20,6 +20,7 @@ import './assets/css/general.scss'
 import Profile from "./pages/Profile"
 import Charts from "./pages/Charts"
 import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon } from "iconsax-react"
+import Ticket from "./pages/Dashboard/comps/Ticket";
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -157,6 +158,16 @@ function App() {
             <PrivateRoute roles={["user"]}>
               <UserMenu>
                 <Accounts />
+              </UserMenu>
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/notification"
+          element={
+            <PrivateRoute roles={["user"]}>
+              <UserMenu>
+                <Ticket />
               </UserMenu>
             </PrivateRoute>
           }

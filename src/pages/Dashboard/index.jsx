@@ -9,9 +9,10 @@ import {
   Statistic,
   Button,
   Tooltip as AntdTooltip,
-  Radio 
+  Radio,
+  Badge,
 } from 'antd';
-
+import { Notification as NotificationIcon } from 'iconsax-react';
 // css
 import classes from './Dashboard.module.scss';
 
@@ -49,6 +50,7 @@ import {
 } from 'chart.js';
 
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 ChartJS.register(
   CategoryScale,
@@ -138,59 +140,54 @@ const Dashboard = () => {
     });
   };
 
-  const filterChart = (data, time) =>{
+  const filterChart = (data, time) => {
     if (data.chart) {
-      let { chart } = {...data}
+      let { chart } = { ...data };
       const today = new Date().getDate();
-      if(time==='today'){
-        chart = chart.filter((item) =>{
-          const [date, time ] = item.startBrokerTime.split(" ")
-          const [year, month, day] = date.split("-")
-          return (+day) === (+today)
-        })
+      if (time === 'today') {
+        chart = chart.filter((item) => {
+          const [date, time] = item.startBrokerTime.split(' ');
+          const [year, month, day] = date.split('-');
+          return +day === +today;
+        });
+      } else if (time === 'last-24') {
+        chart = chart.slice(chart.length - 24, chart.length);
+      } else if (time === 'last-48') {
+        chart = chart.slice(chart.length - 48, chart.length);
+      } else if (time === 'last-week') {
+        chart = chart.slice(chart.length - 168, chart.length);
       }
-      else if(time==='last-24'){
-        chart = chart.slice(chart.length-24,chart.length)
-      }
-      else if(time==='last-48'){
-        chart = chart.slice(chart.length-48,chart.length)
-      }
-      else if(time==='last-week'){
-        chart = chart.slice(chart.length-168,chart.length)
-      }
-      return chart
+      return chart;
     }
-    return []
-  }
+    return [];
+  };
 
   const setLabels = (data, timeFilter) => {
     if (data.chart) {
-      let { chart } = {...data}
+      let { chart } = { ...data };
       const today = new Date().getDate();
-      if(timeFilter==='today'){
-        
-        chart = chart.filter((item) =>{
-          const [date, time ] = item.startBrokerTime.split(" ")
-          const [year, month, day] = date.split("-")
-          return (+day) === (+today)
-        })
+      if (timeFilter === 'today') {
+        chart = chart.filter((item) => {
+          const [date, time] = item.startBrokerTime.split(' ');
+          const [year, month, day] = date.split('-');
+          return +day === +today;
+        });
+      } else if (timeFilter === 'last-24') {
+        chart = chart.slice(chart.length - 24, chart.length);
+      } else if (timeFilter === 'last-48') {
+        chart = chart.slice(chart.length - 48, chart.length);
+      } else if (timeFilter === 'last-week') {
+        chart = chart.slice(chart.length - 168, chart.length);
       }
-      else if(timeFilter==='last-24'){
-        chart = chart.slice(chart.length-24,chart.length)
-      }
-      else if(timeFilter==='last-48'){
-        chart = chart.slice(chart.length-48,chart.length)
-      }
-      else if(timeFilter==='last-week'){
-        chart = chart.slice(chart.length-168,chart.length)
-      }
-      return chart.map(item=>{
-        const [date, time ] = item.startBrokerTime.split(" ")
-        const [hour, minutes, seconds] = time.split(":")
-        const [year, month, day] = date.split("-")
-        const pointTime = `${hour}:${minutes}`
-        return (+hour) === 0 || ((timeFilter==='last-week' || timeFilter==='all'))? `${month}/${day} ${pointTime}` : `${pointTime}`
-      })
+      return chart.map((item) => {
+        const [date, time] = item.startBrokerTime.split(' ');
+        const [hour, minutes, seconds] = time.split(':');
+        const [year, month, day] = date.split('-');
+        const pointTime = `${hour}:${minutes}`;
+        return +hour === 0 || timeFilter === 'last-week' || timeFilter === 'all'
+          ? `${month}/${day} ${pointTime}`
+          : `${pointTime}`;
+      });
     }
     return [];
   };
@@ -200,231 +197,235 @@ const Dashboard = () => {
   const onChange = ({ target: { value } }) => {
     setValue(value);
   };
-  const optionsWithDisabled = useMemo(()=>[
-    { label: 'Today', value: 'today' },
-    { label: 'Last 24 hours', value: 'last-24' },
-    { label: 'Last 48 hours', value: 'last-48' },
-    { label: 'Last week', value: 'last-week' },
-    { label: 'All', value: 'all' },
-  ], [])
+  const optionsWithDisabled = useMemo(
+    () => [
+      { label: 'Today', value: 'today' },
+      { label: 'Last 24 hours', value: 'last-24' },
+      { label: 'Last 48 hours', value: 'last-48' },
+      { label: 'Last week', value: 'last-week' },
+      { label: 'All', value: 'all' },
+    ],
+    []
+  );
 
-  const highOptions = useMemo(() => ({
-    chart: {
-      type: 'areaspline',
-      backgroundColor:
-        Highcharts.defaultOptions.legend.backgroundColor || 'rgb(11, 14, 19)',
-      width: 1300,
-    },
-    title: {
-      text: '',
-    },
-    subtitle: {
-      // text: '* Jane\'s banana consumption is unknown',
-      align: 'right',
-      verticalAlign: 'bottom',
-    },
-    legend: {
-      layout: 'vertical',
-      align: 'left',
-      verticalAlign: 'top',
-      height:20,
-      x: 1000,
-      y: -10,
-      floating: true,
-      borderWidth: 1,
-      style: {
-        color: '#fff',
+  const highOptions = useMemo(
+    () => ({
+      chart: {
+        type: 'areaspline',
+        backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || 'rgb(11, 14, 19)',
+        width: 1300,
       },
-      backgroundColor: 'rgb(16, 20, 27)',
-      borderColor: '#fff',
-      itemStyle: {
-        color: '#fff',
-      },
-      outside:true,
-      // floating:true
-    },
-    xAxis: {
-      categories: setLabels(data, value),
-      labels: {
-        style: {
-          color: '#fff',
-          fontSize: value==='last-week' || value==='all' ? '8px' : '12px'
-        },
-      },
-    },
-    yAxis: {
       title: {
         text: '',
       },
-      labels: {
+      subtitle: {
+        // text: '* Jane\'s banana consumption is unknown',
+        align: 'right',
+        verticalAlign: 'bottom',
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        height: 20,
+        x: 1000,
+        y: -10,
+        floating: true,
+        borderWidth: 1,
         style: {
           color: '#fff',
         },
-      },
-      gridLineColor: 'gray',
-      gridLineDashStyle: 'shortdash',
-      min:Math.min(...[
-        ...filterChart(data, value).map((item) => {
-          return item.minEquity;
-        }), 
-        ...filterChart(data, value).map((item) => {
-          return item.minBalance;
-        })
-      ]),
-      max:Math.max(...[
-        ...filterChart(data, value).map((item) => {
-          return item.minEquity;
-        }), 
-        ...filterChart(data, value).map((item) => {
-          return item.minBalance;
-        })
-      ]) + 1000
-    },
-    plotOptions: {
-      area: {
-        fillOpacity: 0.5,
-      },
-      series: {
-        marker: {
-          enabled: false,
+        backgroundColor: 'rgb(16, 20, 27)',
+        borderColor: '#fff',
+        itemStyle: {
+          color: '#fff',
         },
+        outside: true,
+        // floating:true
       },
-    },
-    credits: {
-      enabled: false,
-    },
-    series: [
-     
-      
-      {
-        visible: false,
-        name: 'Minimum Balance',
-        data: data.chart
-          ? filterChart(data, value).map((item) => {
-              // if(item.addedBySb)
-              //   return null
-              return item.minBalance;
-            })
-          : [],
-        fillColor: {
-         
-          stops: [
-            [0, Highcharts.getOptions().colors[5]],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[5])
-                .setOpacity(0)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
-      {
-        visible: false,
-        name: 'Last Balance',
-        data: data.chart
-          ? filterChart(data, value).map((item) => {
-              if (item.lastBalance) return item.lastBalance;
-              return null;
-            })
-          : [],
-        fillColor: {
-         
-          stops: [
-            [0, Highcharts.getOptions().colors[5]],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[5])
-                .setOpacity(0)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
-      {
-        visible: false,
-        name: 'Last Equity',
-        data: data.chart
-          ? filterChart(data, value).map((item) => {
-              if (item.lastEquity) return item.lastEquity;
-              return null;
-            })
-          : [],
-        fillColor: {
-          stops: [
-            [0, Highcharts.getOptions().colors[4]],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[4])
-                .setOpacity(0)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
-      {
-
-        name: 'Maximum Balance',
-        data: data.chart
-          ? filterChart(data, value).map((item) => {
-              // if(item.addedBySb)
-              //   return null
-              return item.maxBalance;
-            })
-          : [],
-        fillColor: {
-         
-          stops: [
-            [0, Highcharts.getOptions().colors[3]],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[3])
-                .setOpacity(0)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
-      {
-        name: 'Minimum Equity',
-        data: data.chart
-          ? filterChart(data, value).map((item) => {
-              return item.minEquity;
-            })
-          : [],
-        fillColor: {
-        
-          stops: [
-            [
-              0,
-              'linear-gradient(178.62deg, #44B3FE -1495.74%, rgba(68, 179, 254, 0) 102.34%)',
-            ],
-            [
-              1,
-              Highcharts.color(Highcharts.getOptions().colors[1])
-                .setOpacity(0.9)
-                .get('rgba'),
-            ],
-          ],
-        },
-      },
-    ],
-    responsive: {
-      rules: [
-        {
-          condition: {
-            maxWidth: 500,
+      xAxis: {
+        categories: setLabels(data, value),
+        labels: {
+          style: {
+            color: '#fff',
+            fontSize: value === 'last-week' || value === 'all' ? '8px' : '12px',
           },
-          chartOptions: {
-            legend: { enabled: false },
+        },
+      },
+      yAxis: {
+        title: {
+          text: '',
+        },
+        labels: {
+          style: {
+            color: '#fff',
+          },
+        },
+        gridLineColor: 'gray',
+        gridLineDashStyle: 'shortdash',
+        min: Math.min(
+          ...[
+            ...filterChart(data, value).map((item) => {
+              return item.minEquity;
+            }),
+            ...filterChart(data, value).map((item) => {
+              return item.minBalance;
+            }),
+          ]
+        ),
+        max:
+          Math.max(
+            ...[
+              ...filterChart(data, value).map((item) => {
+                return item.minEquity;
+              }),
+              ...filterChart(data, value).map((item) => {
+                return item.minBalance;
+              }),
+            ]
+          ) + 1000,
+      },
+      plotOptions: {
+        area: {
+          fillOpacity: 0.5,
+        },
+        series: {
+          marker: {
+            enabled: false,
+          },
+        },
+      },
+      credits: {
+        enabled: false,
+      },
+      series: [
+        {
+          visible: false,
+          name: 'Minimum Balance',
+          data: data.chart
+            ? filterChart(data, value).map((item) => {
+                // if(item.addedBySb)
+                //   return null
+                return item.minBalance;
+              })
+            : [],
+          fillColor: {
+            stops: [
+              [0, Highcharts.getOptions().colors[5]],
+              [
+                1,
+                Highcharts.color(Highcharts.getOptions().colors[5])
+                  .setOpacity(0)
+                  .get('rgba'),
+              ],
+            ],
+          },
+        },
+        {
+          visible: false,
+          name: 'Last Balance',
+          data: data.chart
+            ? filterChart(data, value).map((item) => {
+                if (item.lastBalance) return item.lastBalance;
+                return null;
+              })
+            : [],
+          fillColor: {
+            stops: [
+              [0, Highcharts.getOptions().colors[5]],
+              [
+                1,
+                Highcharts.color(Highcharts.getOptions().colors[5])
+                  .setOpacity(0)
+                  .get('rgba'),
+              ],
+            ],
+          },
+        },
+        {
+          visible: false,
+          name: 'Last Equity',
+          data: data.chart
+            ? filterChart(data, value).map((item) => {
+                if (item.lastEquity) return item.lastEquity;
+                return null;
+              })
+            : [],
+          fillColor: {
+            stops: [
+              [0, Highcharts.getOptions().colors[4]],
+              [
+                1,
+                Highcharts.color(Highcharts.getOptions().colors[4])
+                  .setOpacity(0)
+                  .get('rgba'),
+              ],
+            ],
+          },
+        },
+        {
+          name: 'Maximum Balance',
+          data: data.chart
+            ? filterChart(data, value).map((item) => {
+                // if(item.addedBySb)
+                //   return null
+                return item.maxBalance;
+              })
+            : [],
+          fillColor: {
+            stops: [
+              [0, Highcharts.getOptions().colors[3]],
+              [
+                1,
+                Highcharts.color(Highcharts.getOptions().colors[3])
+                  .setOpacity(0)
+                  .get('rgba'),
+              ],
+            ],
+          },
+        },
+        {
+          name: 'Minimum Equity',
+          data: data.chart
+            ? filterChart(data, value).map((item) => {
+                return item.minEquity;
+              })
+            : [],
+          fillColor: {
+            stops: [
+              [
+                0,
+                'linear-gradient(178.62deg, #44B3FE -1495.74%, rgba(68, 179, 254, 0) 102.34%)',
+              ],
+              [
+                1,
+                Highcharts.color(Highcharts.getOptions().colors[1])
+                  .setOpacity(0.9)
+                  .get('rgba'),
+              ],
+            ],
           },
         },
       ],
-    },
-    tooltip:{
-      outside:true
-    }
-  }), [data.chart, value]);
+      responsive: {
+        rules: [
+          {
+            condition: {
+              maxWidth: 500,
+            },
+            chartOptions: {
+              legend: { enabled: false },
+            },
+          },
+        ],
+      },
+      tooltip: {
+        outside: true,
+      },
+    }),
+    [data.chart, value]
+  );
 
   const [buttons, setButtons] = useState({
     extend: false,
@@ -451,10 +452,17 @@ const Dashboard = () => {
       {user.isAuth ? (
         <div className={classes.root}>
           {/* <UserMenu /> */}
+          <Row className={classes.notificationContainer}>
+            <Link to="/notification">
+              <Badge count={2}>
+                <NotificationIcon size="24" color="#44b3fe" variant="" />
+              </Badge>
+            </Link>
+          </Row>
           <Row className={classes.row}>
             <Col
               style={{
-                overflowX: 'auto'
+                overflowX: 'auto',
               }}
               className={classes.col}
               xs={23}
@@ -467,15 +475,15 @@ const Dashboard = () => {
               ) : (
                 <Col className={classes.radioContainer}>
                   <Radio.Group
-                      options={optionsWithDisabled}
-                      onChange={onChange}
-                      value={value}
-                      optionType="button"
-                      buttonStyle="solid"
-                      className={classes.antRadio}
+                    options={optionsWithDisabled}
+                    onChange={onChange}
+                    value={value}
+                    optionType="button"
+                    buttonStyle="solid"
+                    className={classes.antRadio}
                   />
                   <HighchartsReact
-                    style={{overflow: 'scroll'}}
+                    style={{ overflow: 'scroll' }}
                     highcharts={Highcharts}
                     options={highOptions}
                   />

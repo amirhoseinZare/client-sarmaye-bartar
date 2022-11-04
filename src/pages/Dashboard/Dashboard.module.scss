@@ -421,9 +421,9 @@
 
 .radioContainer {
   .antRadio {
-    margin:4px 16px 16px 0;
+    margin: 4px 16px 16px 0;
     label {
-      background: #10141B;
+      background: #10141b;
       color: rgba(68, 179, 254, 1);
       border: none;
     }
@@ -434,4 +434,12 @@
       // overflow: scroll;
     }
   }
+}
+.notificationContainer {
+  direction: ltr;
+  margin-left: 3rem;
+  margin-top: 2rem;
+}
+.notificationContainer:hover {
+  cursor: pointer;
 }
