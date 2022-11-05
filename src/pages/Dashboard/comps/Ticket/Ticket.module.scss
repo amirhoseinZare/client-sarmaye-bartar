@@ -7,7 +7,8 @@
   direction: ltr;
 
   a,
-  div {
+  div,
+  h4 {
     color: aliceblue;
   }
   .avatar {
@@ -25,4 +26,17 @@
 }
 .ticketSelect {
   width: 100%;
+}
+
+.ticketList {
+  direction: ltr;
+  a,
+  div,
+  h4 {
+    color: aliceblue;
+  }
+  .avatar {
+    padding-top: 8px;
+    background: #10141b;
+  }
 }

@@ -8,10 +8,8 @@ import {
   User as UserIcon,
   Key as KeyIcon,
   StatusUp as ChartIcon,
+  Notification as NotifictaionIcon,
 } from 'iconsax-react';
-import styled from "styled-components"
-import { Link, useLocation } from "react-router-dom"
-import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon, Notification as NotifictaionIcon } from "iconsax-react"
 
 const StyledContainer = styled.div`
   .main-page {
@@ -118,8 +116,8 @@ const UserLayout = (props) => {
       route: '/notification',
       key: '6',
     },
-    '/ticket-detail': {
-      route: '/ticket-detail',
+    '/notification/ticket-detail': {
+      route: '/notification/ticket-detail',
       key: '7',
     },
   };
