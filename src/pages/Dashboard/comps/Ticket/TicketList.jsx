@@ -90,7 +90,7 @@ const TiketList = () => {
               }
               //update state
               title={
-                <Link to="ticket-detail" state={{ ticketId: item._id }}>
+                <Link to="/ticket-detail" state={{ ticketId: item._id }}>
                   {item.title}
                 </Link>
               }
