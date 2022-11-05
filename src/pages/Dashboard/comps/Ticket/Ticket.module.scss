@@ -29,6 +29,8 @@
 }
 
 .ticketList {
+  width: 60%;
+  margin: 5rem auto;
   direction: ltr;
   a,
   div,
@@ -36,7 +38,31 @@
     color: aliceblue;
   }
   .avatar {
+    margin-top: 5px;
     padding-top: 8px;
     background: #10141b;
   }
+  .adminPm {
+    border: none;
+    background: rgb(1, 27, 50);
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+  }
+  .userPm {
+    border: none;
+    background: rgb(2, 47, 86);
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.sendBtn {
+  background: #10141b;
+  border: rgba(68, 179, 254, 0.6) 1px solid;
+  color: aliceblue;
+  width: 80px;
+  margin: 1rem auto;
+  text-align: center;
 }

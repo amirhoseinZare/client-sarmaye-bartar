@@ -1,11 +1,11 @@
-import { Avatar, List, message } from 'antd';
+import { Avatar, Grid, List, message } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { TicketApi } from '../../../../api/Ticket.api';
 import { User as UserIcon } from 'iconsax-react';
 import classes from './Ticket.module.scss';
-
+import NewTicket from './NewTicket';
 const ContainerHeight = 400;
 
 const TicketDetail = () => {
@@ -39,45 +39,48 @@ const TicketDetail = () => {
     }
   };
   return (
-    <List className={classes.ticketList}>
-      <VirtualList
-        data={data}
-        height={ContainerHeight}
-        itemHeight={47}
-        itemKey="email"
-        onScroll={onScroll}
-      >
-        {(item) => {
-          item.userRole === 'admin' ? (
-            <List.Item key={item._id}>
-              <List.Item.Meta
-                avatar={
-                  <Avatar className={classes.avatar}>
-                    <UserIcon color="#44b3fe" />
-                  </Avatar>
-                }
-                title="admin"
-                description={item.description}
-              />
-              <div>Content</div>
-            </List.Item>
-          ) : (
-            <List.Item key={item._id}>
-              <List.Item.Meta
-                avatar={
-                  <Avatar className={classes.avatar}>
-                    <UserIcon color="#44b3fe" />
-                  </Avatar>
-                }
-                title={item?.userId?.display_name}
-                description={item.description}
-              />
-              <div>Content</div>
-            </List.Item>
-          );
-        }}
-      </VirtualList>
-    </List>
+    <>
+      <List className={classes.ticketList}>
+        <VirtualList
+          data={data}
+          height={ContainerHeight}
+          itemHeight={47}
+          itemKey="email"
+          onScroll={onScroll}
+        >
+          {(item) => {
+            return item.userRole === 'admin' ? (
+              <List.Item className={classes.adminPm} key={item._id}>
+                <List.Item.Meta
+                  avatar={
+                    <Avatar className={classes.avatar}>
+                      <UserIcon color="#ff7c18" variant="Bold" />
+                    </Avatar>
+                  }
+                  title="admin"
+                  description={item.description}
+                />
+              </List.Item>
+            ) : (
+              <List.Item className={classes.userPm} key={item._id}>
+                <List.Item.Meta
+                  avatar={
+                    <Avatar className={classes.avatar}>
+                      <UserIcon color="#44b3fe" />
+                    </Avatar>
+                  }
+                  title={item?.userId?.display_name}
+                  description={item.description}
+                />
+              </List.Item>
+            );
+          }}
+        </VirtualList>
+      </List>
+      <div style={{ width: '60%', margin: 'auto' }}>
+        <NewTicket />
+      </div>
+    </>
   );
 };
 export default TicketDetail;
