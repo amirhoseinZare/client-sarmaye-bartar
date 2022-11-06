@@ -6,8 +6,12 @@ TicketApi.getTickets = function () {
   return this.instance.get(`${this.baseApisUrl}`);
 };
 
-TicketApi.getTicket = function (id) {
-  return this.instance.get(`${this.baseApisUrl}/${id}`);
+TicketApi.getTicketReplies = function (id) {
+  return this.instance.get(`${this.baseApisUrl}/replies/${id}`);
+};
+
+TicketApi.postTicket = function (body) {
+  return this.instance.get(`${this.baseApisUrl}`, body);
 };
 
 export { TicketApi };

@@ -21,7 +21,7 @@ import Profile from "./pages/Profile"
 import Charts from "./pages/Charts"
 import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon } from "iconsax-react"
 import Ticket from "./pages/Dashboard/comps/Ticket";
-import TicketDetail from "./api/TicketDetail";
+import TicketDetail from "./pages/Dashboard/comps/Ticket/TicketDetail";
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -174,7 +174,7 @@ function App() {
           }
         />
         <Route
-          path="/ticket-detail"
+          path="/notification/ticket-detail"
           element={
             <PrivateRoute roles={["user"]}>
               <UserMenu>
