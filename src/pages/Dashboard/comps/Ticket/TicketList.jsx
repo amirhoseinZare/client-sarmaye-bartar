@@ -14,7 +14,6 @@ const TiketList = () => {
   const [list, setList] = useState([]);
   useEffect(() => {
     TicketApi.getTickets().then((res) => {
-      console.log(res);
       if (res.success) {
         setList(res.result.items);
         setData(res.result.items);
@@ -38,7 +37,6 @@ const TiketList = () => {
       )
     );
     TicketApi.getTickets().then((res) => {
-      console.log(res);
       if (res.success) {
         setList(res.result.items);
         setData(res.result.items);

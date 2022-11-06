@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Select, Input, Typography, Button } from 'antd';
 import classes from './Ticket.module.scss';
 import { useFormik } from 'formik';
-import { TicketApi } from '../../../../api';
+import { TicketApi, UsersApi } from '../../../../api';
 
 const NewTicket = () => {
   const { TextArea } = Input;
   const { Title } = Typography;
-
+  const [accounts, setAccounts] = useState();
+  const [options, setOptions] = useState([]);
   const onSearch = (value) => {
     console.log('search:', value);
   };
+
+  const getUserProfile = () => {
+    UsersApi.getProfile().then((res) => {
+      setOptions(
+        res.result.accounts.map((item) => {
+          return {
+            value: item.accountEmail,
+            lable: item.accountEmail,
+          };
+        })
+      );
+    });
+    //  console.log('data', data);
+  };
+  useEffect(() => {
+    getUserProfile();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -21,7 +39,6 @@ const NewTicket = () => {
     onSubmit: (values) => {
       TicketApi.postTicket(values).then((res) => {
         if (res.success) {
-         
           // message.success(res.message);
         } else {
           // message.error(res.message);
@@ -30,7 +47,6 @@ const NewTicket = () => {
       });
     },
   });
-
   return (
     <form onSubmit={formik.handleSubmit} className={classes.container}>
       <Title level={2} style={{ color: '#44b3fe', direction: 'ltr' }}>
@@ -50,20 +66,7 @@ const NewTicket = () => {
         filterOption={(input, option) =>
           (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
         }
-        options={[
-          {
-            value: 'jack',
-            label: 'Jack',
-          },
-          {
-            value: 'lucy',
-            label: 'Lucy',
-          },
-          {
-            value: 'tom',
-            label: 'Tom',
-          },
-        ]}
+        options={options}
       />
       <Input
         id="title"

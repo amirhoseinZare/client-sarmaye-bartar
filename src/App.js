@@ -64,14 +64,13 @@ function App() {
   // const userState = useSelector((state)=> state.user)
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(null);
-  console.log(user, userData)
   useEffect(() => {
     if ((!["/404", "/login", "/"].includes(pathname))) {
       AuthApi.validateToken().then((response) => {
         const result = response.result
         const { accounts=[], ...userData} = response.result
         result.accounts = accounts
-        console.log(result.accounts.find(item=>item._id.toString() === userData._id.toString()))
+        // console.log(result.accounts.find(item=>item._id.toString() === userData._id.toString()))
         if(!result.accounts.find(item=>item._id.toString() === userData._id.toString()))
           result.accounts.unshift(userData)
         dispatch(setAnalyze(result.accounts && Array.isArray(result.accounts) && result.accounts.length>0 ? result.accounts[result.accounts.length-1]:userData ));
