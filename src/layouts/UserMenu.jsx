@@ -9,7 +9,6 @@ import {
   Key as KeyIcon,
   StatusUp as ChartIcon,
   Notification as NotifictaionIcon
-  Notification as NotifictaionIcon,
 } from 'iconsax-react';
 
 const StyledContainer = styled.div`
