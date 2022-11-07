@@ -14,4 +14,12 @@ TicketApi.postTicket = function (body) {
   return this.instance.get(`${this.baseApisUrl}`, body);
 };
 
+TicketApi.reply = function (config) {
+  return this.instance.get(`${this.baseApisUrl}/reply`, config);
+};
+
+TicketApi.addReply = function (body) {
+  return this.instance.post(`${this.baseApisUrl}/reply`, body);
+};
+
 export { TicketApi };
