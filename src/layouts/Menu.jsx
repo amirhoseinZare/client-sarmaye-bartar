@@ -2,10 +2,7 @@ import { Menu, Button, ConfigProvider } from 'antd';
 import {
   AppstoreOutlined,
   UserSwitchOutlined,
-  ArrowUpOutlined,
-  PlusOutlined,
-  ReloadOutlined,
-  EuroCircleOutlined,
+  SnippetsOutlined
 } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import styled from "styled-components"
@@ -54,6 +51,10 @@ const AdminLayout = ()=> {
       "/requests":{
         route:"/requests",
         key:"2"
+      },
+      "/tickets":{
+        route:"/tickets",
+        key:"3"
       }
     }
     useEffect(()=>{
@@ -91,7 +92,9 @@ const AdminLayout = ()=> {
             <Menu.Item key="2" icon={<AppstoreOutlined />}>
               <Link to={"/requests"}>Requests</Link>
             </Menu.Item>
-            
+            <Menu.Item key="3" icon={<SnippetsOutlined />}>
+              <Link to={"/tickets"}>Tickets</Link>
+            </Menu.Item>
           </Menu>
         </ConfigProvider>
       </StyledRoot>

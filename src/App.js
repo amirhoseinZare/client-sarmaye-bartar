@@ -22,6 +22,7 @@ import Charts from "./pages/Charts"
 import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as ChartIcon } from "iconsax-react"
 import Ticket from "./pages/Dashboard/comps/Ticket";
 import TicketDetail from "./pages/Dashboard/comps/Ticket/TicketDetail";
+import AdminTickets  from "./pages/AdminTickets"
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -153,6 +154,15 @@ function App() {
         />
 
         <Route
+          path="/tickets"
+          element={
+            <PrivateRoute roles={["admin"]}>
+              <AdminTickets />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
           path="/accounts"
           element={
             <PrivateRoute roles={["user"]}>
@@ -172,6 +182,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        
         <Route
           path="/notification/ticket-detail"
           element={
