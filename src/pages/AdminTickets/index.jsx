@@ -112,8 +112,13 @@ function Categories() {
       {
         title: "details",
         key: "details",
-        dataIndex: "details",
-        render: (createdAt) => <UnorderedListOutlined onClick={()=>openDetailModal()}/> ,
+        render: (data) => <UnorderedListOutlined onClick={()=>openDetailModal(data)}/> ,
+      },
+
+      {
+        title: "replies",
+        key: "replies",
+        render: (data) => <UnorderedListOutlined onClick={()=>openDetailModal(data)}/> ,
       },
 
       {
@@ -180,13 +185,14 @@ function Categories() {
     
   }, [filter]);
 
-  const openDetailModal = (data, step = 0) => {
+  const openDetailModal = (data) => {
+    console.log({data})
     dispatch(
       setModal({
         visible: true,
         title: "",
         width: 700,
-        children: <Details/>,
+        children: <Details data={data}/>,
         // closeCallback: () => {
         //   getUsersData();
         // },

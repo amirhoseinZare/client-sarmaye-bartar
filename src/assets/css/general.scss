@@ -92,3 +92,34 @@ div[data-highcharts-chart] {
         }
     }
 }
+
+.ant-select-dropdown {
+    background-color: #022F56;
+    color: #fff;
+    .ant-select-item  {
+        .ant-select-item-option {
+            color: #fff;        
+            text-align: left;
+        }
+        .ant-select-item-option-active {
+            color: #fff;
+            background-color: #44B3FE !important;
+        }
+    }
+    .ant-select-item-option-content {
+        color: #fff;        
+        text-align: left;
+        direction: ltr;
+    }
+    .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+        background-color: #2F73A3;
+    }
+
+}
+
+.ant-select-selection-item {
+    color: #fff;        
+    text-align: left;
+    direction: ltr;
+
+}

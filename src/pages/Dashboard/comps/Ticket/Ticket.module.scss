@@ -18,21 +18,30 @@
 }
 .container {
   :global(.ant-input) {
-    background: #10141b;
+    background-color: #10141b !important;
     border: rgba(68, 179, 254, 0.6) 1px solid;
-    margin-top: 1rem;
     color: aliceblue;
   }
+  :global(.ant-select-selector) {
+    background-color: #10141B !important;
+    border-color: #2F73A3 !important;
+  }
   margin: 3rem 0;
+
 }
 .ticketSelect {
   width: 100%;
+  :global(.ant-select-selector) {
+    background-color: #10141B !important;
+    border-color: #2F73A3 !important;
+  }
 }
 
 .ticketList {
   width: 60%;
   margin: 5rem auto;
   direction: ltr;
+
   a,
   div,
   h4 {

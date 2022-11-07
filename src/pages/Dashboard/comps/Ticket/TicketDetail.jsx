@@ -17,7 +17,9 @@ const TicketDetail = () => {
     TicketApi.getTicketReplies(state.ticketId).then((res) => {
       if (res.success) {
         // setList(res.result.items);
-        setData(res.result.items);
+        setData([{
+          ...res.result.origin,
+        },...res.result.items]);
         // setInitLoading(false);
         // message.success(res.message);
       } else {
