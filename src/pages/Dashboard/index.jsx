@@ -12,7 +12,6 @@ import {
   Radio,
   Badge,
 } from 'antd';
-import { Notification as NotificationIcon } from 'iconsax-react';
 // css
 import classes from './Dashboard.module.scss';
 
@@ -50,8 +49,6 @@ import {
 } from 'chart.js';
 
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import TicketDetail from './comps/Ticket/TicketDetail';
 
 ChartJS.register(
   CategoryScale,
@@ -454,13 +451,6 @@ const Dashboard = () => {
         <div className={classes.root}>
           {/* <UserMenu /> */}
           {/* <TicketDetail/> */}
-          <Row className={classes.notificationContainer}>
-            <Link to="/notification">
-              <Badge count={2}>
-                <NotificationIcon size="24" color="#44b3fe" variant="" />
-              </Badge>
-            </Link>
-          </Row>
           <Row className={classes.row}>
             <Col
               style={{

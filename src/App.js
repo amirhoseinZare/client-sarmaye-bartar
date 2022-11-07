@@ -23,6 +23,21 @@ import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as
 import Ticket from "./pages/Dashboard/comps/Ticket";
 import TicketDetail from "./pages/Dashboard/comps/Ticket/TicketDetail";
 import AdminTickets  from "./pages/AdminTickets"
+import {
+  Row,
+  Tooltip as AntdTooltip,
+  Badge,
+} from 'antd';
+import { Notification as NotificationIcon } from 'iconsax-react';
+import { Link } from 'react-router-dom';
+// .notificationContainer {
+//   direction: ltr;
+//   margin-left: 3rem;
+//   margin-top: 2rem;
+// }
+// .notificationContainer:hover {
+//   cursor: pointer;
+// }
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -83,6 +98,17 @@ function App() {
 
   return (
     <div className="App">
+      <Row style={{
+        direction: 'ltr',
+        marginLeft: '14rem',
+        marginTop: '1.8rem'
+      }}>
+        <Link to="/notification">
+          <Badge count={2}>
+            <NotificationIcon size="24" color="#44b3fe" variant="" />
+          </Badge>
+        </Link>
+      </Row>
       {
         pathname==="/404" || (!user.isAuth) ? null :
         <BottomNavigation
