@@ -11,7 +11,7 @@ TicketApi.getTicketReplies = function (id) {
 };
 
 TicketApi.postTicket = function (body) {
-  return this.instance.get(`${this.baseApisUrl}`, body);
+  return this.instance.post(`${this.baseApisUrl}`, body);
 };
 
 TicketApi.reply = function (config) {

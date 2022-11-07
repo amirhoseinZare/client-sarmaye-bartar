@@ -1,4 +1,4 @@
-import { Typography, Image, Row, Select } from 'antd';
+import { Typography, Image, Row, Select,Col } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from '../../../../redux/actions/auth';
 import styled from 'styled-components';
@@ -7,15 +7,20 @@ import newLogo from '../../../../assets/sgb-logo.png';
 import TiketList from './TicketList';
 import NewTicket from './NewTicket';
 
+
 const { Text } = Typography;
 
-const StyledDiv = styled.div`
+const StyledDiv = styled(Row)`
+  width:100%;
   display: flex;
   flex-direction: column;
   margin-top: 8rem;
-  width: 485px;
   justify-content: center;
   margin: 6rem auto;
+  align-items:center;
+  .ant-col.main-col {
+    width: calc((100% / 24)*20);
+  }
 `;
 const Box = styled.div`
   width: 100%;
@@ -37,7 +42,9 @@ const Ticket = () => {
   return (
     <Box>
       <StyledDiv>
-        <TiketList />
+        <Col xs={20} className='main-col'>
+          <TiketList />
+        </Col>
       </StyledDiv>
       {/* <StyledDiv>
         <NewTicket />

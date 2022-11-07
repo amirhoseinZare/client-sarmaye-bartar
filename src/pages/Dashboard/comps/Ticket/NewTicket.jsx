@@ -5,7 +5,7 @@ import { TicketApi, UsersApi } from '../../../../api';
 
 const { Option } = Select
 
-const NewTicket = () => {
+const NewTicket = ({refreshTicket}) => {
   const [form] = Form.useForm();
   const { TextArea } = Input;
   const { Title } = Typography;
@@ -36,6 +36,7 @@ const NewTicket = () => {
     TicketApi.postTicket(values).then((res) => {
       if (res.success) {
         message.success('your ticket has been added successfully');
+        refreshTicket()
       } else {
         message.error('unable to send ticket try again later');
         console.log(res.message);

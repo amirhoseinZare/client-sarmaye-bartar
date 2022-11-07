@@ -4,6 +4,7 @@ import { User as UserIcon } from 'iconsax-react';
 import classes from './Ticket.module.scss';
 import { TicketApi } from '../../../../api';
 import { Link } from 'react-router-dom';
+import NewTicket from './NewTicket'
 
 const count = 3;
 
@@ -70,34 +71,51 @@ const TiketList = () => {
         </Button>
       </div>
     ) : null;
+
+  const refreshTicket = ()=>{
+    TicketApi.getTickets().then((res) => {
+      if (res.success) {
+        setList(res.result.items);
+        setData(res.result.items);
+        setInitLoading(false);
+        // message.success(res.message);
+      } else {
+        // message.error(res.message);
+        console.log(res.message);
+      }
+    })
+  }
+
   return (
-    <List
-      className={classes.list}
-      loading={initLoading}
-      itemLayout="horizontal"
-      loadMore={loadMore}
-      dataSource={list}
-      renderItem={(item) => (
-        <List.Item>
-          <Skeleton avatar title={false} loading={loading} active>
-            <List.Item.Meta
-              avatar={
-                <Avatar size="large" className={classes.avatar}>
-                  <UserIcon color="#44b3fe" />
-                </Avatar>
-              }
-              //update state
-              title={
-                <Link to="/notification/ticket-detail" state={{ ticketId: item._id }}>
-                  {item.title}
-                </Link>
-              }
-              description={item.description}
-            />
-          </Skeleton>
-        </List.Item>
+    <>
+      <List
+        className={classes.list}
+        loading={initLoading}
+        itemLayout="horizontal"
+        loadMore={loadMore}
+        dataSource={list}
+        renderItem={(item) => (
+        <Link to="/notification/ticket-detail" state={{ ticketId: item._id }}>
+          <List.Item>
+            <Skeleton avatar title={false} loading={loading} active>
+              <List.Item.Meta
+                avatar={
+                  <Avatar size="large" className={classes.avatar}>
+                    <UserIcon color="#44b3fe" />
+                  </Avatar>
+                }
+                //update state
+                title={item.title}
+                description={item.description}
+              />
+            </Skeleton>
+          </List.Item>
+        </Link>
       )}
     />
+    <NewTicket refreshTicket={refreshTicket} />
+    </>
+    
   );
 };
 export default TiketList;
