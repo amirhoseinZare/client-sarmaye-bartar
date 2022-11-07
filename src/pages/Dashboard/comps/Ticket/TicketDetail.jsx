@@ -5,21 +5,23 @@ import { useLocation } from 'react-router';
 import { TicketApi } from '../../../../api/Ticket.api';
 import { User as UserIcon } from 'iconsax-react';
 import classes from './Ticket.module.scss';
-import NewTicket from './NewTicket';
+import ReplyTicket from './ReplyTicket';
 const ContainerHeight = 400;
 
 const TicketDetail = () => {
   const [data, setData] = useState([]);
   const { state } = useLocation();
+  const [origin, setOrigin] = useState(null)
 
   const appendData = () => {
     // if (!state.ticketId) return;
     TicketApi.getTicketReplies(state.ticketId).then((res) => {
       if (res.success) {
         // setList(res.result.items);
-        setData([{
+        setOrigin(res.result.origin)
+        setData([...res.result.items, {
           ...res.result.origin,
-        },...res.result.items]);
+        }]);
         // setInitLoading(false);
         // message.success(res.message);
       } else {
@@ -39,12 +41,15 @@ const TicketDetail = () => {
       appendData();
     }
   };
+  const onSendReply = ()=>{
+    appendData()
+  }
   return (
     <>
       <List className={classes.ticketList}>
         <VirtualList
           data={data}
-          height={ContainerHeight}
+          height={700}
           itemHeight={47}
           itemKey="email"
           onScroll={onScroll}
@@ -55,23 +60,24 @@ const TicketDetail = () => {
                 <List.Item.Meta
                   avatar={
                     <Avatar className={classes.avatar}>
-                      <UserIcon color="#ff7c18" variant="Bold" />
+                      <UserIcon color="#ff7c18" variant="Bold" size='large' />
                     </Avatar>
                   }
                   title="admin"
-                  description={item.description}
+                  description={<div><p>{item.title}</p><p>{item.description}</p></div>}
                 />
+                 
               </List.Item>
             ) : (
               <List.Item className={classes.userPm} key={item._id}>
                 <List.Item.Meta
                   avatar={
                     <Avatar className={classes.avatar}>
-                      <UserIcon color="#44b3fe" />
+                      <UserIcon color="#44b3fe" size='large' />
                     </Avatar>
                   }
                   title={item?.userId?.display_name}
-                  description={item.description}
+                  description={<div><p>{item.title}</p><p>{item.description}</p></div>}
                 />
               </List.Item>
             );
@@ -79,7 +85,7 @@ const TicketDetail = () => {
         </VirtualList>
       </List>
       <div style={{ width: '60%', margin: 'auto' }}>
-        <NewTicket />
+        <ReplyTicket origin={origin} onSendReply={onSendReply}/>
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import { TicketApi, UsersApi } from '../../../../api';
 
 const { Option } = Select
 
-const NewTicket = () => {
+const ReplyTicket = ({origin, onSendReply}) => {
   const [form] = Form.useForm();
   const { TextArea } = Input;
   const { Title } = Typography;
@@ -33,9 +33,10 @@ const NewTicket = () => {
   }, []);
 
   const onFinish = (values) => {
-    TicketApi.postTicket(values).then((res) => {
+    TicketApi.reply({...values, originId:origin._id, originTicketStatus:'waiting'}).then((res) => {
       if (res.success) {
         message.success('your ticket has been added successfully');
+        onSendReply()
       } else {
         message.error('unable to send ticket try again later');
         console.log(res.message);
@@ -64,9 +65,9 @@ const NewTicket = () => {
         autoComplete="off"
     >
       <Title level={2} style={{ color: '#44b3fe', direction: 'ltr' }}>
-        Send ticket to <span style={{color:'white'}}>EXTREME</span> support
+        Reply ticket to <span style={{color:'white'}}>EXTREME</span> support
       </Title>
-      <Form.Item
+      {/* <Form.Item
         label="Select a account"
         name="accountId"
         rules={[
@@ -83,7 +84,7 @@ const NewTicket = () => {
             options.map(item=><Option key={item.value} value={item.value}>{item.lable}</Option>)
           }
         </Select>
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item
         label="title"
         name="title"
@@ -125,4 +126,4 @@ const NewTicket = () => {
   );
 };
 
-export default NewTicket;
+export default ReplyTicket;

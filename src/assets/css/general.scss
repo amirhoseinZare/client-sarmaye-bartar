@@ -123,3 +123,10 @@ div[data-highcharts-chart] {
     direction: ltr;
 
 }
+
+.rc-virtual-list-scrollbar.rc-virtual-list-scrollbar-show {
+    display: block !important;
+    .rc-virtual-list-scrollbar-thumb {
+        background-color: #44B3FE !important;
+    }
+}

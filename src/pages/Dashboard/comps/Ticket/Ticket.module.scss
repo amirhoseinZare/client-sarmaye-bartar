@@ -1,6 +1,6 @@
 .list {
   :global(.ant-list-item) {
-    border: rgba(68, 179, 254, 0.6) 1px solid;
+    border: rgba(68, 179, 254, 0.6) 1px solid !important;
     padding: 1rem;
     margin: 1rem;
   }
@@ -14,6 +14,8 @@
   .avatar {
     padding-top: 8px;
     background: #10141b;
+    width:48px;
+    height:48px;
   }
 }
 .container {
@@ -58,6 +60,11 @@
     border-radius: 3rem;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
+    :global(.ant-list-item-meta) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
   }
   .userPm {
     border: none;
@@ -65,6 +72,11 @@
     border-radius: 3rem;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
+    :global(.ant-list-item-meta) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
   }
 }
 
@@ -75,4 +87,11 @@
   width: 80px;
   margin: 1rem auto;
   text-align: center;
+}
+
+:global(.rc-virtual-list-holder) {
+  div {
+    overflow: auto !important;    
+  }
+  // overflow: auto !important;
 }
