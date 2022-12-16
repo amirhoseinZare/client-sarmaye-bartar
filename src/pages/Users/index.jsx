@@ -83,10 +83,16 @@ function Categories() {
         render: (name) => name || "-",
       },
       {
-        title: "ایمیل",
+        title: "email",
         key: "user_email",
         dataIndex: "",
         render: ({user_email, accountEmail}) => user_email || accountEmail,
+      },
+      {
+        title: "status",
+        key: "status",
+        dataIndex: "status",
+        render: (status) => status === "active"  ? <CheckCircleTwoTone twoToneColor="#52c41a"/> : <CloseCircleTwoTone twoToneColor="#eb2f96"/>,
       },
       {
         title: "نام کاربری",

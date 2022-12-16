@@ -270,6 +270,21 @@ const Filter = ({setFilter, filter, search, setPageSearchParams})=>{
                                 </Select>
                             </Form.Item>
                         </Col>
+
+                        <Col className="form-input" span={24} sm={12} md={4}>
+                            <Form.Item
+                                label={'status'}
+                                name="status"
+                                rules={[]}
+                                // value={input.name}
+                            >
+                                <Select>
+                                    <Option value={"active"}>active</Option>
+                                    <Option value={"deactive"}>deactive</Option>
+                                    <Option value={''}>هیچکدام</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
                 
                         <Col className="button-container" span={24}>
                             <Col span={24} sm={12} md={8} className="button-col">

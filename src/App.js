@@ -98,17 +98,20 @@ function App() {
 
   return (
     <div className="App">
-      <Row style={{
-        direction: 'ltr',
-        marginLeft: '14rem',
-        marginTop: '1.8rem'
-      }}>
-        <Link to="/notification">
-          <Badge count={2}>
-            <NotificationIcon size="24" color="#44b3fe" variant="" />
-          </Badge>
-        </Link>
-      </Row>
+      {/* {
+        pathname==="/404" || (!user.isAuth) || pathname==="/top" || pathname==="/login" ? null  :
+          <Row style={{
+            direction: 'ltr',
+            marginLeft: '14rem',
+            marginTop: '1.8rem'
+          }}>
+            <Link to="/notification">
+              <Badge count={2}>
+                <NotificationIcon size="24" color="#44b3fe" variant="" />
+              </Badge>
+            </Link>
+        </Row>
+      } */}
       {
         pathname==="/404" || (!user.isAuth) ? null :
         <BottomNavigation
@@ -198,7 +201,7 @@ function App() {
             </PrivateRoute>
           }
         />
-         <Route
+         {/* <Route
           path="/notification"
           element={
             <PrivateRoute roles={["user"]}>
@@ -207,7 +210,7 @@ function App() {
               </UserMenu>
             </PrivateRoute>
           }
-        />
+        /> */}
         
         <Route
           path="/notification/ticket-detail"
