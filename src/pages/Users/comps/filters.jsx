@@ -285,6 +285,21 @@ const Filter = ({setFilter, filter, search, setPageSearchParams})=>{
                                 </Select>
                             </Form.Item>
                         </Col>
+
+                        <Col className="form-input" span={24} sm={12} md={4}>
+                            <Form.Item
+                                label={'any obj failed'}
+                                name="anyObjectiveFailed"
+                                rules={[]}
+                                // value={input.name}
+                            >
+                                <Select>
+                                    <Option value={true}>yes</Option>
+                                    <Option value={false}>no</Option>
+                                    <Option value={''}>هیچکدام</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
                 
                         <Col className="button-container" span={24}>
                             <Col span={24} sm={12} md={8} className="button-col">

@@ -21,6 +21,10 @@ AuthApi.validateToken = function (config) {
   });
 };
 
+AuthApi.getTraderProfile = function (traderId) {
+  return this.instance.get(`${this.baseApisUrl}/get-trader-profile/${traderId}`);
+};
+
 export { AuthApi };
 
 // this is just for test and show how to write our apis

@@ -88,6 +88,7 @@ const Dashboard = () => {
         }
       });
     } else {
+      console.log({userData})
       setUser(userData);
     }
   }, [userData]);
@@ -101,8 +102,9 @@ const Dashboard = () => {
   useEffect(() => {
     setLoading(true);
     if (user._id) {
+      console.log({ analyzeUser })
       if (userData.role === 'admin') {
-        asyncFetch({ userId: user._id, mtAccountId: user.mtAccountId });
+        asyncFetch({ userId: analyzeUser._id, mtAccountId: analyzeUser.mtAccountId });
         return;
       }
       const currentAccount = user.accounts[user.accounts.length - 1];
@@ -111,7 +113,7 @@ const Dashboard = () => {
         mtAccountId: analyzeUser.mtAccountId,
       });
     }
-  }, [user]);
+  }, [user, analyzeUser]);
 
   const asyncFetch = ({ userId, mtAccountId }) => {
     UsersApi.getChart(mtAccountId).then((response) => {

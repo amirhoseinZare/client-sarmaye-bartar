@@ -23,21 +23,6 @@ import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as
 import Ticket from "./pages/Dashboard/comps/Ticket";
 import TicketDetail from "./pages/Dashboard/comps/Ticket/TicketDetail";
 import AdminTickets  from "./pages/AdminTickets"
-import {
-  Row,
-  Tooltip as AntdTooltip,
-  Badge,
-} from 'antd';
-import { Notification as NotificationIcon } from 'iconsax-react';
-import { Link } from 'react-router-dom';
-// .notificationContainer {
-//   direction: ltr;
-//   margin-left: 3rem;
-//   margin-top: 2rem;
-// }
-// .notificationContainer:hover {
-//   cursor: pointer;
-// }
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -90,8 +75,11 @@ function App() {
         if(!result.accounts.find(item=>item._id.toString() === userData._id.toString()))
           result.accounts.unshift(userData)
         dispatch(setAnalyze(result.accounts && Array.isArray(result.accounts) && result.accounts.length>0 ? result.accounts[result.accounts.length-1]:userData ));
-        dispatch(setAuth(response.result));
-        setUserData(response.result);
+        console.log(userData.role)
+        if(userData.role === 'user'){
+          dispatch(setAuth(response.result));
+          setUserData(response.result);  
+        }
       });
     }
   }, []);

@@ -10,7 +10,6 @@ const StyledTable = styled(Table)`
   white-space: nowrap;
   .ant-table-rtl {
     overflow-x: ${props=>{
-      console.log(props)
       return props.xScroll
     }};
   }
