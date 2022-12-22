@@ -1,14 +1,13 @@
 import styled from 'styled-components'
 import { Row, Card, Col, Spin } from "antd"
 import { useSelector, useDispatch } from 'react-redux'
-import { BsFillCircleFill } from "react-icons/bs"
 import { LineChartOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 import { setAuth } from '../../redux/actions/auth'
 import { setAnalyze } from '../../redux/actions/analyze'
 import { useEffect, useState } from 'react'
 import { AuthApi } from "../../api";
-import { USER_ID_KEY, STAT_KEY } from '../../core/variables.core';
+import { USER_ID_KEY } from '../../core/variables.core';
 
 const StyledRoot = styled.div`
     h2 {
@@ -179,14 +178,14 @@ const Accounts = ()=>{
                                             {/* <p className={`user-status ${account.status ? 'active-status': 'deactive-status'}`}>
                                                 <span><b>{account.status}</b> <BsFillCircleFill/></span>
                                             </p> */}
-                                            {account.status=="active" ? 
-                                                (
-                                                    <div className='dashobard-link'>
-                                                        <Link to="/dashboard" onClick={()=>changeCurrentAuth(account)}>See Analyze <LineChartOutlined /></Link>
-                                                    </div>
-                                                ) 
+                                            {/* {account.status=="active" ? 
+                                                ( */}
+                                            <div className='dashobard-link'>
+                                                <Link to="/dashboard" onClick={()=>changeCurrentAuth(account)}>See Analyze <LineChartOutlined /></Link>
+                                            </div>
+                                                {/* ) 
                                                 : null
-                                            }
+                                            } */}
                                         </Card>
                                     </Col>
                                 )}

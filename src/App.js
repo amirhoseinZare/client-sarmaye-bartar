@@ -23,6 +23,7 @@ import { Cup as CupIcon, Category, User as UserIcon, Key as KeyIcon, StatusUp as
 import Ticket from "./pages/Dashboard/comps/Ticket";
 import TicketDetail from "./pages/Dashboard/comps/Ticket/TicketDetail";
 import AdminTickets  from "./pages/AdminTickets"
+import { USER_ID_KEY, STAT_KEY } from './core/variables.core';
 
 function App() {
  const bottomNavItems = useMemo(()=>[
@@ -79,6 +80,21 @@ function App() {
         if(userData.role === 'user'){
           dispatch(setAuth(response.result));
           setUserData(response.result);  
+        }
+        else {
+          dispatch(setAuth(response.result));
+          AuthApi.getTraderProfile(localStorage.getItem(USER_ID_KEY))
+            .then((response) => {
+                const result = response.result
+                const { accounts=[], ...userData} = response.result
+                result.accounts = accounts
+                // console.log(result.accounts.find(item=>item._id.toString() === userData._id.toString()))
+                if(!result.accounts.find(item=>item._id.toString() === userData._id.toString()))
+                result.accounts.unshift(userData)
+                console.log("result.accounts :", result.accounts)
+                dispatch(setAnalyze(result.accounts && Array.isArray(result.accounts) && result.accounts.length>0 ? result.accounts[result.accounts.length-1]:userData ));
+                dispatch(setAuth({...response.result, role:'admin'}));
+            })
         }
       });
     }

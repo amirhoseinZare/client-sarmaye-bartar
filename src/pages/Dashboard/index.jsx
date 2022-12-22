@@ -10,7 +10,6 @@ import {
   Button,
   Tooltip as AntdTooltip,
   Radio,
-  Badge,
 } from 'antd';
 // css
 import classes from './Dashboard.module.scss';
@@ -21,9 +20,7 @@ import Ranking from '../../comps/Ranking/Ranking';
 // api
 import { UsersApi } from '../../api/Users.api';
 import { RequestApi } from '../../api/Request.api';
-
-// redux
-import { useSelector } from 'react-redux';
+import { AuthApi } from '../../api/Auth.api';
 
 // icon
 import { BsFillCheckCircleFill } from 'react-icons/bs';
@@ -49,6 +46,9 @@ import {
 } from 'chart.js';
 
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
+import { useSelector, useDispatch } from 'react-redux'
+import { setAuth } from '../../redux/actions/auth'
+import { setAnalyze } from '../../redux/actions/analyze'
 
 ChartJS.register(
   CategoryScale,
@@ -73,6 +73,7 @@ const deadline =
     : tomorrowBrokerTime;
 
 const Dashboard = () => {
+  const dispatch = useDispatch()
   const userData = useSelector((store) => store.user);
   const analyzeUser = useSelector((store) => store.analyze);
   const [user, setUser] = useState({});
@@ -88,7 +89,6 @@ const Dashboard = () => {
         }
       });
     } else {
-      console.log({userData})
       setUser(userData);
     }
   }, [userData]);
@@ -101,8 +101,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     setLoading(true);
+    console.log({ user, userData })
     if (user._id) {
-      console.log({ analyzeUser })
       if (userData.role === 'admin') {
         asyncFetch({ userId: analyzeUser._id, mtAccountId: analyzeUser.mtAccountId });
         return;

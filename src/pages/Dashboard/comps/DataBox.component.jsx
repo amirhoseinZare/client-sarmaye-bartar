@@ -6,7 +6,7 @@ import newLogo from "../../../assets/new-logo.jfif"
 const DataBox = ({ classes, user }) => {
   return (
     <div className={classes.container2}>
-      <h2>{user.user_login}</h2>
+      <h2>{user.display_name}</h2>
       <div style={{ width: "100%", margin: "0 auto" }}>
         <Divider
           style={{
